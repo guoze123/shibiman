@@ -1,113 +1,126 @@
 (function(document, window, $) {
-  "use strict";
-  function initFn() {
-    $("#payment").bootstrapTable({
-      method: "get",
-    //  url: baseUrl + "/inventory/queryPayment", //请求路径
-      url: baseUrl + "../../testJson/storeManagement.json", //请求路径
-      striped: true, //是否显示行间隔色
-      pageNumber: 1, //初始化加载第一页
-      pagination: true, //是否分页
-      sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 10, //单页记录数
-      height:$(window).height - 130,
-      showRefresh: false, //刷新按钮
-      cache: true, // 禁止数据缓存
-      search: false, // 是否展示搜索
-      showLoading: true,
-      queryParams: queryParams,
-      columns: [
-        {
-          title: "店铺id",
-          field: "stockId"
-        },
-        {
-          title: "店铺名称",
-          field: "stockName"
-        },
-        {
-          title: "应付金额",
-          field: "totalAmount"
-        },
-        {
-          title: "实支付金额",
-          field: "payedAmount"
-        },
-        {
-          title: "差额",
-          field: "balance"
-        },
-        {
-          title: "操作",
-          field: "publicationTime",
-          events: operateEvents,
-          formatter: operation //对资源进行操作,
-        }
-      ]
-    });
-  }
-  function operation(vlaue, row) {
-  
-    var html = `
+    "use strict";
+
+    function initFn() {
+        $("#payment").bootstrapTable({
+            method: "get",
+            //  url: baseUrl + "/inventory/queryPayment", //请求路径
+            url: baseUrl + "../../testJson/storeManagement.json", //请求路径
+            striped: true, //是否显示行间隔色
+            pageNumber: 1, //初始化加载第一页
+            pagination: true, //是否分页
+            sidePagination: "client", //server:服务器端分页|client：前端分页
+            pageSize: 10, //单页记录数
+            height: $(window).height - 150,
+            showRefresh: false, //刷新按钮
+            cache: true, // 禁止数据缓存
+            search: false, // 是否展示搜索
+            showLoading: true,
+            queryParams: queryParams,
+            columns: [{
+                    title: "店铺id",
+                    field: "stockId"
+                },
+                {
+                    title: "店铺名称",
+                    field: "stockName"
+                },
+                {
+                    title: "应付金额",
+                    field: "totalAmount"
+                },
+                {
+                    title: "实支付金额",
+                    field: "payedAmount"
+                },
+                {
+                    title: "差额",
+                    field: "balance"
+                },
+                {
+                    title: "操作",
+                    field: "publicationTime",
+                    events: operateEvents,
+                    formatter: operation //对资源进行操作,
+                }
+            ]
+        });
+
+    }
+
+    // $('#payment').bootstrapTable('resetView', { height: $(window).height() - 120 });
+    // //当表格内容的高度小于外面容器的高度，容器的高度设置为内容的高度，相反时容器设置为窗口的高度-160
+    // if ($(".fixed-table-body table").height() < $(".fixed-table-container").height()) {
+    //     $(".fixed-table-container").css({ "padding-bottom": "0px", height: $(".fixed-table-body table").height() + 20 });
+    //     // 是当内容少时，使用搜索功能高度保持不变
+    //     $('#payment').bootstrapTable('resetView', { height: "auto" });
+    // } else {
+    //     $(".fixed-table-container").css({ height: $(window).height() - 160 });
+    // }
+
+
+    function operation(vlaue, row) {
+
+        var html = `
         <button type="button" id="paymentBtn" class="btn btn-info btn-sm paymentBtn">继续支付</button>
         <button type="button" id="detailBtn" class="btn btn-info btn-sm detailBtn">支付详情</button>
         `;
-    return html;
-  }
-  var operateEvents = {
-    "click #detailBtn": function(e, v, row) {
-      let params = {
-        storckId:row.storckId,
-        storeId:row.storeId
-      };
-      ajax_data(
-        "/inventory/queryPaymentDetail",
-        { params: JSON.stringify(params)},
-        function() {
-            open_html("支付详情", "#payDetail",function() {
-              $("input[type='text']").val("")
-            });
+        return html;
+    }
+    var operateEvents = {
+        "click #detailBtn": function(e, v, row) {
+            let params = {
+                storckId: row.storckId,
+                storeId: row.storeId
+            };
+            ajax_data(
+                "/inventory/queryPaymentDetail", { params: JSON.stringify(params) },
+                function() {
+                    open_html("支付详情", "#payDetail", function() {
+                        $("input[type='text']").val("")
+                    });
+                }
+            );
+        },
+        "click #paymentBtn": function(e, v, row) {
+            $("#keepPaying .storckId").val(row.storckId);
+            $("#keepPaying .storeName").val(row.storckName);
+            $("#keepPaying .totalAmount").val(row.totalAmount);
+            $("#keepPaying .storeId").val(row.storeId);
+            open_html("继续支付", "#keepPaying", function() {
+                $("input[type='text']").val("")
+            })
         }
-      );
-    },
-    "click #paymentBtn": function(e, v, row) {
-      $("#keepPaying .storckId").val(row.storckId);
-      $("#keepPaying .storeName").val(row.storckName);
-      $("#keepPaying .totalAmount").val(row.totalAmount);
-      $("#keepPaying .storeId").val(row.storeId);
-       open_html("继续支付", "#keepPaying",function () {
-         $("input[type='text']").val("")
-       })
-    }
-  };
-  function queryParams() {
-    return {
-      startTime: $(".query_startTime").val(),
-      stopTime: $(".query_stopTime").val()
     };
-  }
-  initFn();
-  // 点击查询按钮
-  $("#eventqueryBtn").click(function() {
-    $("#payment").bootstrapTable("refresh");
-  });
 
-  $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
-  });
-  // 添加或修改
-  $("#keepPaying .condition .confirmBtn").on("click", function() {
-    let params={
-      storckId:$("#keepPaying .storckId").val(),
-      storeId:$("#keepPaying .storeId").val(),
-      paymentTime:$("#keepPaying .payTime").val(),
-      totalAmount:$("#keepPaying .totalAmount").val(),
-      paymentAmount:$("#keepPaying .amount").val(),
-      paymentWay:$("#keepPaying .payType inpu[type='radio']:checked").val()
+    function queryParams() {
+        return {
+            startTime: $(".query_startTime").val(),
+            stopTime: $(".query_stopTime").val()
+        };
     }
-    ajax_data("", {params:JSON.stringify(params)}, function(res) {
-     console.log(res);
-     $("#payment").bootstrapTable("refresh");
+    initFn();
+    // 点击查询按钮
+    $("#eventqueryBtn").click(function() {
+        $("#payment").bootstrapTable("refresh");
     });
-  });
+
+    $(".condition .closeBtn").on("click", function(params) {
+        layer.close(layer.index);
+    });
+    // 添加或修改
+    $("#keepPaying .condition .confirmBtn").on("click", function() {
+        let params = {
+            storckId: $("#keepPaying .storckId").val(),
+            storeId: $("#keepPaying .storeId").val(),
+            paymentTime: $("#keepPaying .payTime").val(),
+            totalAmount: $("#keepPaying .totalAmount").val(),
+            paymentAmount: $("#keepPaying .amount").val(),
+            paymentWay: $("#keepPaying .payType inpu[type='radio']:checked").val()
+        }
+        ajax_data("", { params: JSON.stringify(params) }, function(res) {
+            console.log(res);
+            $("#payment").bootstrapTable("refresh");
+        });
+    });
 })(document, window, jQuery);

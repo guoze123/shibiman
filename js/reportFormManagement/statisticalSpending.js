@@ -62,6 +62,15 @@
                 // }
             ]
         });
+        $('#statisticalSpending').bootstrapTable({ height: $(window).height() - 120 });
+        //当表格内容的高度小于外面容器的高度，容器的高度设置为内容的高度，相反时容器设置为窗口的高度-160
+        if ($(".fixed-table-body table").height() < $(".fixed-table-container").height()) {
+            $(".fixed-table-container").css({ "padding-bottom": "0px", height: $(".fixed-table-body table").height() + 20 });
+            // 是当内容少时，使用搜索功能高度保持不变
+            $('#statisticalSpending').bootstrapTable('resetView', { height: "auto" });
+        } else {
+            $(".fixed-table-container").css({ height: $(window).height() - 160 });
+        }
         queryCostType();
     }
 
