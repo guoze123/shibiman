@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link
+      href="../../css/plugins/bootstrap-table/bootstrap-table.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/animate.css" rel="stylesheet" />
+    <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/personnelManagement/departure.css" />
+  </head>
+  <body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>离职人员</h5>
+          <div class="ibox-tools"></div>
+        </div>
+        <div class="ibox-content">
+          <div class="row row-lg">
+            <div class="col-sm-12">
+              <div class="example">
+                <div class="searchList" style="float:right;">
+                  <input
+                    id=""
+                    class="laydate-icon form-control layer-date query_startTime"
+                    placeholder="开始时间"
+                    onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                  />
+                  <input
+                    id=""
+                    class="laydate-icon form-control layer-date query_stopTime"
+                    placeholder="结束时间"
+                    onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="员工工号"
+                  />
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    placeholder="员工名称"
+                  /> -->
+                  <span>
+                    <button
+                      type="button"
+                      id="eventqueryBtn"
+                      class="btn btn-success queryBtn"
+                      style="width:80px;"
+                    >
+                      查询
+                    </button>
+                    <button
+                      type="button"
+                      id="eventqueryBtn"
+                      class="btn btn-primary addBtn"
+                      style="width:80px;"
+                    >
+                      添加
+                    </button>
+                  </span>
+                </div>
+                <table id="departure" data-mobile-responsive="true"></table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 修改/添加模板 -->
+    <div
+      class="return_borrowed"
+      id="editData"
+      style="display: none; margin-bottom: 15px;"
+    >
+      <div class="return_top">
+        <div class="textContent">
+          <div class="list_row">
+            <div>
+              <span>员工工号</span>
+              <input type="text" class="form-control"  placeholder="员工工号"/>
+            </div>
+            <div>
+              <span>离职时间</span>
+              <input
+                type="text"
+                placeholder=""
+                class="laydate-icon form-control layer-date leaveTime"
+                onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                placeholder="离职时间"
+              />
+            </div>
+          </div>
+          <div class="list_row">
+            <div style="width: 100%;">
+                <span>离职原因</span>
+                <input type="text" class="form-control leaveReason" placeholder="离职原因"/>
+              </div>
+          </div>
+        </div>
+        <div class="condition">
+          <button class="btn btn-primary confirmBtn">确认</button>
+          <button class="closeBtn btn btn-default">取消</button>
+        </div>
+      </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/plugins/layer/layer.min.js"></script>
+    <script src="../../js/loading.js"></script>
+    <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../js/plugins/layer/laydate/laydate.js"></script>
+    <!-- 自定义js -->
+    <script src="../../js/content.js?v=1.0.0"></script>
+    <script src="../../js/personnelManagement/departure.js"></script>
+  </body>
+</html>

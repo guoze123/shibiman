@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link
+      href="../../css/plugins/bootstrap-table/bootstrap-table.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/animate.css" rel="stylesheet" />
+    <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="../../css/configurationManagement/storeTarget.css"
+    />
+    <style>
+      #laydate_table {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>等级类型</h5>
+          <div class="ibox-tools"></div>
+        </div>
+        <div class="ibox-content">
+          <div class="row row-lg">
+            <div class="col-sm-12">
+              <div class="example">
+                <div class="searchList" style="float:right;">
+                <div style="margin-right: 20px;" class="storeType">
+                    <input type="radio" name="storeType" value="1" checked style="width: 20px;">直营店
+                    <input type="radio" name="storeType" value="2" style="width: 20px; margin-left: 10px;">加盟店
+                </div>
+                  <span>
+                    <button
+                      type="button"
+                      id="eventqueryBtn"
+                      class="btn btn-success queryBtn"
+                      style="width:80px;"
+                    >
+                      查询
+                    </button>
+                    <button
+                      type="button"
+                      id="eventqueryBtn"
+                      class="btn btn-success addBtn"
+                      style="width:80px;"
+                    >
+                      添加
+                    </button>
+                  </span>
+                </div>
+                <table id="storeGrade" data-mobile-responsive="true"></table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 修改/添加模板 -->
+    <div
+      class="return_borrowed"
+      id="editData"
+      style="display: none; margin-bottom: 15px;"
+    >
+      <div class="return_top">
+        <div class="textContent">
+          <div class="list_row">
+              <div>
+                <span>店铺等级</span>
+                <input type="text" class="form-control storeGrade" placeholder="店铺等级" readonly>
+              </div>
+              <div>
+                <span>销售额</span>
+                <input type="text" class="form-control" placeholder="销售额">
+              </div>
+          </div>
+        </div>
+        <div class="condition">
+          <button class="btn btn-primary confirmBtn">确认</button>
+          <button class="closeBtn btn btn-default">取消</button>
+        </div>
+      </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/plugins/layer/layer.min.js"></script>
+    <script src="../../js/loading.js"></script>
+    <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../js/plugins/layer/laydate/laydate.js"></script>
+    <!-- 自定义js -->
+    <script src="../../js/content.js?v=1.0.0"></script>
+    <script src="../../js/configurationManagement/storeGrade.js"></script>
+  </body>
+</html>
