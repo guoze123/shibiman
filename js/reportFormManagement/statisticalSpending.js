@@ -19,8 +19,9 @@
             pageNumber: 1, //初始化加载第一页
             pagination: true, //是否分页
             sidePagination: "client", //server:服务器端分页|client：前端分页
-            pageSize: 5, //单页记录数
+            pageSize: 10, //单页记录数
             pageList: [10, 20, 30], //可选择单页记录数
+            height: $(window).height() - 150,
             showRefresh: false, //刷新按钮
             cache: true, // 禁止数据缓存
             search: false, // 是否展示搜索
@@ -62,15 +63,7 @@
                 // }
             ]
         });
-        $('#statisticalSpending').bootstrapTable({ height: $(window).height() - 120 });
-        //当表格内容的高度小于外面容器的高度，容器的高度设置为内容的高度，相反时容器设置为窗口的高度-160
-        if ($(".fixed-table-body table").height() < $(".fixed-table-container").height()) {
-            $(".fixed-table-container").css({ "padding-bottom": "0px", height: $(".fixed-table-body table").height() + 20 });
-            // 是当内容少时，使用搜索功能高度保持不变
-            $('#statisticalSpending').bootstrapTable('resetView', { height: "auto" });
-        } else {
-            $(".fixed-table-container").css({ height: $(window).height() - 160 });
-        }
+       
         queryCostType();
     }
 
@@ -95,11 +88,10 @@
                 $(".areaSearch .startTime").val() : undefined, // 开支时间
             costTypeId: $(".areaSearch .query_costTypeId").val() ?
                 $(".areaSearch .query_costTypeId").val() : undefined, // 开支分类id
-            ownerId: $(".areaSearch .query_ownerId").val() ?
-                $(".areaSearch .query_ownerId").val() : undefined // 部门id
+            ownerId: $(".areaSearch .query_ownerName").val() ?
+                $(".areaSearch .query_ownerName").val() : undefined // 部门名称
         };
     }
-
     initFn();
     // 点击查询按钮
     $("#eventqueryBtn").click(function() {

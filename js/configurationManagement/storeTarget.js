@@ -9,12 +9,12 @@
         pagination: true, //是否分页
         sidePagination: "client", //server:服务器端分页|client：前端分页
         pageSize: 10, //单页记录数
-      //  pageList: [10, 20, 30], //可选择单页记录数
+        pageList: [10, 20, 30], //可选择单页记录数
         showRefresh: false, //刷新按钮
         cache: true, // 禁止数据缓存
         search: false, // 是否展示搜索
         showLoading: true,
-        height:$(window).height()-130,
+        height:$(window).height()-150,
         queryParams: queryParams,
         columns: [
           {

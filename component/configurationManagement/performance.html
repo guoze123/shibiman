@@ -1,76 +1,113 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <link rel="shortcut icon" href="favicon.ico"> <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-    <link href="../../css/animate.css" rel="stylesheet">
-    <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
-    <link rel="stylesheet" href="../../css//configurationManagement/performance.css">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link
+      href="../../css/plugins/bootstrap-table/bootstrap-table.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../css/animate.css" rel="stylesheet" />
+    <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="../../css//configurationManagement/performance.css"
+    />
     <style>
-          .fixed-table-toolbar {
-            display: none;
-        }
+      .fixed-table-toolbar {
+        display: none;
+      }
     </style>
-</head>
-<body class="gray-bg">
+  </head>
+  <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>绩效管理</h5>
-                <div class="ibox-tools">
-                </div>
-            </div>
-            <div class="ibox-content">
-                <div class="row row-lg">
-                    <div class="col-sm-12">
-                        <div class="example">
-                            <div class="searchList" style="float:right;">
-                                开始时间：<input
-                                id=""
-                                class="laydate-icon form-control layer-date startTime"
-                                onclick="laydate({istime: false, format: 'YYYY-MM'})"
-                                placeholder="开始时间"
-                              />
-                              结束时间：<input
-                                id=""
-                                class="laydate-icon form-control layer-date endTime"
-                                onclick="laydate({istime: false, format: 'YYYY-MM'})"
-                                placeholder="结束时间"
-                              />
-                                <span>
-                                    <button type="button" id="eventqueryBtn" class="btn btn-success"  style="width:80px;">查询</button>
-                                    <button type="button" id="" class="btn btn-success exportBtn"  style="width:80px;">导出</button>
-                                    <!-- <div style="display: inline;">
-                                        <label for="upload" class="btn btn-success" style="margin-bottom: 0;">导入</label>
-                                        <input type="file" name="" id="upload" style="width: 0; height: 0;" accept=".xsl,.csv">
-                                    </div> -->
-                                </span>
-                            </div>
-                            <table id="importInventory" data-mobile-responsive="true">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>绩效管理</h5>
+          <div class="ibox-tools"></div>
         </div>
+        <div class="ibox-content">
+          <div class="row row-lg">
+            <div class="col-sm-12">
+              <div class="example">
+                <div class="searchList" style="float:right;">
+                  <input
+                    id=""
+                    class="laydate-icon form-control layer-date startTime"
+                    onclick="laydate({istime: false, format: 'YYYY-MM'})"
+                    placeholder="开始时间"
+                  />
+                  <input
+                    id=""
+                    class="laydate-icon form-control layer-date endTime"
+                    onclick="laydate({istime: false, format: 'YYYY-MM'})"
+                    placeholder="结束时间"
+                  />
+                  <span>
+                    <button
+                      type="button"
+                      id="eventqueryBtn"
+                      class="btn btn-success"
+                      style="width:80px;"
+                    >
+                      查询
+                    </button>
+                    <button
+                      type="button"
+                      id=""
+                      class="btn btn-success exportBtn"
+                      style="width:80px;"
+                    >
+                      导出
+                    </button>
+                    <div style="display: inline;">
+                      <label
+                        for="uploadFile"
+                        class="btn btn-success"
+                        style="margin-bottom: 0;"
+                        >导入</label
+                      >
+                      <input
+                        type="file"
+                        name=""
+                        id="uploadFile"
+                        style="width: 0; height: 0;"
+                        accept=".xsl,.csv"
+                      />
+                    </div>
+                  </span>
+                </div>
+                <table
+                  id="importInventory"
+                  data-mobile-responsive="true"
+                ></table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- 修改/添加模板 -->
-    <div class="return_borrowed" id="editData" style="display: none; margin-bottom: 15px;">
-        <div class="return_top">
-            <div>
-            </div>
-            <div class="condition">
-                <button class="btn btn-primary-outline  size-S">查询Search</button>
-                <button class="btn btn-primary-outline  size-S">新借货New Borrow</button>
-            </div>
+    <div
+      class="return_borrowed"
+      id="editData"
+      style="display: none; margin-bottom: 15px;"
+    >
+      <div class="return_top">
+        <div></div>
+        <div class="condition">
+          <button class="btn btn-primary-outline  size-S">查询Search</button>
+          <button class="btn btn-primary-outline  size-S">
+            新借货New Borrow
+          </button>
         </div>
+      </div>
     </div>
     <!-- 全局js -->
     <script src="../../js/jquery.min.js?v=2.1.4"></script>
@@ -86,5 +123,5 @@
     <!-- 自定义js -->
     <script src="../../js/content.js?v=1.0.0"></script>
     <script src="../../js/configurationManagement/performance.js"></script>
-</body>
+  </body>
 </html>

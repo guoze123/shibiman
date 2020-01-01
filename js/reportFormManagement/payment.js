@@ -11,7 +11,7 @@
             pagination: true, //是否分页
             sidePagination: "client", //server:服务器端分页|client：前端分页
             pageSize: 10, //单页记录数
-            height: $(window).height - 150,
+            height: $(window).height() - 150,
             showRefresh: false, //刷新按钮
             cache: true, // 禁止数据缓存
             search: false, // 是否展示搜索
@@ -47,18 +47,6 @@
         });
 
     }
-
-    // $('#payment').bootstrapTable('resetView', { height: $(window).height() - 120 });
-    // //当表格内容的高度小于外面容器的高度，容器的高度设置为内容的高度，相反时容器设置为窗口的高度-160
-    // if ($(".fixed-table-body table").height() < $(".fixed-table-container").height()) {
-    //     $(".fixed-table-container").css({ "padding-bottom": "0px", height: $(".fixed-table-body table").height() + 20 });
-    //     // 是当内容少时，使用搜索功能高度保持不变
-    //     $('#payment').bootstrapTable('resetView', { height: "auto" });
-    // } else {
-    //     $(".fixed-table-container").css({ height: $(window).height() - 160 });
-    // }
-
-
     function operation(vlaue, row) {
 
         var html = `
@@ -75,12 +63,18 @@
             };
             ajax_data(
                 "/inventory/queryPaymentDetail", { params: JSON.stringify(params) },
-                function() {
+                function(res) {
+                    $(".storeId").val(res[0]["storeId"]);
+                    $(".storeName").val(res[0]["storeName"]);
+                    $(".totalAmount").val(res[0]["totalAmount"]);
                     open_html("支付详情", "#payDetail", function() {
                         $("input[type='text']").val("")
                     });
                 }
             );
+            open_html("支付详情", "#payDetail", function() {
+                $("input[type='text']").val("")
+            });
         },
         "click #paymentBtn": function(e, v, row) {
             $("#keepPaying .storckId").val(row.storckId);
