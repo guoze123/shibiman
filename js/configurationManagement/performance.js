@@ -59,7 +59,7 @@
       },
       showExport: true, //是否显示导出按钮
       buttonsAlign: "right", //按钮位置
-      exportTypes: ["csv"] //导出文件类型
+      exportTypes: ["excel"] //导出文件类型
     });
   }
   function operation(vlaue, row) {
@@ -90,9 +90,8 @@
     var url = "/configuration/achieveImportFiles";
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
-    file_upload(url, fromdata,function(res) {
+    file_upload("/configuration/achieveImportFiles", fromdata,function(res) {
       console.log(res);
-      
     });
   });
 // 触发导出事件
