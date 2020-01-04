@@ -1,62 +1,78 @@
 .searchList {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-  .areaSearch {
     display: flex;
     align-items: center;
-  }
-  button {
-    margin-bottom: 0 !important;
-  }
-  select,
-  input {
-    width: 150px;
-    margin: 0 5px;
-  }
+    margin-bottom: 5px;
+    .areaSearch {
+        display: flex;
+        align-items: center;
+    }
+    button {
+        margin-bottom: 0 !important;
+    }
+    select,
+    input {
+        width: 150px;
+        margin: 0 5px;
+    }
 }
 
 #editData {
-  .return_top {
-    .condition {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      position: absolute;
-      bottom: 10px;
-      right: 0;
-      button {
-        margin-right: 10px;
-      }
+    .return_top {
+        .condition {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+            button {
+                margin-right: 10px;
+            }
+        }
     }
-  }
 }
-.textContent {
-  .list_row {
-    display: flex;
-    align-content: center;
-    justify-content: space-around;
-    & > div {
-      width: 50%;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
-      border-right: 1px solid #ccc;
-      padding: 5px;
-      span {
-        width: 100px;
-      }
-    }
-    &:nth-child(1) {
-      border-top: 1px solid #ccc;
-    }
 
-    select {
-      margin-bottom: 0;
-      width: 150px;
+#detail {
+    .return_top {
+        .condition {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+            button {
+                margin-right: 10px;
+            }
+        }
     }
-    input {
-      width: 240px;
+}
+
+.textContent {
+    .list_row {
+        display: flex;
+        align-content: center;
+        justify-content: space-around;
+        &>div {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            padding: 5px;
+            span {
+                width: 100px;
+            }
+        }
+        &:nth-child(1) {
+            border-top: 1px solid #ccc;
+        }
+        select {
+            margin-bottom: 0;
+            width: 150px;
+        }
+        input {
+            width: 240px;
+        }
     }
-  }
 }

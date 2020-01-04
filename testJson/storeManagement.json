@@ -1,24 +1,24 @@
 [{
-        "id": "1",
-        "name": "奔波儿灞",
+        "waresId": "1",
+        "waresName": "奔波儿灞",
         "sex": "男",
         "Score": "50"
     },
     {
-        "id": "2",
-        "name": "灞波儿奔",
+        "waresId": "2",
+        "waresName": "灞波儿奔",
         "sex": "男",
         "Score": "94"
     },
     {
-        "id": "7",
-        "name": "范爷",
+        "waresId": "7",
+        "waresName": "范爷",
         "sex": "女",
         "Score": "87"
     },
     {
-        "id": "7",
-        "name": "范爷",
+        "waresId": "7",
+        "waresName": "范爷",
         "sex": "女",
         "Score": "87"
     }

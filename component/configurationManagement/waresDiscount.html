@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
@@ -9,27 +10,25 @@
     <link rel="shortcut icon" href="favicon.ico" />
     <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
     <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet" />
-    <link
-      href="../../css/plugins/bootstrap-table/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
+    <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
     <link href="../../css/animate.css" rel="stylesheet" />
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/commodityManagement/commodity.css" />
-  </head>
-  <body class="gray-bg">
+</head>
+
+<body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>商品折扣管理</h5>
-          <div class="ibox-tools"></div>
-        </div>
-        <div class="ibox-content">
-          <div class="row row-lg">
-            <div class="col-sm-12">
-              <div class="example">
-                <div class="searchList" style="float:right;">
-                  <span>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>商品折扣管理</h5>
+                <div class="ibox-tools"></div>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example">
+                            <div class="searchList" style="float:right;">
+                                <span>
                     <button
                       type="button"
                       id="eventqueryBtn"
@@ -38,14 +37,22 @@
                     >
                       查询
                     </button>
+                    <button
+                      type="button"
+                      id=""
+                      class="btn btn-success submitBtn"
+                      style="width:80px;"
+                    >
+                      提交
+                    </button>
                   </span>
+                            </div>
+                            <table id="waresDiscount" data-mobile-responsive="true"></table>
+                        </div>
+                    </div>
                 </div>
-                <table id="waresDiscount" data-mobile-responsive="true"></table>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     <!-- 全局js -->
     <script src="../../js/jquery.min.js?v=2.1.4"></script>
@@ -58,5 +65,6 @@
     <!-- 自定义js -->
     <script src="../../js/content.js?v=1.0.0"></script>
     <script src="../../js/configurationManagement/waresDiscount.js"></script>
-  </body>
+</body>
+
 </html>

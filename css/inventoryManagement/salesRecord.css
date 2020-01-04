@@ -37,7 +37,9 @@
 }
 
 #editData .return_top .condition,
-#editUserData .return_top .condition {
+#editUserData .return_top .condition,
+#userDetail .return_top .condition,
+#detail .return_top .condition {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -53,7 +55,9 @@
 }
 
 #editData .return_top .condition button,
-#editUserData .return_top .condition button {
+#editUserData .return_top .condition button,
+#userDetail .return_top .condition button,
+#detail .return_top .condition button {
   margin-right: 10px;
 }
 

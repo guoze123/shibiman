@@ -17,7 +17,7 @@
             cache: true, // 禁止数据缓存
             search: false, // 是否展示搜索
             showLoading: true,
-            height:$(window).height()-150,
+            height: $(window).height() - 150,
             queryParams: queryParams,
             columns: [{
                     title: "录入时间",
@@ -56,6 +56,7 @@
     function operation(vlaue, row) {
         var html = `
       <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
+      <button type="button" id="detail" class="btn  btn-primary btn-sm">详情</button>
       `;
         return html;
     }
@@ -63,6 +64,7 @@
     function userOperation(vlaue, row) {
         var html = `
       <button type="button" id="userEdit" class="btn btn-info btn-sm">修改</button>
+      <button type="button" id="detail" class="btn  btn-primary btn-sm">详情</button>
       `;
         return html;
     }
@@ -72,7 +74,13 @@
             open_html("修改信息", "#editData", function() {
                 $("input").val()
             });
+        },
+        "click #detail": function(e, v, row) {
+            ajax_data("", { params: JSON.stringify({ stockId: row.stockId }) }, function(res) {
+                open_html("详情信息", "#detail", function() {})
+            })
         }
+
     };
 
     var userOperateEvents = {
@@ -80,6 +88,11 @@
             open_html("修改信息", "#editUserData", function() {
                 $("input").val()
             });
+        },
+        "click #userDetail": function(e, v, row) {
+            ajax_data("", { params: JSON.stringify({ stockId: row.stockId }) }, function(res) {
+                open_html("详情信息", "#userDetail", function() {})
+            })
         }
     };
 
@@ -98,11 +111,13 @@
             pagination: true, //是否分页
             sidePagination: "client", //server:服务器端分页|client：前端分页
             pageSize: 20, //单页记录数
+            height: $(window).height() - 150,
             pageList: [10, 20, 30], //可选择单页记录数
             showRefresh: false, //刷新按钮
             cache: true, // 禁止数据缓存
             search: false, // 是否展示搜索
             showLoading: true,
+            height: $(window).height() - 150,
             queryParams: queryParams,
             columns: [{
                     title: "录入时间",
@@ -157,11 +172,11 @@
         let url = "";
         url = "/inventory/modifySale";
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
-            if(res.resultCode>-1){
+            if (res.resultCode > -1) {
                 layer.close(layer.index);
                 $("#storeSalesRecord").bootstrapTable("refresh");
-            }else{
-                tips("修改信息失败",5)
+            } else {
+                tips("修改信息失败", 5)
             }
         });
     });
@@ -177,11 +192,11 @@
         let url = "";
         url = "/inventory/modifySale";
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
-            if(res.resultCode>-1){
+            if (res.resultCode > -1) {
                 layer.close(layer.index);
                 $("#userSalesRecord").bootstrapTable("refresh");
-            }else{
-                tips("修改信息失败",5)
+            } else {
+                tips("修改信息失败", 5)
             }
         });
     });

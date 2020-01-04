@@ -27,7 +27,8 @@
   margin: 0 5px;
 }
 
-#editData .return_top .condition {
+#editData .return_top .condition,
+#detail .return_top .condition {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -42,7 +43,8 @@
   right: 0;
 }
 
-#editData .return_top .condition button {
+#editData .return_top .condition button,
+#detail .return_top .condition button {
   margin-right: 10px;
 }
 
