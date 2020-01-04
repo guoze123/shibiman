@@ -17,6 +17,7 @@
             cache: true, // 禁止数据缓存
             search: false, // 是否展示搜索
             showLoading: true,
+            height:$(window).height()-150,
             queryParams: queryParams,
             columns: [{
                     title: "录入时间",
@@ -155,7 +156,14 @@
         };
         let url = "";
         url = "/inventory/modifySale";
-        ajax_data(url, { params: JSON.stringify(params) }, function(res) {});
+        ajax_data(url, { params: JSON.stringify(params) }, function(res) {
+            if(res.resultCode>-1){
+                layer.close(layer.index);
+                $("#storeSalesRecord").bootstrapTable("refresh");
+            }else{
+                tips("修改信息失败",5)
+            }
+        });
     });
 
     $("#editUserData .condition .confirmBtn").on("click", function() {
@@ -168,7 +176,14 @@
         };
         let url = "";
         url = "/inventory/modifySale";
-        ajax_data(url, { params: JSON.stringify(params) }, function(res) {});
+        ajax_data(url, { params: JSON.stringify(params) }, function(res) {
+            if(res.resultCode>-1){
+                layer.close(layer.index);
+                $("#userSalesRecord").bootstrapTable("refresh");
+            }else{
+                tips("修改信息失败",5)
+            }
+        });
     });
 
     $(".recordType input[type='radio']").change(function() {

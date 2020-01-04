@@ -15,18 +15,13 @@
     />
     <link href="../../css/animate.css" rel="stylesheet" />
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/main.css">
-    <style>
-      #laydate_table {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="../../css/commodityManagement/commodity.css" />
   </head>
   <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>公司计划</h5>
+          <h5>商品折扣管理</h5>
           <div class="ibox-tools"></div>
         </div>
         <div class="ibox-content">
@@ -34,10 +29,6 @@
             <div class="col-sm-12">
               <div class="example">
                 <div class="searchList" style="float:right;">
-                <div style="margin-right: 20px;" class="storeType">
-                    <input type="radio" name="planType" value="1" checked style="width: 20px;">月计划
-                    <input type="radio" name="planType" value="0" style="width: 20px; margin-left: 10px;">年计划
-                </div>
                   <span>
                     <button
                       type="button"
@@ -49,9 +40,7 @@
                     </button>
                   </span>
                 </div>
-                <div class="plan">
-                  <table id="CompanyPlan" data-mobile-responsive="true"></table>
-                </div>
+                <table id="waresDiscount" data-mobile-responsive="true"></table>
               </div>
             </div>
           </div>
@@ -66,9 +55,8 @@
     <script src="../../js/loading.js"></script>
     <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="../../js/plugins/layer/laydate/laydate.js"></script>
     <!-- 自定义js -->
     <script src="../../js/content.js?v=1.0.0"></script>
-    <script src="./js/main.js"></script>
+    <script src="../../js/configurationManagement/waresDiscount.js"></script>
   </body>
 </html>

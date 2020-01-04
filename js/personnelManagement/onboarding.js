@@ -2,7 +2,7 @@
   "use strict";
   var isadd = false;
   function initFn() {
-    $("#importInventory").bootstrapTable({
+    $("#employeeInfo").bootstrapTable({
       method: "get",
       url: baseUrl + "/personnel/queryEmployeeInfo", //请求路径
       striped: true, //是否显示行间隔色
@@ -14,6 +14,7 @@
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
+      height:$(window).height()-150,
       showLoading: true,
       queryParams: queryParams,
       columns: [
@@ -79,6 +80,7 @@
       $(".ownerId").val(row.ownerId);//店铺id
       $(".address").val(row.address);//地址
       $(".activeStatus").val(row.activeStatus); //状态 在离
+      $(".education").val(row.education) // 学历8 
       open_html("修改信息", "#editData");
     }
   };
@@ -93,7 +95,7 @@
   initFn();
   // 点击查询按钮
   $("#eventqueryBtn").click(function() {
-    $("#importInventory").bootstrapTable("refresh");
+    $("#employeeInfo").bootstrapTable("refresh");
   });
 
   $(".uploadimg").change(function() {
@@ -121,7 +123,8 @@
       role: $(".role").val(), //角色
       ownerId: $(".ownerId").val(), //店铺id
       address: $(".address").val(), //地址
-      activeStatus: $(".activeStatus").val() //状态 在离
+      activeStatus: $(".activeStatus").val(), //状态 在离
+      education:$(".education").val() // 学历
     };
     let formdata = new FormData();
     formdata.append("file", $(".uploadimg")[0].files[0]);
@@ -134,6 +137,18 @@
     }
     file_upload(url, formdata, function(res) {
       console.log(res);
+      if(res.resultCode>-1){
+        $("#employeeInfo").bootstrapTable("refresh");
+        layer.close(layer.index);
+      }else{
+        let tipsText;
+        if(isadd){
+          tipsText="添加人员信息失败"
+        }else{
+          tipsText="修改人员信息失败"
+        }
+        tips(tipsText,5)
+      }
     });
   });
 

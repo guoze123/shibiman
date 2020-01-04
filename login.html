@@ -129,10 +129,10 @@
       ajax_data("/common/login", { params: JSON.stringify(params) }, function(
         res
       ) {
-        if (res.resCode > 0) {
+        if (res.resultCode > -1) {
           window.location.href = "index.html";
         } else {
-          tips("修改失败", 5);
+          tips("登录失败,请检查用户名或密码", 5);
         }
       });
     });

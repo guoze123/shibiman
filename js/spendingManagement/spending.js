@@ -23,6 +23,7 @@
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
+      height:$(window).height()-150,
       showLoading: true,
       queryParams: queryParams,
       columns: [
@@ -93,8 +94,8 @@
       costTypeId: $(".areaSearch .query_costTypeId").val()
         ? $(".areaSearch .query_costTypeId").val()
         : undefined, // 开支分类id
-      ownerId: $(".areaSearch .query_ownerId").val()
-        ? $(".areaSearch .query_ownerId").val()
+      ownerId: $(".areaSearch .query_ownerName").val()
+        ? $(".areaSearch .query_ownerName").val()
         : undefined // 部门id
     };
   }
@@ -139,7 +140,18 @@
     }
     file_upload(url, formdata, function(res) {
       console.log(res);
-      $("#spending").bootstrapTable("refresh");
+      if(res.resltCode>-1){
+        layer.close(layer.index);
+        $("#spending").bootstrapTable("refresh");
+      }else{
+        let tipsText;
+        if(isadd){
+          tipsText="添加开支信息失败"
+        }else{
+          tipsText="修改开支信息失败"
+        }
+        tips(tipsText,5)
+      }
     });
   });
   // 查询所有部门

@@ -8,8 +8,9 @@
         pageNumber: 1, //初始化加载第一页
         pagination: true, //是否分页
         sidePagination: "client", //server:服务器端分页|client：前端分页
-        pageSize: 20, //单页记录数
+        pageSize: 10, //单页记录数
         pageList: [10, 20, 30], //可选择单页记录数
+        height:$(window).height()-150,
         showRefresh: false, //刷新按钮
         cache:true, // 禁止数据缓存
         search:false, // 是否展示搜索
@@ -85,8 +86,13 @@
       let url;
         url = "/personnel/addLeaveEmployee";
       ajax_data(url, { params: JSON.stringify(params) }, function(res) {
-        $('#departure').bootstrapTable(('refresh'));
         console.log(res);
+        if(res.resultCode>-1){
+          layer.close(layer.index);
+          $('#departure').bootstrapTable(('refresh'));
+        }else{
+          tips("添加离职人员失败",5)
+        }
       });
     });
 

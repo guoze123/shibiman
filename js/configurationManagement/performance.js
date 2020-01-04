@@ -8,7 +8,8 @@
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 5, //单页记录数
+      pageSize: 10, //单页记录数
+      height: $(window).height() - 150,
       pageList: [10, 20, 30], //可选择单页记录数
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
@@ -58,7 +59,7 @@
       },
       showExport: true, //是否显示导出按钮
       buttonsAlign: "right", //按钮位置
-      exportTypes: ["csv"] //导出文件类型
+      exportTypes: ["excel"] //导出文件类型
     });
   }
   function operation(vlaue, row) {
@@ -85,12 +86,14 @@
     $("#importInventory").bootstrapTable("refresh");
   });
 
-  // $("#upload").change(function() {
-  //   var url = "/configuration/achieveImportFiles";
-  //   var fromdata = new FormData();
-  //   fromdata.append("files", $(this)[0].files[0]);
-  //   file_upload(url, fromdata);
-  // });
+  $("#uploadFile").change(function() {
+    var url = "/configuration/achieveImportFiles";
+    var fromdata = new FormData();
+    fromdata.append("files", $(this)[0].files[0]);
+    file_upload("/configuration/achieveImportFiles", fromdata,function(res) {
+      console.log(res);
+    });
+  });
 // 触发导出事件
   $(".exportBtn").click(function() {
     $(".export.btn-group").click();

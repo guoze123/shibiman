@@ -1,13 +1,12 @@
-var baseUrl = "http://192.168.0.103:8080/sipimo";
-var ajaxLoding=0
-baseUrl = "";
+var baseUrl = "http://192.168.0.108:8080/sipimo";
+
+var ajaxLoding = 0;
 function getQueryString(e) {
   var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
   var a = window.location.search.substr(1).match(t);
   if (a != null) return a[2];
   return "";
 }
-
 function addCookie(e, t, a) {
   var n = e + "=" + escape(t) + "; path=/";
   if (a > 0) {
@@ -17,7 +16,6 @@ function addCookie(e, t, a) {
   }
   document.cookie = n;
 }
-
 function setCookie(name, value, days) {
   var exp = new Date();
   exp.setTime(exp.getTime() + days * 24 * 60 * 60 * 1000);
@@ -25,7 +23,6 @@ function setCookie(name, value, days) {
   document.cookie =
     name + "=" + escape(value) + ";expires=" + exp.toGMTString();
 }
-
 function getCookie(e) {
   var t = document.cookie;
   var a = t.split("; ");
@@ -49,27 +46,24 @@ function ajax_data(url, opt, basefunc) {
     url: baseUrl + url,
     data: opt.params,
     type: opt.type || "post",
-   // type:"get",
-   cache:false,
+    cache: false,
     dataType: "json",
-    
     async: opt.async || true,
     contentType: opt.contentType || "application/json;charset=utf-8",
     timeout: 1000 * 60 * 2,
     beforeSend: function(XMLHttpRequest) {
-      ajaxLoding+=1
-      if(ajaxLoding == 1){
+      ajaxLoding += 1;
+      if (ajaxLoding == 1) {
         show_loading();
       }
       // XMLHttpRequest.setRequestHeader("token");
     },
     success: function(retjson) {
-    
       basefunc(retjson);
     },
     complete: function(XMLHttpRequest, textStatus) {
-      ajaxLoding-=1;
-      if(ajaxLoding==0){
+      ajaxLoding -= 1;
+      if (ajaxLoding == 0) {
         hide_loading();
       }
       if (textStatus == "timeout") {
@@ -87,8 +81,8 @@ function ajax_data(url, opt, basefunc) {
 }
 
 // 文件导入
-function file_upload(url, formData,fn) {
-  show_loading()
+function file_upload(url, formData, fn) {
+  show_loading();
   $.ajax({
     url: baseUrl + url,
     dataType: "json",
@@ -98,15 +92,14 @@ function file_upload(url, formData,fn) {
     processData: false, // 使数据不做处理
     contentType: false, // 不要设置Content-Type请求头
     success: function(data) {
-      console.log(data);
-      fn(data)
+      fn(data);
     },
-    complete:function() {
-      hide_loading()
+    complete: function() {
+      hide_loading();
     },
     error: function(response) {
       console.log(response);
-      hide_loading()
+      hide_loading();
     }
   });
 }
@@ -146,7 +139,7 @@ function open_frame(title, url) {
 
 function open_html(title, ht_id, fn, win_width) {
   var h_w = (win_width || 800) + "px";
-  var h_h = ($("body").height() < 500 ? ($("body").height()-40) : "500") + "px";
+  var h_h = ($("body").height() < 500 ? $("body").height() - 40 : "500") + "px";
   layer.open({
     type: 1,
     title: title,
@@ -165,7 +158,7 @@ function open_html(title, ht_id, fn, win_width) {
 function tips(text, icon) {
   layer.msg(text, {
     icon: icon, // 6 笑表情 5 哭表情
-    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+    time: 3000 //2秒关闭（如果不配置，默认是3秒）
   });
 }
 

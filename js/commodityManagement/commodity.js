@@ -4,28 +4,28 @@
   function initFn() {
     $("#waresManagement").bootstrapTable({
       method: "post",
-      url: baseUrl + "/configuration/addWaresInfo", //请求路径
+      url: baseUrl + "/configuration/queryWaresInfo", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 5, //单页记录数
+      pageSize: 10, //单页记录数
       pageList: [10, 20, 30], //可选择单页记录数
+      height: $(window).height() - 150,
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
       showLoading: true,
+      height: $(window).height() - 150,
       queryParams: queryParams,
       columns: [
         {
           title: "商品id",
           field: "waresId"
-         
         },
         {
           title: "商品名称",
           field: "waresName"
-         
         },
         {
           title: "商品分类",
@@ -36,11 +36,7 @@
           field: "waresPrice"
         },
         {
-          title: "商品数量",
-          field: "waresCount"
-        },
-        {
-          title: "商品信息",
+          title: "商品描述",
           field: "waresDesc"
         },
         {
@@ -51,7 +47,7 @@
         }
       ]
     });
-    queryWaresCategory()
+    queryWaresCategory();
   }
 
   function operation(vlaue, row) {
@@ -76,7 +72,7 @@
         layer.close(layer.index);
         ajax_data(
           "/configuration/deleteWaresInfo",
-          { params: { waresId: row.waresId }, type:"post"},
+          { params: { waresId: row.waresId }, type: "post" },
           function(res) {
             console.log(res);
             if (res.resCode > 0) {
@@ -94,7 +90,7 @@
   function queryParams(params) {
     return {
       waresName: $(".searchList .query_wares_name").val(),
-      categoryName:$(".searchList .query_category_name").val()
+      categoryName: $(".searchList .query_category_name").val()
     };
   }
   initFn();
@@ -117,7 +113,7 @@
       waresName: $(".wares_name").val(), // 名称
       categoryName: $(".category_name").val(), //商品分类名称
       waresPrice: $(".wares_price").val(), //商品价格
-      waresDesc: $(".wares_desc").val(), //商品描述
+      waresDesc: $(".wares_desc").val() //商品描述
     };
     let url;
     if (isadd) {
@@ -127,20 +123,34 @@
     }
     ajax_data(url, { params: JSON.stringify(params) }, function(res) {
       console.log(res);
-      $("#waresManagement").bootstrapTable("refresh");
+      if (res.resultCode > -1) {
+        $("#waresManagement").bootstrapTable("refresh");
+        layer.close(layer.index);
+      } else {
+        let tipsText;
+        if (isadd) {
+          tipsText = "添加商品失败";
+        } else {
+          tipsText = "修改商品失败";
+        }
+        tips(tipsText, 5);
+      }
     });
   });
 
-
-   // 查询商品分类
-   function queryWaresCategory() {
-    ajax_data("/configuration/queryWaresCategory",{params:JSON.stringify({})},function(res) {
-      let option = "<option value=''>选择商品分类</option>";
-      res.forEach(function(element) {
-        option += `<option value="${element}">${element}</option>`;
-      });
-      $(".query_category_name").html(option);
-      $(".category_name").html(option);
-    })
+  // 查询商品分类
+  function queryWaresCategory() {
+    ajax_data(
+      "/configuration/queryWaresCategory",
+      { params: JSON.stringify({}) },
+      function(res) {
+        let option = "<option value=''>选择商品分类</option>";
+        res.forEach(function(element) {
+          option += `<option value="${element}">${element}</option>`;
+        });
+        $(".query_category_name").html(option);
+        $(".category_name").html(option);
+      }
+    );
   }
 })(document, window, jQuery);

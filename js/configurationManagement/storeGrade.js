@@ -9,7 +9,9 @@
       pageNumber: 1, //初始化加载第一页
       pagination: false, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 5, //单页记录数
+      pageSize: 10, //单页记录数
+      pageList: [10, 20, 30], //可选择单页记录数
+      height: $(window).height() - 150,
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
@@ -62,7 +64,12 @@
     };
     ajax_data("", { params: JSON.stringify(params) }, function(res) {
       console.log(res);
-      $("#storeGrade").bootstrapTable("refresh");
+      if(res.resultCode>-1){
+        layer.close(layer.index);
+        $("#storeGrade").bootstrapTable("refresh");
+      }else{
+        tips("修改信息失败",5)
+      }
     });
   });
 

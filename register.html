@@ -11,7 +11,6 @@
     <meta name="description" content="" />
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/" />
     <link href="css/animate.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
     <link href="css/login.css" rel="stylesheet" />
@@ -55,10 +54,10 @@
           <p class="m-t-md">登录到H+后台主题UI框架</p>
           <input
             type="text"
-            class="form-control  employeeId"
+            class="form-control  employeeId uname"
             placeholder="员工编号"
           />
-          <input type="text" class="form-control " placeholder="手机号" />
+          <input type="text" class="form-control uname phoneNumber" placeholder="手机号" />
           <input
             type="password"
             class="form-control pword m-b"
@@ -117,8 +116,23 @@
     }
 
     $(".btn-register").click(function() {
+      if (
+        $(".pword").val() &&
+        $(".confirmPasswd").val() &&
+        $(".phoneNumber").val() &&
+        $(".employeeId").val()
+      ) {
+        if ($(".pword").val() !== $(".confirmPasswd").val()) {
+          tips("密码填写不一致", 5);
+          return
+        }
+      }else{
+        tips("将注册信息填写完整", 5);
+        return
+      }
+
       var params = {
-        phoneNumber: $(".uname").val(),
+        phoneNumber: $(".phoneNumber").val(),
         passwd: $(".pword").val(),
         employeeId: $(".employeeId").val()
       };
@@ -126,14 +140,13 @@
         "/common/register",
         { params: JSON.stringify(params) },
         function(res) {
-          if (res.resCode > 0) {
+          if (res.resultCode > -1) {
             window.location.href = "index.html";
           } else {
-            tips("修改失败", 5);
+            tips("失败", 5);
           }
         }
       );
-      window.location.href = "index.html";
     });
   </script>
 </html>
