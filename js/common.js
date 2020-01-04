@@ -98,6 +98,7 @@ function file_upload(url, formData,fn) {
     processData: false, // 使数据不做处理
     contentType: false, // 不要设置Content-Type请求头
     success: function(data) {
+      console.log(data);
       fn(data)
     },
     complete:function() {

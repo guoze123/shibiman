@@ -23,7 +23,6 @@
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
-      height:$(window).height()-150,
       showLoading: true,
       queryParams: queryParams,
       columns: [
@@ -94,8 +93,8 @@
       costTypeId: $(".areaSearch .query_costTypeId").val()
         ? $(".areaSearch .query_costTypeId").val()
         : undefined, // 开支分类id
-      ownerId: $(".areaSearch .query_ownerName").val()
-        ? $(".areaSearch .query_ownerName").val()
+      ownerId: $(".areaSearch .query_ownerId").val()
+        ? $(".areaSearch .query_ownerId").val()
         : undefined // 部门id
     };
   }

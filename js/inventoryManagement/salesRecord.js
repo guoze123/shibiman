@@ -17,7 +17,6 @@
             cache: true, // 禁止数据缓存
             search: false, // 是否展示搜索
             showLoading: true,
-            height:$(window).height()-150,
             queryParams: queryParams,
             columns: [{
                     title: "录入时间",

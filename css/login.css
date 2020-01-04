@@ -37,7 +37,7 @@ body.signin {
     background: #fff url(../img/user.png) no-repeat 95% center;color:#333;
 }
 
-.signinpanel .pword, .signinpanel .confirmPasswd{
+.signinpanel .pword {
     background: #fff url(../img/locked.png) no-repeat 95% center;color:#333;
 }
 

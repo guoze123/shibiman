@@ -14,7 +14,6 @@
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
-      height:$(window).height()-150,
       showLoading: true,
       queryParams: queryParams,
       columns: [
