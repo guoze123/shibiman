@@ -159,8 +159,9 @@
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
             console.log(res);
             if (res.resultCode > -1) {
-                $("#exampleTableFromData").bootstrapTable("refresh");
                 layer.close(layer.index);
+                $("#exampleTableFromData").bootstrapTable("refresh");
+               
             } else {
                 let tipsText;
                 if (isadd) {

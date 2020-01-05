@@ -76,8 +76,8 @@
   };
   function queryParams(params) {
     return {
-      startTime: $(".startTime").val(),
-      endTime: $(".endTime").val()
+      startTime: $(".startTime").val()?$(".startTime").val():undefined,
+      endTime: $(".endTime").val()?$(".endTime").val():undefined
     };
   }
   initFn();

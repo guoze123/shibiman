@@ -29,7 +29,7 @@
             <div class="col-sm-12">
               <div class="example">
                 <div class="searchList" style="float:right;">
-                  <input
+                  <!-- <input
                     id=""
                     class="laydate-icon form-control layer-date query_startTime"
                     placeholder="开始时间"
@@ -40,11 +40,16 @@
                     class="laydate-icon form-control layer-date query_stopTime"
                     placeholder="结束时间"
                     onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
-                  />
-                  <input
+                  /> -->
+                  <!-- <input
                     type="text"
-                    class="form-control"
+                    class="form-control query_employeeId"
                     placeholder="员工工号"
+                  /> -->
+                  <input
+                  type="text"
+                  class="form-control query_employeeName"
+                  placeholder="员工名称"
                   />
                   <!-- <input
                     type="text"
@@ -88,7 +93,7 @@
           <div class="list_row">
             <div>
               <span>员工工号</span>
-              <input type="text" class="form-control"  placeholder="员工工号"/>
+              <input type="text" class="form-control employeeId"  placeholder="员工工号"/>
             </div>
             <div>
               <span>离职时间</span>

@@ -89,8 +89,8 @@
 
     function queryParams() {
         return {
-            startTime: $(".query_startTime").val(),
-            stopTime: $(".query_stopTime").val()
+            startTime: $(".query_startTime").val()?$(".query_startTime").val():undefined,
+            endTime: $(".query_stopTime").val()?$(".query_stopTime").val():undefined
         };
     }
     initFn();
@@ -114,8 +114,9 @@
         }
         ajax_data("", { params: JSON.stringify(params) }, function(res) {
             if(res.resultCode >-1){
-                $("#payment").bootstrapTable("refresh");
                 layer.close(layer.index);
+                $("#payment").bootstrapTable("refresh");
+               
             }else{
                 tips("支付失败",5)
             }

@@ -96,9 +96,9 @@
         }
     };
 
-    function queryParams(params) {
+    function queryParams() {
         return {
-            detailAddress: $(".detailAddress").val()
+            detailAddress: $(".detailAddress").val()?$(".detailAddress").val():undefined
         };
     }
 

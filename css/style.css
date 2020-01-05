@@ -8045,6 +8045,8 @@ li {
 /*# 下拉框 结束 */
 
 .table {
-    
     word-break: break-all;
+}
+.picList{
+    max-height: 200px;
 }

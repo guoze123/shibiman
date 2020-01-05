@@ -19,20 +19,20 @@
         columns: [
           {
             title: "员工工号",
-            field: "id",
+            field: "employeeId",
            
           },
           {
             title: "员工姓名",
-            field: "name",
+            field: "employeeName",
           },
           {
             title: "离职时间",
-            field: "sex"
+            field: "leaveTime"
           },
           {
             title: "离职原因",
-            field: "Score"
+            field: "leaveReason"
           },
           // {
           //   title: "操作",
@@ -58,7 +58,8 @@
     }
     function queryParams() {
       return {
-        activeStatus: "-1"
+        activeStatus: "-1",
+        employeeName: $(".query_employeeName").val()?$(".query_employeeName").val():undefined,
       }
   }
     initFn();
@@ -80,7 +81,7 @@
     $(".condition .confirmBtn").on("click", function() {
       let params = {
         employeeId: $(".employeeId").val(), //员工id
-        leaveTime: $(".leaveReason").val(),
+        leaveTime: $(".leaveTime").val(),
         leaveReason:$(".leaveReason").val()
       };
       let url;

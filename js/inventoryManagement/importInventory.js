@@ -1,7 +1,9 @@
+var allwares=""; 所有商品
 (function(document, window, $) {
     var isadd = false;
 
     function initFn() {
+        queryWaresInfo()
         $("#importInventory").bootstrapTable({
             method: "post",
             url: baseUrl + "/inventory/queryEntryStock", //请求路径
@@ -74,7 +76,6 @@
       `;
         return html;
     }
-
     var operateEvents = {
         "click #edit": function(e, v, row) {
             isadd = false;
@@ -187,8 +188,8 @@
         file_upload(url, formdata, function(res) {
             console.log(res);
             if (res.resultCode > -1) {
-                $("#importInventory").bootstrapTable("refresh");
                 layer.close(layer.index);
+                $("#importInventory").bootstrapTable("refresh");
             } else {
                 let tipsText;
                 if (isadd) {
@@ -209,6 +210,13 @@
 function addCommodity(that) {
     // <input type="text" placeholder="商品名称" class="form-control name">
     // <select class="form-control name"></select>
+    let option = "<option value=''>选择商品名称</option>";
+    if (allwares.lenght) {
+        allwares.forEach(function(item, index) {
+            option += `<option value="${item.waresName}" data-id="${item.waresId}">${item.waresName}</option>`;
+        });
+    }
+
     let strHtml = `<div class="list_row commodity newShop">
             <div style="width: 100%;">
             <span>商品名称</span>
@@ -240,5 +248,6 @@ function queryWaresInfo() {
             });
         }
         $(".commodity select").html(option);
+        allwares=res
     });
 }

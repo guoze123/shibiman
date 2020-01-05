@@ -74,6 +74,7 @@
             $(".consignee").val(row.toStoreId); // 收货放
             $(".shipper").val(row.fromStoreId); // 发货方
             $(".remark").val(row.remark); // 备注
+            $(".picList").attr("src",row.row)
             isadd = false;
             if (row.waresList.lenght == 1) {
                 $(".firstGroup")
@@ -105,7 +106,6 @@
         "click #detail": function(e, v, row) {
             ajax_data("", { params: JSON.stringify({ stockId: row.stockId }) }, function(res) {
                 open_html("详情信息", "#detail", function() {
-
                 })
             })
         }
@@ -114,8 +114,8 @@
 
     function queryParams(params) {
         return {
-            startTime: $(".query_startTime").val()
-                //  ordernum: $(".query_ordernum").val()
+            startTime: $(".query_startTime").val()?$(".query_startTime").val():undefined
+                //  ordernum: $(".query_ordernum").val()?$(".query_ordernum").val():undefined
         };
     }
 
@@ -178,7 +178,7 @@
         }
         file_upload(url, formdata, function(res) {
             if (res.resultCode > -1) {
-                //layer.close(layer.index);
+                layer.close(layer.index);
                 $("#importInventory").bootstrapTable("refresh");
             } else {
 

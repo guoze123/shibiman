@@ -1,7 +1,7 @@
 (function(document, window, $) {
   "use strict";
   var isadd = false;
-  $(".query_startTime ,.query_endTime").datepicker({
+  $(".query_startTime ,.query_endTime,.costTime").datepicker({
     startView: 1,
     todayBtn: "linked",
     keyboardNavigation: false,
@@ -12,20 +12,21 @@
   });
   function initFn() {
     $("#spending").bootstrapTable({
-      method: "get",
+      method: "post",
       url: baseUrl + "/cost/queryCost", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 5, //单页记录数
+      pageSize: 10, //单页记录数
       pageList: [10, 20, 30], //可选择单页记录数
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
-      height:$(window).height()-150,
+      height: $(window).height() - 150,
       showLoading: true,
       queryParams: queryParams,
+      contentType: "application/x-www-form-urlencoded",
       columns: [
         {
           title: "开支id",
@@ -81,22 +82,24 @@
       $(".costAmount").val(row.costAmount);
       $(".receiptPic").val(row.receiptPic);
       $(".remark").val(row.remark);
+      $(".remark").attr("data_costId",row.costId)
       isadd = false;
-      open_html("修改信息", "#editData");
+      open_html("修改信息", "#editData",function() {
+        $("#editData input").val("");
+        $("#editData select").val("");
+        $("#editData img").attr("src","")
+      });
     }
   };
   //查询条件
   function queryParams() {
     return {
-      costTime: $(".areaSearch .query_costTime").val()
-        ? $(".areaSearch .query_costTime").val()
-        : undefined, // 开支时间
-      costTypeId: $(".areaSearch .query_costTypeId").val()
-        ? $(".areaSearch .query_costTypeId").val()
-        : undefined, // 开支分类id
-      ownerId: $(".areaSearch .query_ownerName").val()
-        ? $(".areaSearch .query_ownerName").val()
-        : undefined // 部门id
+      jsonStr: JSON.stringify({
+        startTime: $(".searchList .query_startTime").val(),
+        endTime: $(".searchList .query_endTime").val(),
+        costTypeId: $(".searchList .query_costTypeId").val(),
+        ownerName: $(".searchList .query_ownerName").val()
+      })
     };
   }
 
@@ -109,11 +112,11 @@
   $(".addBtn").click(function() {
     isadd = true;
     open_html("添加开支", "#editData", function() {
-      $("input").val("");
-      $("select").val("");
+      $("#editData input").val("");
+      $("#editData select").val("");
+      $("#editData img").attr("src","")
     });
   });
-
   $(".uploadimg").change(function() {
     uploadFile($(this));
   });
@@ -128,7 +131,8 @@
       ownerId: $(".ownerId").val(),
       costTypeId: $(".costTypeId").val(),
       costAmount: $(".costAmount").val(),
-      remark: $(".remark").val()
+      remark: $(".remark").val(),
+      costId:$(".remark").attr("data_costId")
     };
     formdata.append("file", $(".uploadimg")[0].files[0]);
     formdata.append("jsonStr", JSON.stringify(params));
@@ -140,36 +144,40 @@
     }
     file_upload(url, formdata, function(res) {
       console.log(res);
-      if(res.resltCode>-1){
+      if (res.resultCode > -1) {
         layer.close(layer.index);
         $("#spending").bootstrapTable("refresh");
-      }else{
+      } else {
         let tipsText;
-        if(isadd){
-          tipsText="添加开支信息失败"
-        }else{
-          tipsText="修改开支信息失败"
+        if (isadd) {
+          tipsText = "添加开支信息失败";
+        } else {
+          tipsText = "修改开支信息失败";
         }
-        tips(tipsText,5)
+        tips(tipsText, 5);
       }
     });
   });
   // 查询所有部门
   function queryDepartment() {
-    ajax_data("", { params: JSON.stringify({}) }, function(res) {
-      let option = "<option value=''>选择部门</option>";
-      res.forEach(function(element) {
-        option += `<option value="${element}">${element}</option>`;
-      });
-      $(".query_costTypeId").html(option);
-      $(".costTypeId").html(option);
-    });
+    ajax_data(
+      "/competence/queryDepartment",
+      { params: JSON.stringify({}) },
+      function(res) {
+        let option = "<option value=''>选择部门</option>";
+        res.forEach(function(element) {
+          option += `<option value="${element.departmentId}">${element.departmentName}</option>`;
+        });
+       
+        $(".ownerId").html(option);
+      }
+    );
   }
 
   // 开支分类
   function queryCostType() {
     let params = {
-      //     categoryName: ""
+      categoryName: ""
     };
     ajax_data(
       "/cost/queryCostCategory",

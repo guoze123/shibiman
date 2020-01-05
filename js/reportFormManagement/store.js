@@ -12,8 +12,8 @@
   });
   function initFn() {
     $("#storeSales").bootstrapTable({
-      method: "get",
-      url: baseUrl + "/inventory/storeSales", //请求路径
+      method: "post",
+      url: baseUrl + "/inventory/queryStoreAnalysisTable", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -26,8 +26,9 @@
       search: false, // 是否展示搜索
       showLoading: true,
       queryParams: queryParams,
-      ajaxOptions: {
-       // headers: { Authorization: "123" }
+      contentType: "application/x-www-form-urlencoded",
+      responseHandler:function (res) {
+        return res.storeData
       },
       columns: [
         {
@@ -65,20 +66,20 @@
         {
           title: "平均等级",
           field: "alesCategery"
-        }
-        //   {
-        //     title: "操作",
-        //     field: "publicationTime",
-        //     events:operateEvents,
-        //     formatter: operation //对资源进行操作,
-        //   }
+        },
+          {
+            title: "操作",
+            field: "publicationTime",
+            events:operateEvents,
+            formatter: operation //对资源进行操作,
+          }
       ]
     });
   }
-
+ // <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
   function operation(vlaue, row) {
     var html = `
-      <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
+      <button type="button" id="edit" class="btn btn-info btn-sm">详情</button>
       `;
     return html;
   }
@@ -86,14 +87,24 @@
   var operateEvents = {
     "click #edit": function(e, v, row) {
       open_html("修改信息", "#editData");
+    },
+    "click #detail": function(e, v, row) {
+      ajax_data(
+        "",
+        { params: JSON.stringify({ stockId: row.stockId }) },
+        function(res) {
+
+          open_html("详情信息", "#detail", function() {});
+        }
+      );
     }
   };
   function queryParams(params) {
-    return {
-      startTime: $(".startTime").val(),
-      stopTime: $(".endTime").val(),
-      address: $(".detailAddress").val()
-    };
+    return {jsonStr:JSON.stringify({
+      startTime: $(".startTime").val()?$(".startTime").val():undefined,
+      endTime: $(".endTime").val()?$(".endTime").val():undefined,
+      address: $(".detailAddress").val()?$(".detailAddress").val():undefined
+    })} ;
   }
   function queryStoreParams(params) {
     return {

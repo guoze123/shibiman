@@ -387,7 +387,7 @@
       $("#side-menu").append(menuHtml);
 
       function logout() {
-        ajax_data("./testJson/menu.json", { type: "get" }, function(res) {});
+        ajax_data("/common/logout", { type: "post" }, function(res) {});
       }
     </script>
   </body>

@@ -3,7 +3,7 @@
   var isadd = false;
   function initFn() {
     $("#employeeInfo").bootstrapTable({
-      method: "get",
+      method: "post",
       url: baseUrl + "/personnel/queryEmployeeInfo", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
@@ -55,7 +55,7 @@
       ]
     });
 
-    queryCompetence();
+   // queryCompetence();
     queryStore();
   }
 
@@ -86,10 +86,10 @@
   };
   function queryParams(params) {
     return {
-      employeeId: $(".query_employeeId").val(),
-      employeeName: $(".query_employeeName").val(), //姓名
-      ownerId: $(".query_ownerId").val(),
-      activeStatus: $(".query_activeStatus").val()
+      employeeId: $(".query_employeeId").val()?$(".query_employeeId").val():undefined,
+      employeeName: $(".query_employeeName").val()?$(".query_employeeName").val():undefined, //姓名
+      ownerId: $(".query_ownerId").val()?$(".query_ownerId").val():undefined,
+      activeStatus: $(".query_activeStatus").val()?$(".query_activeStatus").val():undefined
     };
   }
   initFn();
@@ -104,8 +104,11 @@
   // 添加人员
   $(".addBtn").click(function() {
     isadd = true;
-
-    open_html("添加人员", "#editData");
+    open_html("添加人员", "#editData",function(params) {
+      $("#editData input").val("");
+      $("#editData select").val("");
+      $("#editData img").attr("src","");
+    });
   });
 
   $(".condition .closeBtn").on("click", function(params) {
@@ -137,9 +140,9 @@
     }
     file_upload(url, formdata, function(res) {
       console.log(res);
-      if(res.resultCode>-1){
-        $("#employeeInfo").bootstrapTable("refresh");
+      if(res.resultCode > -1){
         layer.close(layer.index);
+        $("#employeeInfo").bootstrapTable("refresh");
       }else{
         let tipsText;
         if(isadd){
@@ -180,8 +183,8 @@
         });
         $(".query_ownerId").html(option);
         $(".ownerId").html(option);
-        $(".query_ownerId").chosen();
-        $(".ownerId").chosen();
+        // $(".query_ownerId").chosen();
+        // $(".ownerId").chosen();
       }
     );
   }

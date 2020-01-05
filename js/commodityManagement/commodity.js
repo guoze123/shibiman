@@ -62,6 +62,7 @@
     "click #edit": function(e, v, row) {
       isadd = false;
       $(".wares_name").val(row.waresName); // 名称
+      $(".wares_name").attr("data-waresId",row.waresId); // 名称
       $(".category_name").val(row.categoryName); //商品分类
       $(".wares_price").val(row.waresPrice); //商品价格
       $(".wares_desc").val(row.waresDesc); //商品描述
@@ -72,10 +73,10 @@
         layer.close(layer.index);
         ajax_data(
           "/configuration/deleteWaresInfo",
-          { params: { waresId: row.waresId }, type: "post" },
+          { params: { waresId: row.waresId }, contentType:"application/x-www-form-urlencoded" },
           function(res) {
             console.log(res);
-            if (res.resCode > 0) {
+            if (res.resultCode > -1) {
               tips("删除成功", 6);
             } else {
               tips("删除失败", 5);
@@ -87,10 +88,10 @@
     }
   };
 
-  function queryParams(params) {
+  function queryParams() {
     return {
-      waresName: $(".searchList .query_wares_name").val(),
-      categoryName: $(".searchList .query_category_name").val()
+      waresName: $(".searchList .query_wares_name").val()? $(".searchList .query_wares_name").val():undefined ,
+      categoryName: $(".searchList .query_category_name").val()?$(".searchList .query_category_name").val():undefined
     };
   }
   initFn();
@@ -109,7 +110,7 @@
   });
   $(".condition .confirmBtn").on("click", function() {
     let params = {
-      waresId: -1, // 商品id
+      waresId: $(".wares_name").attr("data-waresId")? $(".wares_name").attr("data-waresId") : -1,
       waresName: $(".wares_name").val(), // 名称
       categoryName: $(".category_name").val(), //商品分类名称
       waresPrice: $(".wares_price").val(), //商品价格
@@ -124,8 +125,8 @@
     ajax_data(url, { params: JSON.stringify(params) }, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
-        $("#waresManagement").bootstrapTable("refresh");
         layer.close(layer.index);
+        $("#waresManagement").bootstrapTable("refresh");
       } else {
         let tipsText;
         if (isadd) {
