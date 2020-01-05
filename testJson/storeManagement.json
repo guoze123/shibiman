@@ -1,97 +1,97 @@
 [{
-        "waresId": "1",
-        "waresName": "奔波儿灞",
+        "batchno": "1",
+        "storeName": "奔波儿灞",
         "sex": "男",
-        "Score": "50"
+        "targetValue": "50"
     },
     {
-        "waresId": "2",
-        "waresName": "灞波儿奔",
+        "batchno": "2",
+        "storeName": "灞波儿奔",
         "sex": "男",
-        "Score": "94"
+        "targetValue": "94"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     },
     {
-        "waresId": "7",
-        "waresName": "范爷",
+        "batchno": "7",
+        "storeName": "范爷",
         "sex": "女",
-        "Score": "87"
+        "targetValue": "87"
     }
 ]
