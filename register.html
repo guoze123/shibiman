@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
-    <title>H+ 后台主题UI框架 - 登录</title>
+    <title></title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -141,6 +141,13 @@
         { params: JSON.stringify(params) },
         function(res) {
           if (res.resultCode > -1) {
+
+            setCookie("phoneNumber",res.personalInfo.phoneNumber);
+            setCookie("employeeName",res.personalInfo.employeeName);
+            setCookie("job",res.personalInfo.job);
+            setCookie("ownerId",res.personalInfo.ownerId);
+            setCookie("employeeId",res.personalInfo.employeeId);
+
             window.location.href = "index.html";
           } else {
             tips("失败", 5);

@@ -43,23 +43,24 @@
         //   events: operateEvents,
         //   formatter: operation //对资源进行操作,
         // },
-      ],
-      exportDataType: "all", //basic', 'all', 'selected'.
-      exportOptions: {
-        fileName: "绩效数据", //文件名称设置
-        worksheetName: "sheet1", //表格工作区名称
-        tableName: "数据",
-        excelstyles: [
-          "background-color",
-          "color",
-          "font-size",
-          "font-weight",
-          "border-top"
-        ]
-      },
-      showExport: true, //是否显示导出按钮
-      buttonsAlign: "right", //按钮位置
-      exportTypes: ["excel"] //导出文件类型
+      ]
+
+      // exportDataType: "all", //basic', 'all', 'selected'.
+      // exportOptions: {
+      //   fileName: "绩效数据", //文件名称设置
+      //   worksheetName: "sheet1", //表格工作区名称
+      //   tableName: "数据",
+      //   excelstyles: [
+      //     "background-color",
+      //     "color",
+      //     "font-size",
+      //     "font-weight",
+      //     "border-top"
+      //   ]
+      // },
+      // showExport: true, //是否显示导出按钮
+      // buttonsAlign: "right", //按钮位置
+      // exportTypes: ["excel"] //导出文件类型
     });
   }
   function operation(vlaue, row) {
@@ -76,8 +77,8 @@
   };
   function queryParams(params) {
     return {
-      startTime: $(".startTime").val()?$(".startTime").val():undefined,
-      endTime: $(".endTime").val()?$(".endTime").val():undefined
+      startTime: $(".startTime").val() ? $(".startTime").val() : undefined,
+      endTime: $(".endTime").val() ? $(".endTime").val() : undefined
     };
   }
   initFn();
@@ -90,12 +91,33 @@
     var url = "/configuration/achieveImportFiles";
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
-    file_upload("/configuration/achieveImportFiles", fromdata,function(res) {
+    file_upload("/configuration/achieveImportFiles", fromdata, function(res) {
       console.log(res);
     });
   });
-// 触发导出事件
+  // 触发导出事件
+  //   $(".exportBtn").click(function() {
+  //     $(".export.btn-group").click();
+  //   });
+  // 导出
   $(".exportBtn").click(function() {
-    $(".export.btn-group").click();
+    let jsonStr = "hello word";
+    let exportType = "";
+    let form = $('<form id="to_export" style="display:none"></form>').attr({
+      action: baseUrl + "",
+      method: "post"
+    });
+    $("<input>")
+      .attr("name", "jsonStr")
+      .val(jsonStr)
+      .appendTo(form);
+    $("<input>")
+      .attr("name", "exportType")
+      .val(exportType)
+      .appendTo(form);
+    $("body").append(form);
+    $("#to_export")
+      .submit()
+      .remove();
   });
 })(document, window, jQuery);

@@ -29,14 +29,19 @@
                         <div class="example">
                             <div class="searchList">
                                 <div style="margin-right: 15px;" class="recordType">
-                                    <input type="radio" name="record" id="" checked value="0" style="width: 20px;" /> 店铺销售记录
+                                    <input type="radio" name="record" id="" checked value="0" style="width: 20px;" />
+                                    店铺销售记录
                                     <input type="radio" name="record" id="" value="1" style="width: 20px;" /> 个人销售记录
                                 </div>
                                 <div>
-                                    <input id="" class="laydate-icon form-control layer-date query_startTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="开始时间" />
+                                    <input id="" class="laydate-icon form-control layer-date query_startTime"
+                                        onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                                        placeholder="开始时间" />
                                 </div>
                                 <div>
-                                    <input id="" class="laydate-icon form-control layer-date query_stopTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="结束时间" />
+                                    <input id="" class="laydate-icon form-control layer-date query_stopTime"
+                                        onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                                        placeholder="结束时间" />
                                 </div>
                                 <!-- <div>
                     店铺id
@@ -52,10 +57,15 @@
                                 </div>
                             </div>
                             <span style="display: block;width: 100%; text-align: right;">
-								<button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
-									查询
-								</button>
-							</span>
+                                <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
+                                    style="width:80px;">
+                                    查询
+                                </button>
+                                <button type="button" id="eventAddBtn" class="btn btn-info exportBtn"
+                                    style="width:80px;" aria-label="Export">
+                                    导出
+                                </button>
+                            </span>
                             <div class="storeSalesRecord">
                                 <table id="storeSalesRecord" data-mobile-responsive="true"></table>
                             </div>
@@ -85,8 +95,8 @@
                 <div class="list_row">
                     <div>
                         <span>
-							销售员
-						</span>
+                            销售员
+                        </span>
                         <input type="text" class="form-control" placeholder="销售员" />
                     </div>
                     <div>
@@ -112,9 +122,9 @@
                     <div>
                         <span>客户类型</span>
                         <select name="" id="" class="form-control">
-							<option value="0">老客户</option>
-							<option value="1">新客户</option>
-						</select>
+                            <option value="0">老客户</option>
+                            <option value="1">新客户</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -158,16 +168,16 @@
                     <div>
                         <span>客户类型</span>
                         <select name="" id="" class="form-control">
-							<option value="0">老客户</option>
-							<option value="1">新客户</option>
-						</select>
+                            <option value="0">老客户</option>
+                            <option value="1">新客户</option>
+                        </select>
                     </div>
                 </div>
                 <div class="list_row">
                     <div>
                         <span>
-							销售员
-						</span>
+                            销售员
+                        </span>
                         <input type="text" class="form-control" placeholder="销售员" />
                     </div>
                     <div>

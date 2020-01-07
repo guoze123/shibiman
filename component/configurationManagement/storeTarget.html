@@ -45,7 +45,11 @@
                     placeholder="时间"
                   /> -->
                   店铺名称：
-                 <input type="text" class="storeName form-control" placeholder="店铺名称">
+                  <input
+                    type="text"
+                    class="storeName form-control"
+                    placeholder="店铺名称"
+                  />
                   <span>
                     <button
                       type="button"
@@ -58,11 +62,35 @@
                     <button
                       type="button"
                       id="eventqueryBtn"
-                      class="btn btn-success submitBtn"
+                      class="btn btn-primary submitBtn"
                       style="width:80px;"
                     >
                       提交
                     </button>
+                    <button
+                      type="button"
+                      id="eventAddBtn"
+                      class="btn btn-info exportBtn"
+                      style="width:80px;"
+                      aria-label="Export"
+                    >
+                      导出
+                    </button>
+                    <div style="display: inline;">
+                      <label
+                        for="uploadFile"
+                        class="btn btn-success"
+                        style="margin-bottom: 0;"
+                        >导入</label
+                      >
+                      <input
+                        type="file"
+                        name=""
+                        id="uploadFile"
+                        style="width: 0; height: 0;"
+                        accept=".xlsx"
+                      />
+                    </div>
                   </span>
                 </div>
                 <table id="storeTarget" data-mobile-responsive="true"></table>

@@ -210,7 +210,13 @@
     <!-- 第三方插件 -->
     <script src="js/plugins/pace/pace.min.js"></script>
     <script>
-      ajax_data("./testJson/menu.json", { type: "get" }, function(res) {
+      if (
+        getCookie("phoneNumber") == "undefined" ||
+        getCookie("phoneNumber") == null
+      ) {
+        location.href = "login.html";
+      }
+      ajax_data("/competence/getCompetence", { type: "post" }, function(res) {
         var submenu = res.subObj;
         for (let i in submenu) {
           for (let k in submenu[i].obj) {
@@ -334,7 +340,7 @@
               url: "./component/configurationManagement/storeGrade.html"
             },
             {
-              name:"商品折扣配置",
+              name: "商品折扣配置",
               id: "7_4",
               url: "./component/configurationManagement/waresDiscount.html"
             }
@@ -387,7 +393,26 @@
       $("#side-menu").append(menuHtml);
 
       function logout() {
-        ajax_data("/common/logout", { type: "post" }, function(res) {});
+        ajax_data(
+          "/common/logout",
+          {
+            params: {
+              phoneNumber: getCookie("phoneNumber")
+            },
+            type: "post",
+            contentType: "application/x-www-form-urlencoded;charset=utf-8"
+          },
+          function(res) {
+            if (res.resultCode > -1) {
+              delCookie("phoneNumber");
+              delCookie("employeeName");
+              delCookie("job");
+              delCookie("ownerId");
+              delCookie("employeeId");
+              location.href = "login.html";
+            }
+          }
+        );
       }
     </script>
   </body>

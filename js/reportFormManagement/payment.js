@@ -1,11 +1,19 @@
 (function(document, window, $) {
     "use strict";
-
+    $(".query_startTime ,.query_stopTime").datepicker({
+        startView: 1,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        minViewMode: 1,
+        format: "yyyy-mm"
+    });
     function initFn() {
         $("#payment").bootstrapTable({
-            method: "get",
-            //  url: baseUrl + "/inventory/queryPayment", //请求路径
-            url: baseUrl + "../../testJson/storeManagement.json", //请求路径
+            method: "post",
+            url: baseUrl + "/inventory/queryPayment", //请求路径
+           // url: "../../testJson/storeManagement.json", //请求路径
             striped: true, //是否显示行间隔色
             pageNumber: 1, //初始化加载第一页
             pagination: true, //是否分页
@@ -14,16 +22,17 @@
             height: $(window).height() - 150,
             showRefresh: false, //刷新按钮
             cache: true, // 禁止数据缓存
+            contentType: "application/x-www-form-urlencoded",
             search: false, // 是否展示搜索
             showLoading: true,
             queryParams: queryParams,
             columns: [{
                     title: "店铺id",
-                    field: "stockId"
+                    field: "storeId"
                 },
                 {
                     title: "店铺名称",
-                    field: "stockName"
+                    field: "storeName"
                 },
                 {
                     title: "应付金额",
@@ -34,7 +43,7 @@
                     field: "payedAmount"
                 },
                 {
-                    title: "差额",
+                    title: "尾款",
                     field: "balance"
                 },
                 {
@@ -89,8 +98,10 @@
 
     function queryParams() {
         return {
-            startTime: $(".query_startTime").val()?$(".query_startTime").val():undefined,
-            endTime: $(".query_stopTime").val()?$(".query_stopTime").val():undefined
+            jsonStr:JSON.stringify({
+                startTime: $(".query_startTime").val()?$(".query_startTime").val():undefined,
+                endTime: $(".query_stopTime").val()?$(".query_stopTime").val():undefined
+            })
         };
     }
     initFn();
@@ -116,7 +127,6 @@
             if(res.resultCode >-1){
                 layer.close(layer.index);
                 $("#payment").bootstrapTable("refresh");
-               
             }else{
                 tips("支付失败",5)
             }

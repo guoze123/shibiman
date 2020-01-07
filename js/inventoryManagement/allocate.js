@@ -185,6 +185,25 @@
             }
         });
     });
+    // 导出
+    $(".exportBtn").click(function() {
+        let jsonStr="hello word";
+        let exportType="";
+      let form = $('<form id="to_export" style="display:none"></form>').attr({
+        action: baseUrl + "",
+        method: "post"
+      });
+      $("<input>")
+        .attr("name", "jsonStr")
+        .val(jsonStr)
+        .appendTo(form);
+      $("<input>")
+        .attr("name", "exportType")
+        .val(exportType)
+        .appendTo(form);
+      $("body").append(form);
+      $("#to_export").submit().remove();
+    });
 })(document, window, jQuery);
 
 function addCommodity(that) {

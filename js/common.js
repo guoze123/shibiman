@@ -1,5 +1,9 @@
 var baseUrl = "http://192.168.0.102:8080/sipimo";
+//baseUrl="";
 var ajaxLoding = 0;
+// if(getCookie("phoneNumber") == "undefined" || getCookie("phoneNumber") == null ){
+//     location.href="login.html";
+// }
 function getQueryString(e) {
     var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
     var a = window.location.search.substr(1).match(t);
