@@ -116,7 +116,7 @@
             striped: true, //是否显示行间隔色
             pagination: false, //是否分页,
             data: res,
-            height:$("body").height() < 500 ? $("body").height() - 120 : 370,
+            height:$("body").height() < 500 ? $("body").height() - 120 : 330,
             columns: [
               {
                 title: "开支时间",

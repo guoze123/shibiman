@@ -141,7 +141,6 @@
         { params: JSON.stringify(params) },
         function(res) {
           if (res.resultCode > -1) {
-
             setCookie("phoneNumber",res.personalInfo.phoneNumber);
             setCookie("employeeName",res.personalInfo.employeeName);
             setCookie("job",res.personalInfo.job);
@@ -149,7 +148,9 @@
             setCookie("employeeId",res.personalInfo.employeeId);
 
             window.location.href = "index.html";
-          } else {
+          } else if( res.resultCode  == -2){
+            tips("用户存在", 5);
+          } else{
             tips("失败", 5);
           }
         }

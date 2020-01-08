@@ -45,9 +45,9 @@
                 <a href="javascript:;">
                   <span class="clear">
                     <span class="block m-t-xs"
-                      ><strong class="font-bold">Beaut-zihan</strong></span
+                      ><strong class="font-bold userName">Beaut-zihan</strong></span
                     >
-                    <span class="text-muted text-xs block"
+                    <span class="text-muted text-xs block userJob"
                       >超级管理员<b class="caret"></b
                     ></span>
                   </span>
@@ -210,163 +210,96 @@
     <!-- 第三方插件 -->
     <script src="js/plugins/pace/pace.min.js"></script>
     <script>
-      if (
-        getCookie("phoneNumber") == "undefined" ||
-        getCookie("phoneNumber") == null
-      ) {
-        location.href = "login.html";
+      // if (
+      //   getCookie("phoneNumber") == "undefined" ||
+      //   getCookie("phoneNumber") == null
+      // ) {
+      //   location.href = "login.html";
+      // }
+
+      //  /competence/getCompetence
+
+      if(getCookie("phoneNumber") == "undefined" ||getCookie("phoneNumber") == null){
+        $(".userName").html(getCookie("employeeName"));
+        $(".userJob").html(getCookie("job"))
       }
-      ajax_data("/competence/getCompetence", { type: "post" }, function(res) {
+
+      var user ;
+      var urlConfig = {
+        "1_0": "./component/storeManagement/storeManagement.html", // 店铺管理
+        "2_0": "./component/inventoryManagement/importInventory.html", // 入库
+        "2_1": "./component/inventoryManagement/Allocate.html", // 调拨
+        "2_2": "./component/inventoryManagement/salesRecord.html", // 销售记录
+        "3_0": "./component/personnelManagement/onboarding.html", // 入职
+        "3_1": "./component/personnelManagement/departure.html", // 离职
+        "4_0": "./component/spendingManagement/spending.html", // 开支管理
+        "5_0": "./component/commodityManagement/commodity.html", // 商品管理
+        "6_0": "./component/reportFormManagement/company.html", // 公司
+        "6_1": "./component/reportFormManagement/store.html", // 店铺
+        "6_2": "./component/reportFormManagement/payment.html", // 支付情况
+        "6_3": "./component/reportFormManagement/statisticalSpending.html", // 开支统计
+        "7_0": "./component/configurationManagement/performance.html", // 绩效管理
+        "7_1": "./component/configurationManagement/storeTarget.html", // 店铺目标值
+        "7_2": "./component/configurationManagement/storeGrade.html", // 店铺等级
+        "7_3": "./component/configurationManagement/waresDiscount.html" // 商品折扣配置
+      };
+      ajax_data("./testJson/login.json",{async:false,type:"get"}, function(res) {
         var submenu = res.subObj;
         for (let i in submenu) {
-          for (let k in submenu[i].obj) {
-            submenu[i].obj[k].power =
-              submenu[i].subObj[submenu[i].obj[k]["id"]]["subObj"][0];
-            submenu[i].obj[k].dispatcherId =
-              submenu[i].subObj[submenu[i].obj[k]["id"]]["obj"][0][
-                "dispatcherId"
-              ];
+          let arys = submenu[i].obj;
+          let sbuArys = submenu[i].subObj;
+          for (let k in arys) {
+            for (let n in sbuArys[arys[k].id]["obj"]) {
+              sbuArys[arys[k].id]["obj"][n].power =
+                sbuArys[arys[k].id]["subObj"][sbuArys[arys[k].id]["obj"][n].id];
+              sbuArys[arys[k].id]["obj"][n].url_id =
+                arys[k].id + "_" + sbuArys[arys[k].id]["obj"][n]["id"];
+            }
+            arys[k].children = sbuArys[arys[k].id]["obj"];
           }
         }
-        console.log(submenu);
-        var menu = res.obj;
-        for (let n in menu) {
-          menu[n].children = submenu[menu[n]["id"]]["obj"];
+        // console.log(submenu);
+        user = res.obj;
+        for (let n in user) {
+          user[n]["menu"] = submenu[user[n]["id"]]["obj"];
+          for (let j in user[n].menu) {
+            if (user[n].menu[j]["children"].length == 1) {
+                user[n].menu[j]["url_id"] =
+                user[n].menu[j]["children"][0]["url_id"];
+                user[n].menu[j]["power"] =
+                user[n].menu[j]["children"][0]["power"];
+                user[n].menu[j]["children"]=[];
+            } else {
+              user[n].menu[j]["url_id"] = "";
+            }
+          }
         }
-        console.log(menu);
-      });
-      let menuAdmin = [
-        {
-          name: "店铺管理",
-          id: "1",
-          children: [],
-          url: "./component/storeManagement/storeManagement.html"
-        },
-        {
-          name: "库存管理",
-          id: "2",
-          children: [
-            {
-              name: "入库",
-              id: "2_1",
-              url: "./component/inventoryManagement/importInventory.html"
-            },
-            {
-              name: "调拨",
-              id: "2_2",
-              url: "./component/inventoryManagement/Allocate.html"
-            },
-            {
-              name: "销售记录",
-              id: "2_3",
-              url: "./component/inventoryManagement/salesRecord.html"
-            }
-          ],
-          url: ""
-        },
-        {
-          name: "人事管理",
-          id: "3",
-          children: [
-            {
-              name: "入职",
-              id: "3_1",
-              url: "./component/personnelManagement/onboarding.html"
-            },
-            {
-              name: "离职",
-              id: "3_2",
-              url: "./component/personnelManagement/departure.html"
-            }
-          ],
-          url: ""
-        },
-        {
-          name: "开支管理",
-          id: "4",
-          children: [],
-          url: "./component/spendingManagement/spending.html"
-        },
-        {
-          name: "商品管理",
-          id: "5",
-          children: [],
-          url: "./component/commodityManagement/commodity.html"
-        },
-        {
-          name: "统计分析",
-          id: "6",
-          children: [
-            {
-              name: "公司",
-              id: "6_1",
-              url: "./component/reportFormManagement/company.html"
-            },
-            {
-              name: "店铺",
-              id: "6_2",
-              url: "./component/reportFormManagement/store.html"
-            },
-            {
-              name: "支付情况",
-              id: "6_3",
-              url: "./component/reportFormManagement/payment.html"
-            },
-            {
-              name: "开支统计",
-              id: "6_4",
-              url: "./component/reportFormManagement/statisticalSpending.html"
-            }
-          ],
-          url: ""
-        },
-        {
-          name: "配置管理",
-          id: "7",
-          children: [
-            {
-              name: "绩效管理",
-              id: "7_1",
-              url: "./component/configurationManagement/performance.html"
-            },
-            {
-              name: "店铺目标值",
-              id: "7_2",
-              url: "./component/configurationManagement/storeTarget.html"
-            },
-            {
-              name: "店铺等级",
-              id: "7_3",
-              url: "./component/configurationManagement/storeGrade.html"
-            },
-            {
-              name: "商品折扣配置",
-              id: "7_4",
-              url: "./component/configurationManagement/waresDiscount.html"
-            }
-          ],
-          url: ""
-        }
-      ];
 
-      let menuHtml = ``;
-      for (let i = 0; i < menuAdmin.length; i++) {
-        function buildChildHtml(childrenList) {
-          let childHtml = "";
-          if (!childrenList.length) {
-            return "";
-          } else {
-            for (let i in childrenList) {
-              childHtml += `
+        console.log(user);
+      });
+      var menuAdmin=user[0]["menu"];
+        var  menuHtml = ``;
+        for (let i = 0; i < menuAdmin.length; i++) {
+          function buildChildHtml(childrenList) {
+            let childHtml = "";
+            if (!childrenList.length) {
+              return "";
+            } else {
+              for (let i in childrenList) {
+                childHtml += `
                     <li>
-                     <a class="J_menuItem" href="${childrenList[i].url}" data-index="${childrenList[i].id}">${childrenList[i].name}</a>
+                     <a class="J_menuItem" href="${
+                       urlConfig[childrenList[i].url_id]
+                     }" data-index="${childrenList[i].url_id}">${
+                  childrenList[i].name
+                }</a>
                     </li>
                     `;
+              }
             }
+            return childHtml;
           }
-          return childHtml;
-        }
-        menuHtml += `
+          menuHtml += `
                 <li>
                     <a class="${
                       menuAdmin[i].children.length > 0 ? "" : "J_menuItem"
@@ -374,7 +307,7 @@
                       href="${
                         menuAdmin[i].children.length > 0
                           ? "#"
-                          : menuAdmin[i].url
+                          : urlConfig[menuAdmin[i].url_id]
                       }" data-index="${menuAdmin[i].id}">
                         <i class="fa fa fa-bar-chart-o"></i>
                         <span class="nav-label">${menuAdmin[i].name}</span>
@@ -389,9 +322,8 @@
                     }
                 </li>
                 `;
-      }
-      $("#side-menu").append(menuHtml);
-
+        }
+        $("#side-menu").append(menuHtml);
       function logout() {
         ajax_data(
           "/common/logout",

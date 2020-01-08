@@ -2,7 +2,7 @@
   "use strict";
   function initFn() {
     $("#importInventory").bootstrapTable({
-      method: "get",
+      method: "post",
       url: baseUrl + "/configuration/queryAchieve", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
@@ -88,32 +88,24 @@
   });
 
   $("#uploadFile").change(function() {
-    var url = "/configuration/achieveImportFiles";
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
-    file_upload("/configuration/achieveImportFiles", fromdata, function(res) {
+    file_upload("/common/importAchievement", fromdata, function(res) {
       console.log(res);
+      $("#uploadFile").val("");
+      $("#importInventory").bootstrapTable("refresh");
     });
   });
-  // 触发导出事件
-  //   $(".exportBtn").click(function() {
-  //     $(".export.btn-group").click();
-  //   });
+
   // 导出
   $(".exportBtn").click(function() {
-    let jsonStr = "hello word";
-    let exportType = "";
     let form = $('<form id="to_export" style="display:none"></form>').attr({
-      action: baseUrl + "",
+      action: baseUrl + "/common/exportArchievementTemplate",
       method: "post"
     });
     $("<input>")
-      .attr("name", "jsonStr")
-      .val(jsonStr)
-      .appendTo(form);
-    $("<input>")
-      .attr("name", "exportType")
-      .val(exportType)
+      .attr("name", "batchno")
+      .val("")
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

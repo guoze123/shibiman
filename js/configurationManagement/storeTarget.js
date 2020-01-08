@@ -124,15 +124,14 @@
 
   // 导出
   $(".exportBtn").click(function() {
-    let jsonStr = "hello word";
-    let exportType = "";
+
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: baseUrl + "/common/exportStoreTargetTemplate",
       method: "post"
     });
     $("<input>")
       .attr("name", "batchno")
-      .val("2020-01")
+      .val("")
       .appendTo(form);
     $("body").append(form);
     $("#to_export")
@@ -146,7 +145,8 @@
     fromdata.append("files", $(this)[0].files[0]);
     file_upload("/common/importStoreTargetFiles", fromdata, function(res) {
       console.log(res);
-      $("#uploadFile").val("")
+      $("#uploadFile").val("");
+      $("#storeTarget").bootstrapTable("refresh");
     });
   });
 })(document, window, jQuery);
