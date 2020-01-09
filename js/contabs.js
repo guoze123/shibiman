@@ -215,7 +215,7 @@ $(function() {
         '<iframe class="J_iframe" name="iframe' +
         dataIndex +
         '" width="100%" height="100%" src="' +
-        dataUrl +"?"+new Date().getTime() +
+        dataUrl +
         '" frameborder="0" data-id="' +
         dataUrl +
         '" seamless></iframe>';

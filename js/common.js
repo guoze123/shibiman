@@ -1,5 +1,5 @@
-var baseUrl = "http://192.168.0.102:8080/sipimo";
-baseUrl="";
+var base = "http://192.168.0.102:8080/sipimo";
+base = "";
 var ajaxLoding = 0;
 // if (!(window.location.href.indexOf("register") > -1 || window.location.href.indexOf("login") > -1)) {
 //   if (
@@ -55,12 +55,12 @@ function delCookie(e) {
 
 function ajax_data(url, opt, basefunc) {
   $.ajax({
-    url: baseUrl + url,
+    url: base + url,
     data: opt.params,
     type: opt.type || "post",
     cache: false,
     dataType: "json",
-    async: typeof opt.async == "boolean"  ? opt.async : true,
+    async: typeof opt.async == "boolean" ? opt.async : true,
     contentType: opt.contentType || "application/json;charset=utf-8",
     timeout: 1000 * 60 * 2,
     beforeSend: function(XMLHttpRequest) {
@@ -96,7 +96,7 @@ function ajax_data(url, opt, basefunc) {
 function file_upload(url, formData, fn) {
   show_loading();
   $.ajax({
-    url: baseUrl + url,
+    url: base + url,
     dataType: "json",
     type: "POST",
     async: false,
@@ -456,3 +456,28 @@ function debounce(method, delay) {
     }, delay);
   };
 }
+// 控制页面的按钮
+window.onload = function() {
+  let purviewList = getQueryString("purview").split(",");
+  if (!purviewList.includes("1")) {
+    $(".addBtn").remove();
+  }
+  if (!purviewList.includes("2")) {
+    $(".deleteBtn").remove();
+  }
+  if (!purviewList.includes("3")) {
+    $(".editBtn").remove();
+    $(".submitBtn").remove();
+  }
+  if (!purviewList.includes("4")) {
+    $(".queryBtn").remove();
+    $(".detailBnt").remove();
+    $(".searchList").remove();
+  }
+  if(!purviewList.includes("5")){
+    $(".importBtn").remove()
+  }
+  if(!purviewList.includes("6")){
+    $(".deleteBtn").remove()
+  }
+};

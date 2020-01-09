@@ -4,7 +4,7 @@
   function initFn() {
     $("#waresDiscount").bootstrapTable({
       method: "post",
-      url: baseUrl + "/configuration/queryDiscountInit", //请求路径
+      url: base + "/configuration/queryDiscountInit", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页

@@ -6,7 +6,7 @@ var allwares = ""; //所有商品
     queryWaresInfo();
     $("#importInventory").bootstrapTable({
       method: "post",
-      url: baseUrl + "/inventory/queryEntryStock", //请求路径
+      url: base + "/inventory/queryEntryStock", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -71,10 +71,14 @@ var allwares = ""; //所有商品
   }
 
   function operation(vlaue, row) {
-    var html = `
-      <button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>
-      <button type="button" id="detail" class="btn btn-primary btn-sm editBtn">详情</button>
-      `;
+    let purviewList = getQueryString("purview").split(",");
+    let html = "";
+    if (purviewList.includes("3")) {
+      html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+    }
+    if (purviewList.includes("4")) {
+      html += `<button type="button" id="detail" class="btn btn-primary btn-sm detailBtn">详情</button>`;
+    }
     return html;
   }
   var operateEvents = {
@@ -116,8 +120,41 @@ var allwares = ""; //所有商品
     "click #detail": function(e, v, row) {
       ajax_data(
         "",
-        { params: JSON.stringify({ stockId: row.stockId }) },
+        {
+          params: {
+            jsonStr: JSON.stringify({
+              stockId: row.stockId,
+              startTime: $(".areaSearch .startTime").val(),
+              endTime: $(".areaSearch .endTime").val()
+            })
+          },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
         function(res) {
+          $("#detailTable").bootstrapTable({
+            striped: true, //是否显示行间隔色
+            pagination: false, //是否分页,
+            data: res,
+            height: $("body").height() < 500 ? $("body").height() - 120 : 330,
+            columns: [
+              {
+                title: "开支时间",
+                field: "batchno"
+              },
+              {
+                title: "开支的店铺",
+                field: "ownerName"
+              },
+              {
+                title: "开支名称",
+                field: "categoryName"
+              },
+              {
+                title: "开支金额",
+                field: "amount"
+              }
+            ]
+          });
           open_html("详情信息", "#detail", function() {});
         }
       );
@@ -213,16 +250,16 @@ var allwares = ""; //所有商品
       }
     });
   });
-// bootstrap 的导出功能
-//   $(".exportBtn").click(function() {
-//     $(".export.btn-group").click();
-//   });
+  // bootstrap 的导出功能
+  //   $(".exportBtn").click(function() {
+  //     $(".export.btn-group").click();
+  //   });
 
   $(".exportBtn").click(function() {
-      let jsonStr="hello word";
-      let exportType="";
+    let jsonStr = "hello word";
+    let exportType = "";
     let form = $('<form id="to_export" style="display:none"></form>').attr({
-      action: baseUrl + "",
+      action: base + "",
       method: "post"
     });
     $("<input>")
@@ -234,7 +271,9 @@ var allwares = ""; //所有商品
       .val(exportType)
       .appendTo(form);
     $("body").append(form);
-    $("#to_export").submit().remove();
+    $("#to_export")
+      .submit()
+      .remove();
   });
 })(document, window, jQuery);
 
@@ -273,8 +312,8 @@ function deleteCommodity(that) {
 }
 
 function queryWaresInfo() {
-    let url="/configuration/queryWaresInfo";
-  ajax_data(url,{}, function(res) {
+  let url = "/configuration/queryWaresInfo";
+  ajax_data(url, {}, function(res) {
     let option = "<option value='' data-id=''>选择商品名称</option>";
     if (res.length) {
       res.forEach(function(item, index) {

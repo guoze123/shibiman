@@ -3,7 +3,7 @@
   function initFn() {
     $("#storeTarget").bootstrapTable({
       method: "post",
-      url: baseUrl + "/configuration/queryTargetInit", //请求路径
+      url: base + "/configuration/queryTargetInit", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -44,9 +44,11 @@
   }
 
   function operation(vlaue, row) {
-    var html = `
-        <button type="button" id="edit" class="btn btn-info btn-sm editBtn" >修改</button>
-        `;
+    let purviewList = getQueryString("purview").split(",");
+    let html = "";
+    if (purviewList.includes("3")) {
+      html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+    }
     return html;
   }
 
@@ -126,7 +128,7 @@
   $(".exportBtn").click(function() {
 
     let form = $('<form id="to_export" style="display:none"></form>').attr({
-      action: baseUrl + "/common/exportStoreTargetTemplate",
+      action: base + "/common/exportStoreTargetTemplate",
       method: "post"
     });
     $("<input>")

@@ -6,7 +6,7 @@
   function initFn() {
     $("#storeGrade").bootstrapTable({
       method: "post",
-      url: baseUrl + "/configuration/queryStoreLevel", //请求路径
+      url: base + "/configuration/queryStoreLevel", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: false, //是否分页

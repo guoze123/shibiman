@@ -46,29 +46,9 @@
     </div>
   </div>
   <!-- 修改/添加模板 -->
-  <div class="return_borrowed" id="editData" style="display: none; margin-bottom: 15px;">
-    <div class="return_top">
-      <div></div>
-      <div class="condition">
-        <button class="btn btn-primary-outline  size-S">查询Search</button>
-        <button class="btn btn-primary-outline  size-S">
-          新借货New Borrow
-        </button>
-      </div>
-    </div>
-  </div>
   <div class="return_borrowed" id="detail" style="display: none; margin-bottom: 15px;">
     <div class="return_top">
-      <div class="textContent">
-        <div class="list_row commodity">
-          <div style="width: 100%;">
-            <span>店铺名称</span>
-            <input type="text" placeholder="店铺名称" class="form-control storeName" />
-            <span style="margin-left: 10px;">销售额</span>
-            <input type="text" placeholder="销售额" class="form-control sales" />
-          </div>
-        </div>
-      </div>
+      <table id="storeDetailTable" data-mobile-responsive="true"></table>
       <div class="condition">
         <!-- <button class="btn btn-primary confirmBtn">确认</button> -->
         <button class="closeBtn btn btn-default">取消</button>

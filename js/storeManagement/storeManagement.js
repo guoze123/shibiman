@@ -12,7 +12,7 @@
         );
         $("#exampleTableFromData").bootstrapTable({
             method: "post",
-            url: baseUrl + "/competence/queryStoreInfo", //请求路径
+            url: base + "/competence/queryStoreInfo", //请求路径
             striped: true, //是否显示行间隔色
             pageNumber: 1, //初始化加载第一页
             pagination: true, //是否分页
@@ -59,12 +59,15 @@
             ]
         });
     }
-
     function operation(vlaue, row) {
-        var html = `
-    <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
-    <button type="button" id="delete" class="btn btn-danger deleteBtn btn-sm">删除</button>
-    `;
+        let purviewList = getQueryString("purview").split(",");
+        let html = "";
+        if (purviewList.includes("2")) {
+          html = +`<button type="button" id="delete" class="btn btn-danger btn-sm deleteBtn">删除</button>`;
+        }
+        if (purviewList.includes("3")) {
+          html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+        }
         return html;
     }
     var operateEvents = {

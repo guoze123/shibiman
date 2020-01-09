@@ -6,7 +6,7 @@
     queryUserRecord();
     $("#storeSalesRecord").bootstrapTable({
       method: "post",
-      url: baseUrl + "/inventory/querySale", //请求路径
+      url: base + "/inventory/querySale", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -55,18 +55,26 @@
   }
 
   function operation(vlaue, row) {
-    var html = `
-      <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
-      <button type="button" id="detail" class="btn  btn-primary btn-sm">详情</button>
-      `;
+    let purviewList = getQueryString("purview").split(",");
+    let html = "";
+    if (purviewList.includes("3")) {
+      html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+    }
+    if (purviewList.includes("4")) {
+      html += `<button type="button" id="detail" class="btn btn-primary btn-sm detailBtn">详情</button>`;
+    }
     return html;
   }
 
   function userOperation(vlaue, row) {
-    var html = `
-      <button type="button" id="userEdit" class="btn btn-info btn-sm">修改</button>
-      <button type="button" id="detail" class="btn  btn-primary btn-sm">详情</button>
-      `;
+    let purviewList = getQueryString("purview").split(",");
+    let html = "";
+    if (purviewList.includes("3")) {
+      html += `<button type="button" id="editUserData" class="btn btn-info btn-sm editBtn">修改</button>`;
+    }
+    if (purviewList.includes("4")) {
+      html += `<button type="button" id="userDetail" class="btn btn-primary btn-sm detailBtn">详情</button>`;
+    }
     return html;
   }
 
@@ -79,8 +87,41 @@
     "click #detail": function(e, v, row) {
       ajax_data(
         "",
-        { params: JSON.stringify({ stockId: row.stockId }) },
+        {
+          params: {
+            jsonStr: JSON.stringify({
+              ownerId: row.stockId,
+              startTime: $(".areaSearch .startTime").val(),
+              endTime: $(".areaSearch .endTime").val()
+            })
+          },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
         function(res) {
+          $("#detailTable").bootstrapTable({
+            striped: true, //是否显示行间隔色
+            pagination: false, //是否分页,
+            data: res,
+            height: $("body").height() < 500 ? $("body").height() - 120 : 330,
+            columns: [
+              {
+                title: "开支时间",
+                field: "batchno"
+              },
+              {
+                title: "开支的店铺",
+                field: "ownerName"
+              },
+              {
+                title: "开支名称",
+                field: "categoryName"
+              },
+              {
+                title: "开支金额",
+                field: "amount"
+              }
+            ]
+          });
           open_html("详情信息", "#detail", function() {});
         }
       );
@@ -96,8 +137,42 @@
     "click #userDetail": function(e, v, row) {
       ajax_data(
         "",
-        { params: JSON.stringify({ stockId: row.stockId }) },
+        {
+          params: {
+            jsonStr: JSON.stringify({
+              ownerId: row.stockId,
+              startTime: $(".areaSearch .startTime").val(),
+              endTime: $(".areaSearch .endTime").val()
+            })
+          },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
         function(res) {
+          $("#userDetailTable").bootstrapTable({
+            striped: true, //是否显示行间隔色
+            pagination: false, //是否分页,
+            data: res,
+            height: $("body").height() < 500 ? $("body").height() - 120 : 330,
+            columns: [
+              {
+                title: "开支时间",
+                field: "batchno"
+              },
+              {
+                title: "开支的店铺",
+                field: "ownerName"
+              },
+              {
+                title: "开支名称",
+                field: "categoryName"
+              },
+              {
+                title: "开支金额",
+                field: "amount"
+              }
+            ]
+          });
+
           open_html("详情信息", "#userDetail", function() {});
         }
       );
@@ -115,7 +190,7 @@
   function queryUserRecord() {
     $("#userSalesRecord").bootstrapTable({
       method: "get",
-      url: baseUrl + "../../testJson/storeManagement.json", //请求路径
+      url: base + "../../testJson/storeManagement.json", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -227,7 +302,7 @@
     let jsonStr = "hello word";
     let exportType = "";
     let form = $('<form id="to_export" style="display:none"></form>').attr({
-      action: baseUrl + "",
+      action: base + "",
       method: "post"
     });
     $("<input>")

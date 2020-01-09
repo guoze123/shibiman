@@ -29,7 +29,7 @@
   function initFn() {
     $("#CompanyPlan").bootstrapTable({
       method: "post",
-      url: baseUrl + "", //请求路径
+      url: base + "", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -47,7 +47,7 @@
 
   function operation(vlaue, row) {
     var html = `
-      <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
+      <button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>
       <button type="button" id="delete" class="btn btn-danger deleteBtn btn-sm">删除</button>
       `;
     return html;
@@ -114,7 +114,7 @@
     $("#CompanyPlan").bootstrapTable("destroy");
     $("#CompanyPlan").bootstrapTable({
       method: "post",
-      url: baseUrl + "", //请求路径
+      url: base + "", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页

@@ -45,7 +45,9 @@
                 <a href="javascript:;">
                   <span class="clear">
                     <span class="block m-t-xs"
-                      ><strong class="font-bold userName">Beaut-zihan</strong></span
+                      ><strong class="font-bold userName"
+                        >Beaut-zihan</strong
+                      ></span
                     >
                     <span class="text-muted text-xs block userJob"
                       >超级管理员<b class="caret"></b
@@ -219,12 +221,15 @@
 
       //  /competence/getCompetence
 
-      if(getCookie("phoneNumber") == "undefined" ||getCookie("phoneNumber") == null){
+      if (
+        getCookie("phoneNumber") == "undefined" ||
+        getCookie("phoneNumber") == null
+      ) {
         $(".userName").html(getCookie("employeeName"));
-        $(".userJob").html(getCookie("job"))
+        $(".userJob").html(getCookie("job"));
       }
 
-      var user ;
+      var user;
       var urlConfig = {
         "1_0": "./component/storeManagement/storeManagement.html", // 店铺管理
         "2_0": "./component/inventoryManagement/importInventory.html", // 入库
@@ -243,63 +248,75 @@
         "7_2": "./component/configurationManagement/storeGrade.html", // 店铺等级
         "7_3": "./component/configurationManagement/waresDiscount.html" // 商品折扣配置
       };
-      ajax_data("./testJson/login.json",{async:false,type:"get"}, function(res) {
-        var submenu = res.subObj;
-        for (let i in submenu) {
-          let arys = submenu[i].obj;
-          let sbuArys = submenu[i].subObj;
-          for (let k in arys) {
-            for (let n in sbuArys[arys[k].id]["obj"]) {
-              sbuArys[arys[k].id]["obj"][n].power =
-                sbuArys[arys[k].id]["subObj"][sbuArys[arys[k].id]["obj"][n].id];
-              sbuArys[arys[k].id]["obj"][n].url_id =
-                arys[k].id + "_" + sbuArys[arys[k].id]["obj"][n]["id"];
+      ajax_data(
+       // "/competence/getCompetence",
+        "./testJson/login.json",
+        {
+          async: false,
+          type: "get",
+          params: { phoneNumber: getCookie("phoneNumber") },
+          contentType: "application/x-www-form-urlencoded"
+        },
+        function(res) {
+          var submenu = res.subObj;
+          for (let i in submenu) {
+            let arys = submenu[i].obj;
+            let sbuArys = submenu[i].subObj;
+            for (let k in arys) {
+              for (let n in sbuArys[arys[k].id]["obj"]) {
+                sbuArys[arys[k].id]["obj"][n].purview =
+                  sbuArys[arys[k].id]["subObj"][
+                    sbuArys[arys[k].id]["obj"][n].id
+                  ];
+                sbuArys[arys[k].id]["obj"][n].url_id =
+                  arys[k].id + "_" + sbuArys[arys[k].id]["obj"][n]["id"];
+              }
+              arys[k].children = sbuArys[arys[k].id]["obj"];
             }
-            arys[k].children = sbuArys[arys[k].id]["obj"];
           }
-        }
-        // console.log(submenu);
-        user = res.obj;
-        for (let n in user) {
-          user[n]["menu"] = submenu[user[n]["id"]]["obj"];
-          for (let j in user[n].menu) {
-            if (user[n].menu[j]["children"].length == 1) {
+          // console.log(submenu);
+          user = res.obj;
+          for (let n in user) {
+            user[n]["menu"] = submenu[user[n]["id"]]["obj"];
+            for (let j in user[n].menu) {
+              if (user[n].menu[j]["children"].length == 1) {
                 user[n].menu[j]["url_id"] =
-                user[n].menu[j]["children"][0]["url_id"];
-                user[n].menu[j]["power"] =
-                user[n].menu[j]["children"][0]["power"];
-                user[n].menu[j]["children"]=[];
-            } else {
-              user[n].menu[j]["url_id"] = "";
+                  user[n].menu[j]["children"][0]["url_id"];
+                user[n].menu[j]["purview"] =
+                  user[n].menu[j]["children"][0]["purview"];
+                user[n].menu[j]["children"] = [];
+              } else {
+                user[n].menu[j]["url_id"] = "";
+              }
             }
           }
+          //  console.log(user);
         }
-
-        console.log(user);
-      });
-      var menuAdmin=user[0]["menu"];
-        var  menuHtml = ``;
-        for (let i = 0; i < menuAdmin.length; i++) {
-          function buildChildHtml(childrenList) {
-            let childHtml = "";
-            if (!childrenList.length) {
-              return "";
-            } else {
-              for (let i in childrenList) {
-                childHtml += `
+      );
+      var menuAdmin = user[0]["menu"];
+      console.log(menuAdmin);
+      var menuHtml = ``;
+      for (let i = 0; i < menuAdmin.length; i++) {
+        function buildChildHtml(childrenList) {
+          let childHtml = "";
+          if (!childrenList.length) {
+            return "";
+          } else {
+            for (let i in childrenList) {
+              childHtml += `
                     <li>
                      <a class="J_menuItem" href="${
                        urlConfig[childrenList[i].url_id]
-                     }" data-index="${childrenList[i].url_id}">${
-                  childrenList[i].name
-                }</a>
+                     }?purview=${childrenList[i].purview}" data-index="${
+                childrenList[i].url_id
+              }">${childrenList[i].name}</a>
                     </li>
                     `;
-              }
             }
-            return childHtml;
           }
-          menuHtml += `
+          return childHtml;
+        }
+        menuHtml += `
                 <li>
                     <a class="${
                       menuAdmin[i].children.length > 0 ? "" : "J_menuItem"
@@ -307,7 +324,9 @@
                       href="${
                         menuAdmin[i].children.length > 0
                           ? "#"
-                          : urlConfig[menuAdmin[i].url_id]
+                          : `${urlConfig[menuAdmin[i].url_id]}?purview=${
+                              menuAdmin[i].purview
+                            }`
                       }" data-index="${menuAdmin[i].id}">
                         <i class="fa fa fa-bar-chart-o"></i>
                         <span class="nav-label">${menuAdmin[i].name}</span>
@@ -322,8 +341,8 @@
                     }
                 </li>
                 `;
-        }
-        $("#side-menu").append(menuHtml);
+      }
+      $("#side-menu").append(menuHtml);
       function logout() {
         ajax_data(
           "/common/logout",

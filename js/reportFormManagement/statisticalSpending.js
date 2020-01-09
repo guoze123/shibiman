@@ -14,7 +14,7 @@
   function initFn() {
     $("#statisticalSpending").bootstrapTable({
       method: "post",
-      url: baseUrl + "/cost/queryCostAnalysis", //请求路径
+      url: base + "/cost/queryCostAnalysis", //请求路径
       //url: "../../testJson/storeManagement.json", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
@@ -55,10 +55,13 @@
   }
 
   function operation(vlaue, row) {
-    var html = `
-        <button type="button" id="detail" class="btn  btn-primary btn-sm">详情</button>
-        `;
+    let purviewList = getQueryString("purview").split(",");
+    let html = "";
+    if (purviewList.includes("4")) {
+      html += `<button type="button" id="detail" class="btn  btn-primary detailBtn btn-sm">详情</button>`;
+    }
     return html;
+    
   }
   var operateEvents = {
     "click #detail": function(e, v, row) {
@@ -75,43 +78,6 @@
           contentType: "application/x-www-form-urlencoded;charset=utf-8"
         },
         function(res) {
-          var res1 = [
-            {
-              batchno: "2019-12",
-              amount: 1234,
-              ownerName: "总店",
-              ownerId: "10001",
-              categoryName: "分类1"
-            },
-            {
-              batchno: "2019-12",
-              amount: 23451234,
-              ownerName: "总店",
-              ownerId: "10001",
-              categoryName: "分类21"
-            },
-            {
-              batchno: "2019-12",
-              amount: 23451234,
-              ownerName: "总店",
-              ownerId: "10001",
-              categoryName: "分类21"
-            },
-            {
-              batchno: "2019-12",
-              amount: 23451234,
-              ownerName: "总店",
-              ownerId: "10001",
-              categoryName: "分类21"
-            },
-            {
-              batchno: "2019-12",
-              amount: 23451234,
-              ownerName: "总店",
-              ownerId: "10001",
-              categoryName: "分类21"
-            }
-          ];
           $("#costDetailTable").bootstrapTable({
             striped: true, //是否显示行间隔色
             pagination: false, //是否分页,

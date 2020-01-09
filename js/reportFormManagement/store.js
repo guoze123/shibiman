@@ -13,7 +13,7 @@
   function initFn() {
     $("#storeSales").bootstrapTable({
       method: "post",
-      url: baseUrl + "/inventory/queryStoreAnalysisTable", //请求路径
+      url: base + "/inventory/queryStoreAnalysisTable", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -27,8 +27,8 @@
       showLoading: true,
       queryParams: queryParams,
       contentType: "application/x-www-form-urlencoded",
-      responseHandler:function (res) {
-        return res.storeData
+      responseHandler: function(res) {
+        return res.storeData;
       },
       columns: [
         {
@@ -67,44 +67,79 @@
           title: "平均等级",
           field: "alesCategery"
         },
-          {
-            title: "操作",
-            field: "publicationTime",
-            events:operateEvents,
-            formatter: operation //对资源进行操作,
-          }
+        {
+          title: "操作",
+          field: "publicationTime",
+          events: operateEvents,
+          formatter: operation //对资源进行操作,
+        }
       ]
     });
   }
- // <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
+  // <button type="button" id="edit" class="btn btn-info btn-sm">修改</button>
   function operation(vlaue, row) {
-    var html = `
-      <button type="button" id="edit" class="btn btn-info btn-sm">详情</button>
-      `;
+    let purviewList = getQueryString("purview").split(",");
+    let html = "";
+    if (purviewList.includes("4")) {
+      html += `<button type="button" id="detail" class="btn  btn-primary detailBtn btn-sm">详情</button>`;
+    }
     return html;
   }
 
   var operateEvents = {
-    "click #edit": function(e, v, row) {
-      open_html("修改信息", "#editData");
-    },
     "click #detail": function(e, v, row) {
       ajax_data(
         "",
-        { params: JSON.stringify({ stockId: row.stockId }) },
+        {
+          params: {
+            jsonStr: JSON.stringify({
+              ownerId: row.stockId,
+              startTime: $(".areaSearch .startTime").val(),
+              endTime: $(".areaSearch .endTime").val()
+            })
+          },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
         function(res) {
-
+          $("#storeDetailTable").bootstrapTable({
+            striped: true, //是否显示行间隔色
+            pagination: false, //是否分页,
+            data: res,
+            height: $("body").height() < 500 ? $("body").height() - 120 : 330,
+            columns: [
+              {
+                title: "开支时间",
+                field: "batchno"
+              },
+              {
+                title: "开支的店铺",
+                field: "ownerName"
+              },
+              {
+                title: "开支名称",
+                field: "categoryName"
+              },
+              {
+                title: "开支金额",
+                field: "amount"
+              }
+            ]
+          });
           open_html("详情信息", "#detail", function() {});
         }
       );
     }
   };
   function queryParams(params) {
-    return {jsonStr:JSON.stringify({
-      startTime: $(".startTime").val()?$(".startTime").val():undefined,
-      endTime: $(".endTime").val()?$(".endTime").val():undefined,
-      address: $(".detailAddress").val()?$(".detailAddress").val():undefined
-    })} ;
+    return {
+      jsonStr: JSON.stringify({
+        startTime: $(".startTime").val() ? $(".startTime").val() : undefined,
+        endTime: $(".endTime").val() ? $(".endTime").val() : undefined,
+        address: $(".detailAddress").val()
+          ? $(".detailAddress").val()
+          : undefined
+      })
+    };
   }
   function queryStoreParams(params) {
     return {

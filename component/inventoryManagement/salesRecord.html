@@ -43,14 +43,7 @@
                                         onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
                                         placeholder="结束时间" />
                                 </div>
-                                <!-- <div>
-                    店铺id
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="店铺id"
-                    />
-                  </div> -->
+
                                 <div>
                                     详细地址
                                     <input class="detailAddress form-control" placeholder="详细地址" />
@@ -136,20 +129,7 @@
     </div>
     <div class="return_borrowed" id="detail" style="display: none; margin-bottom: 15px;">
         <div class="return_top">
-            <div class="textContent">
-
-                <div class="list_row">
-                    <div>
-                        <span>本次应付金额</span>
-                        <input type="text" class="form-control" placeholder="本次应付金额" />
-                    </div>
-                    <div>
-                        <span>本次实付金额</span>
-                        <input type="text" class="form-control" placeholder="本次应付金额" />
-                    </div>
-                </div>
-
-            </div>
+            <table id="detailTable" data-mobile-responsive="true"></table>
             <div class="condition">
                 <button class="btn btn-primary confirmBtn">确认</button>
                 <button class="closeBtn btn btn-default">取消</button>
@@ -187,27 +167,14 @@
                 </div>
             </div>
             <div class="condition">
-                <button class="btn btn-primary confirmBtn">确认</button>
+                <!-- <button class="btn btn-primary confirmBtn">确认</button> -->
                 <button class="closeBtn btn btn-default">取消</button>
             </div>
         </div>
     </div>
     <div class="return_borrowed" id="userDetail" style="display: none; margin-bottom: 15px;">
         <div class="return_top">
-            <div class="textContent">
-
-                <div class="list_row">
-                    <div>
-                        <span>本次应付金额</span>
-                        <input type="text" class="form-control" placeholder="本次应付金额" />
-                    </div>
-                    <div>
-                        <span>本次实付金额</span>
-                        <input type="text" class="form-control" placeholder="本次应付金额" />
-                    </div>
-                </div>
-
-            </div>
+            <table id="userDetailTable" data-mobile-responsive="true"></table>
             <div class="condition">
                 <button class="btn btn-primary confirmBtn">确认</button>
                 <button class="closeBtn btn btn-default">取消</button>
