@@ -126,19 +126,7 @@
 
     <div class="return_borrowed" id="detail" style="display: none; margin-bottom: 15px;">
         <div class="return_top">
-            <div class="textContent">
-                <div class="list_row commodity">
-                    <div style="width: 100%;">
-                        <span>商品名称</span>
-                        <input type="text" placeholder="商品名称" class="form-control name" />
-                        <span style="margin-left: 10px;">商品数量</span>
-                        <input type="text" placeholder="商品数量" class="form-control number" />
-                        <button style=" margin-left: 10px;" onclick="addCommodity(this)">
-                            添加商品
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <table id="detailTable" data-mobile-responsive="true"></table>
             <div class="condition">
                 <!-- <button class="btn btn-primary confirmBtn">确认</button> -->
                 <button class="closeBtn btn btn-default">取消</button>

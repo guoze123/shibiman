@@ -84,6 +84,28 @@ var allwares = ""; //所有商品
   var operateEvents = {
     "click #edit": function(e, v, row) {
       isadd = false;
+      let params = {
+        startTime: row.operationDate, // 日期
+        ordernum: row.ordernum, //订单号
+        totalAmount: row.totalAmount, // 应付
+        payedAmount:row.payedAmount, // 实付
+        remark: row.remark, // 备注
+        entryType: 0,
+        stockId: row.stockId,
+        waresList: row.waresList,
+        fromStoreId: -1,
+        toStoreId: 0
+      };
+      ajax_data(
+        "",
+        {
+          params: {
+            jsonStr: JSON.stringify(params)
+          },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
+        function(res) {}
+      );
       $(".startTime").val(row.operationDate); // 日期
       $(".ordernum").val(row.ordernum); //订单号
       $(".handleAmount").val(row.totalAmount); // 应付
@@ -100,8 +122,7 @@ var allwares = ""; //所有商品
       if (row.waresList.lenght > 1) {
         let str = "";
         for (let i = 1; i < row.waresList.lenght; i++) {
-          str += `
-                            <div class="list_row commodity newShop">
+          str += `<div class="list_row commodity newShop">
                     <div style="width: 100%;">
                     <span>商品名称</span>
                     <input type="text" placeholder="商品名称" class="form-control name" vlaue="${row.waresList[i].waresName}">
@@ -224,10 +245,12 @@ var allwares = ""; //所有商品
     };
     let formdata = new FormData();
     formdata.append("jsonStr", JSON.stringify(params));
-    formdata.append(
-      "file",
-      $(".uploadimg")[0].files[0] ? $(".uploadimg")[0].files[0] : undefined
-    );
+    if ($(".uploadimg")[0].files[0]) {
+      formdata.append(
+        "file",
+        $(".uploadimg")[0].files[0] ? $(".uploadimg")[0].files[0] : undefined
+      );
+    }
     let url;
     if (isadd) {
       url = "/inventory/submitEntryStock";

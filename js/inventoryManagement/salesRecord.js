@@ -80,6 +80,26 @@
 
   var operateEvents = {
     "click #edit": function(e, v, row) {
+      let params = {
+        stockId: row.stockId,
+        operationDate: row.operationDate, //录入时间
+        sellers: row.sellers, //销售员
+        storeId: row.storeId, //店铺id
+        totalAmount: row.totalAmount, //本次应付金额
+        payedAmount: row.payedAmount, //本次实付金额
+        custType: row.custType //客户类型
+      };
+      let url = "";
+      url = "/inventory/modifySale";
+      ajax_data(
+        url,
+        {
+          params: { jsonStr: JSON.stringify(params) },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
+        function(res) {}
+      );
+
       open_html("修改信息", "#editData", function() {
         $("input").val();
       });
@@ -130,6 +150,23 @@
 
   var userOperateEvents = {
     "click #userEdit": function(e, v, row) {
+      let params = {
+        stockId: row.stockId,
+        operationDate: row.operationDate, //录入时间
+        sellers: row.sellers, //销售员
+        storeId: row.storeId, //店铺id
+        custType: row.custType //客户类型
+      };
+      let url = "";
+      url = "/inventory/modifySale";
+      ajax_data(
+        url,
+        {
+          params: { jsonStr: JSON.stringify(params) },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
+        function(res) {}
+      );
       open_html("修改信息", "#editUserData", function() {
         $("input").val();
       });
@@ -189,8 +226,8 @@
 
   function queryUserRecord() {
     $("#userSalesRecord").bootstrapTable({
-      method: "get",
-      url: base + "../../testJson/storeManagement.json", //请求路径
+      method: "post",
+      url: base + "", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页

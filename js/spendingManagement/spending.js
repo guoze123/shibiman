@@ -196,4 +196,20 @@
       }
     );
   }
+
+   // 导出
+   $(".exportBtn").click(function() {
+    let form = $('<form id="to_export" style="display:none"></form>').attr({
+      action: base + "/common/exportStoreTargetTemplate",
+      method: "post"
+    });
+    $("<input>")
+      .attr("name", "batchno")
+      .val("")
+      .appendTo(form);
+    $("body").append(form);
+    $("#to_export")
+      .submit()
+      .remove();
+  });
 })(document, window, jQuery);

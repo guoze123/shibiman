@@ -73,6 +73,28 @@
 
   var operateEvents = {
     "click #edit": function(e, v, row) {
+      let params = {
+        startTime: row.operationDate, // 日期
+        ordernum: row.ordernum, //订单
+        totalAmount: row.totalAmount, // 应付
+        payedAmount: row.payedAmount, // 实付
+        fromStoreId: row.fromStoreId, // 发货方
+        toStoreId: row.toStoreId, // 收货放
+        remark: row.remark, // 备注
+        waresList: row.waresList, // 商品
+        entryType: 2,
+        transferType: row.transferType
+      };
+      ajax_data(
+        "",
+        {
+          params: {
+            jsonStr: JSON.stringify(params)
+          },
+          contentType: "application/x-www-form-urlencoded;charset=utf-8"
+        },
+        function(res) {}
+      );
       $(".startTime").val(row.operationDate); // 日期
       $(".handleAmount").val(row.totalAmount); // 应付
       $(".actualAmount").val(row.payedAmount); // 实付
@@ -211,10 +233,12 @@
     };
     let formdata = new FormData();
     formdata.append("jsonStr", JSON.stringify(params));
-    formdata.append(
-      "file",
-      $(".uploadimg")[0].files[0] ? $(".uploadimg")[0].files[0] : undefined
-    );
+    if ($(".uploadimg")[0].files[0]) {
+      formdata.append(
+        "file",
+        $(".uploadimg")[0].files[0] ? $(".uploadimg")[0].files[0] : undefined
+      );
+    }
     let url;
     if (isadd) {
       url = "/inventory/submitEntryStock";

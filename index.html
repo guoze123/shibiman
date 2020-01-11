@@ -13,10 +13,10 @@
       <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
     <link rel="shortcut icon" href="favicon.ico" />
-    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
-    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
-    <link href="css/animate.css" rel="stylesheet" />
-    <link href="css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="./css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="./css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
+    <link href="./css/animate.css" rel="stylesheet" />
+    <link href="./css/style.css?v=4.1.0" rel="stylesheet" />
     <style>
       body {
         min-width: 1000px !important;
@@ -101,7 +101,7 @@
             name="iframe0"
             width="100%"
             height="100%"
-            src="main.html?v=4.0"
+            src=""
             frameborder="0"
             data-id="main.html"
             seamless
@@ -220,7 +220,7 @@
       // }
 
       //  /competence/getCompetence
-
+     
       if (
         getCookie("phoneNumber") == "undefined" ||
         getCookie("phoneNumber") == null
@@ -274,7 +274,6 @@
               arys[k].children = sbuArys[arys[k].id]["obj"];
             }
           }
-          // console.log(submenu);
           user = res.obj;
           for (let n in user) {
             user[n]["menu"] = submenu[user[n]["id"]]["obj"];
@@ -290,9 +289,11 @@
               }
             }
           }
-          //  console.log(user);
+          
         }
       );
+
+      $("#content-main iframe").attr("src","main.html?purview=4");
       var menuAdmin = user[0]["menu"];
       console.log(menuAdmin);
       var menuHtml = ``;

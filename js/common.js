@@ -325,39 +325,44 @@ function uploadFile(that) {
   var allwlmgFileSize = 2100000;
   var file = that[0].files[0];
   var imgUrlBase64;
-  if (file) {
-    imgUrlBase64 = reader.readAsDataURL(file);
-    reader.onload = function(e) {
-      if (allwlmgFileSize != 0 && allwlmgFileSize < reader.result.length) {
-        console.log("图片要小于2M");
-      }
-      var data = e.target.result;
-      //加载图片获取图片真实宽度和高度
-      var image = new Image();
-      image.src = data;
-      image.onload = function() {
-        var width = image.width;
-        var height = image.height;
-
-        if (width > height) {
-          that
-            .parent()
-            .find("img")
-            .attr("width", "100px");
-        } else {
-          that
-            .parent()
-            .find("img")
-            .attr("height", "100px");
+  if(file.type.indexOf("jpg") == -1 || file.type.indexOf("JPG") == -1  ){
+    tips("请上传格式为jpg的图片",5);
+    that.val("");
+  }else{
+    if (file) {
+      imgUrlBase64 = reader.readAsDataURL(file);
+      reader.onload = function(e) {
+        if (allwlmgFileSize != 0 && allwlmgFileSize < reader.result.length) {
+          //console.log("图片要小于2M");
         }
-        that
-          .parent()
-          .find("img")
-          .attr("src", data);
+        var data = e.target.result;
+        //加载图片获取图片真实宽度和高度
+        var image = new Image();
+        image.src = data;
+        image.onload = function() {
+          var width = image.width;
+          var height = image.height;
+          if (width > height) {
+            that
+              .parent()
+              .find("img")
+              .attr("width", "100px");
+          } else {
+            that
+              .parent()
+              .find("img")
+              .attr("height", "100px");
+          }
+          that
+            .parent()
+            .find("img")
+            .attr("src", data);
+        };
       };
-    };
-  } else {
+    } else {
+    }
   }
+ 
 }
 
 // 下拉搜素列表

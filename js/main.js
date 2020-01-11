@@ -1,5 +1,20 @@
 (function(document, window, $) {
   "use strict";
+  $(".startTime").datepicker({
+    startView: 1,
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    autoclose: true,
+    minViewMode: 1,
+    format: "yyyy-mm"
+  });
+  $(".startYear").datepicker({
+    format: 'yyyy',
+    language: "zh-CN",
+    autoclose: true,
+    startView: 2, maxViewMode: 2,minViewMode:2,
+  });
   var columns = [
     {
       title: "计划内容",
@@ -61,6 +76,8 @@
   // 点击查询按钮
   $(".storeType input[type='radio']").change(function() {
     if ($(".storeType input[type='radio']:checked").val() == "1") {
+      $(".startTime").show();
+      $(".startYear").hide();
       columns = [
         {
           title: "计划内容",
@@ -88,6 +105,8 @@
         }
       ];
     } else {
+      $(".startTime").hide();
+      $(".startYear").show();
       columns = [
         {
           title: "计划内容",

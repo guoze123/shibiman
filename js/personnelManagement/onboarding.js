@@ -111,9 +111,9 @@
       $("#editData img").attr("src","");
     });
   });
-
   $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
+   // layer.close();
+    layer.closeAll('page');
   });
   $(".condition .confirmBtn").on("click", function() {
     let params = {
@@ -139,6 +139,7 @@
     } else {
       url = "/personnel/modifyEmployeeInfo";
     }
+   
     file_upload(url, formdata, function(res) {
       console.log(res);
       if(res.resultCode > -1){
