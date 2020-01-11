@@ -50,7 +50,10 @@
         },
         {
           title: "发票截图",
-          field: "receiptPic"
+          field: "receiptPic",
+          formatter:function (vlaue,row) {
+            return ` <img src="" style="width: 50px; height: 50px" data-action="zoom"> `
+          }
         },
         {
           title: "备注信息",

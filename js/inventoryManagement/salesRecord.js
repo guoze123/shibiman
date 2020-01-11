@@ -100,6 +100,8 @@
         function(res) {}
       );
 
+
+
       open_html("修改信息", "#editData", function() {
         $("input").val();
       });
@@ -142,7 +144,9 @@
               }
             ]
           });
-          open_html("详情信息", "#detail", function() {});
+          open_html("详情信息", "#detail", function() {
+            $("input").val("");
+          });
         }
       );
     }
@@ -209,7 +213,6 @@
               }
             ]
           });
-
           open_html("详情信息", "#userDetail", function() {});
         }
       );

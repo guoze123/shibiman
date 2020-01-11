@@ -74,7 +74,7 @@ var allwares = ""; //所有商品
     let purviewList = getQueryString("purview").split(",");
     let html = "";
     if (purviewList.includes("3")) {
-      html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+      html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn" style="margin-right:10px;">修改</button> `;
     }
     if (purviewList.includes("4")) {
       html += `<button type="button" id="detail" class="btn btn-primary btn-sm detailBtn">详情</button>`;
@@ -84,71 +84,93 @@ var allwares = ""; //所有商品
   var operateEvents = {
     "click #edit": function(e, v, row) {
       isadd = false;
-      let params = {
-        startTime: row.operationDate, // 日期
-        ordernum: row.ordernum, //订单号
-        totalAmount: row.totalAmount, // 应付
-        payedAmount:row.payedAmount, // 实付
-        remark: row.remark, // 备注
-        entryType: 0,
-        stockId: row.stockId,
-        waresList: row.waresList,
-        fromStoreId: -1,
-        toStoreId: 0
-      };
       ajax_data(
-        "",
+        "/inventory/queryEntryStockDetail",
         {
-          params: {
-            jsonStr: JSON.stringify(params)
-          },
+          params: {stockId: row.stockId},
           contentType: "application/x-www-form-urlencoded;charset=utf-8"
-        },
-        function(res) {}
-      );
-      $(".startTime").val(row.operationDate); // 日期
-      $(".ordernum").val(row.ordernum); //订单号
-      $(".handleAmount").val(row.totalAmount); // 应付
-      $(".actualAmount").val(row.payedAmount); // 实付
-      $(".remark").val(row.remark); // 备注
-      if (row.waresList.lenght == 1) {
-        $(".firstGroup")
-          .find(".name")
-          .val();
-        $(".firstGroup")
-          .find(".name")
-          .val();
-      }
-      if (row.waresList.lenght > 1) {
-        let str = "";
-        for (let i = 1; i < row.waresList.lenght; i++) {
-          str += `<div class="list_row commodity newShop">
-                    <div style="width: 100%;">
-                    <span>商品名称</span>
-                    <input type="text" placeholder="商品名称" class="form-control name" vlaue="${row.waresList[i].waresName}">
-                    <span style="margin-left: 10px;">商品数量</span>
-                    <input type="text" placeholder="商品数量" class="form-control number"vlaue="${row.waresList[i].waresCount}">
-                    <button style=" margin-left: 10px;" onclick="deleteCommodity(this)">删除商品</button>
-                    </div></div>
-                            `;
-        }
-        $(".firstGroup").after(str);
-      }
-      open_html("修改信息", "#editData", function(params) {
-        $(".newShop").remove();
-      });
+        },function(res) {
+          let params = {
+            startTime: row.operationDate, // 日期
+            ordernum: row.ordernum, //订单号
+            totalAmount: row.amount, // 应付
+            payedAmount:row.payedAmount, // 实付
+            remark: row.remark, // 备注
+            entryType: 0,
+            stockId: row.stockId,
+            waresList: res,
+            fromStoreId: -1,
+            toStoreId: 0
+          };
+          ajax_data(
+            "/inventory/modifyEntryStock",
+            {
+              params: {
+                jsonStr: JSON.stringify(params)
+              },
+              contentType: "application/x-www-form-urlencoded;charset=utf-8"
+            },
+            function(res) {}
+          );
+          $(".startTime").val(row.operationDate); // 日期
+          $(".ordernum").val(row.ordernum); //订单号
+          $(".handleAmount").val(row.totalAmount); // 应付
+          $(".actualAmount").val(row.payedAmount); // 实付
+          $(".remark").val(row.remark); // 备注
+          if (res.length == 1) {
+            $(".firstGroup")
+              .find(".name")
+              .val(res[0].waresId);
+            $(".firstGroup")
+              .find(".number")
+              .val(res[0].waresCount);
+          }
+          if (res.length > 1) {
+            $(".firstGroup")
+              .find(".name")
+              .val(res[0].waresId);
+            $(".firstGroup")
+              .find(".number")
+              .val(res[0].waresCount);
+            function allWares(selectId) {
+              let option="";
+              if (allwares.length) {
+                allwares.forEach(function(item, index) {
+                  option += `<option value="${item.waresName}" data-id="${item.waresId}" ${ item.waresId == selectId ? "selected":""} >${item.waresName}</option>`;
+                });
+              }
+              return option
+            }
+
+            let str = "";
+            for (let i = 1; i < res.length; i++) {
+              str += `<div class="list_row commodity newShop">
+                        <div style="width: 100%;">
+                        <span>商品名称</span>
+                        <select class="form-control name">
+                        ${allWares(res[i].waresId)}
+                        </select>
+                        <span style="margin-left: 10px;">商品数量</span>
+                        <input type="text" placeholder="商品数量" class="form-control number" value="${res[i].waresCount}">
+                        <button style=" margin-left: 10px;" onclick="deleteCommodity(this)">删除商品</button>
+                        </div></div>
+                                `;
+            }
+            $(".firstGroup").after(str);
+          }
+          open_html("修改信息", "#editData", function(params) {
+            $("#editData input").val("");
+            $("#editData select").val("");
+            $("#editData .newShop").remove();
+            $("#editData img").attr("src", "");
+          });
+        })
     },
     "click #detail": function(e, v, row) {
       ajax_data(
-        "",
+        "/inventory/queryEntryStockDetail",
         {
-          params: {
-            jsonStr: JSON.stringify({
-              stockId: row.stockId,
-              startTime: $(".areaSearch .startTime").val(),
-              endTime: $(".areaSearch .endTime").val()
-            })
-          },
+          params: {stockId: row.stockId},
           contentType: "application/x-www-form-urlencoded;charset=utf-8"
         },
         function(res) {
@@ -156,36 +178,34 @@ var allwares = ""; //所有商品
             striped: true, //是否显示行间隔色
             pagination: false, //是否分页,
             data: res,
-            height: $("body").height() < 500 ? $("body").height() - 120 : 330,
+            height: $("body").height() < 500 ? $("body").height() - 120 : 300,
             columns: [
               {
-                title: "开支时间",
-                field: "batchno"
+                title: "商品名称",
+                field: "waresName"
               },
               {
-                title: "开支的店铺",
-                field: "ownerName"
+                title: "商品数量",
+                field: "waresCount"
               },
               {
-                title: "开支名称",
-                field: "categoryName"
-              },
-              {
-                title: "开支金额",
-                field: "amount"
+                title: "是否属于赠品",
+                field: "showName",
               }
             ]
           });
-          open_html("详情信息", "#detail", function() {});
+          open_html("详情信息", "#entryDetail", function() {
+
+          });
         }
       );
     }
   };
 
-  function queryParams(params) {
+  function queryParams() {
     return {
-      startTime: $("query_startTime").val()
-        ? $("query_startTime").val()
+      startTime: $(".query_startTime").val()
+        ? $(".query_startTime").val()
         : undefined,
       ordernum: $(".query_ordernum").val()
         ? $(".query_ordernum").val()
@@ -196,10 +216,10 @@ var allwares = ""; //所有商品
   $(".addBtn").click(function() {
     isadd = true;
     open_html("添加", "#editData", function(params) {
-      $("input").val("");
-      $("select").val("");
-      $(".newShop").remove();
-      $("img").attr("src", "");
+      $("#editData input").val("");
+      $("#editData select").val("");
+      $("#editData .newShop").remove();
+      $("#editData img").attr("src", "");
     });
   });
   initFn();
@@ -240,8 +260,8 @@ var allwares = ""; //所有商品
       remark: $(".remark").val(), // 备注
       entryType: 0,
       waresList: waresList,
-      fromStoreId: -1,
-      toStoreId: 0
+      fromStoreId: -1, // 总公司
+      toStoreId: 0  // 公司
     };
     let formdata = new FormData();
     formdata.append("jsonStr", JSON.stringify(params));
@@ -252,11 +272,9 @@ var allwares = ""; //所有商品
       );
     }
     let url;
-    if (isadd) {
-      url = "/inventory/submitEntryStock";
-    } else {
-      url = "/inventory/modifyEntryStock";
-    }
+    
+    url = "/inventory/submitEntryStock";
+    
     file_upload(url, formdata, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
@@ -279,7 +297,6 @@ var allwares = ""; //所有商品
   //   });
 
   $(".exportBtn").click(function() {
-    let jsonStr = "hello word";
     let exportType = "";
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: base + "",
@@ -287,11 +304,7 @@ var allwares = ""; //所有商品
     });
     $("<input>")
       .attr("name", "jsonStr")
-      .val(jsonStr)
-      .appendTo(form);
-    $("<input>")
-      .attr("name", "exportType")
-      .val(exportType)
+      .val($(".query_startTime").val())
       .appendTo(form);
     $("body").append(form);
     $("#to_export")
@@ -304,7 +317,7 @@ function addCommodity(that) {
   // <input type="text" placeholder="商品名称" class="form-control name">
   // <select class="form-control name"></select>
   let option = "<option value=''>选择商品名称</option>";
-  if (allwares.lenght) {
+  if (allwares.length) {
     allwares.forEach(function(item, index) {
       option += `<option value="${item.waresName}" data-id="${item.waresId}">${item.waresName}</option>`;
     });
@@ -325,6 +338,7 @@ function addCommodity(that) {
     .parent()
     .parent()
     .after(strHtml);
+    //queryWaresInfo()
 }
 
 function deleteCommodity(that) {
@@ -336,14 +350,15 @@ function deleteCommodity(that) {
 
 function queryWaresInfo() {
   let url = "/configuration/queryWaresInfo";
-  ajax_data(url, {}, function(res) {
+  ajax_data(url, {params:JSON.stringify({})}, function(res) {
     let option = "<option value='' data-id=''>选择商品名称</option>";
     if (res.length) {
       res.forEach(function(item, index) {
         option += `<option value="${item.waresName}" data-id="${item.waresId}">${item.waresName}</option>`;
       });
     }
-    $(".commodity select").html(option);
     allwares = res;
+    $(".commodity select").html(option);
+   
   });
 }

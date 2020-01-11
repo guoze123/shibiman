@@ -218,9 +218,6 @@
       // ) {
       //   location.href = "login.html";
       // }
-
-      //  /competence/getCompetence
-     
       if (
         getCookie("phoneNumber") == "undefined" ||
         getCookie("phoneNumber") == null
@@ -228,7 +225,6 @@
         $(".userName").html(getCookie("employeeName"));
         $(".userJob").html(getCookie("job"));
       }
-
       var user;
       var urlConfig = {
         "1_0": "./component/storeManagement/storeManagement.html", // 店铺管理
@@ -249,11 +245,11 @@
         "7_3": "./component/configurationManagement/waresDiscount.html" // 商品折扣配置
       };
       ajax_data(
-       // "/competence/getCompetence",
-        "./testJson/login.json",
+        "/competence/getCompetence",
+        //"./testJson/login.json",
         {
           async: false,
-          type: "get",
+          type: "post",
           params: { phoneNumber: getCookie("phoneNumber") },
           contentType: "application/x-www-form-urlencoded"
         },
@@ -289,13 +285,11 @@
               }
             }
           }
-          
         }
       );
 
-      $("#content-main iframe").attr("src","main.html?purview=4");
-      var menuAdmin = user[0]["menu"];
-      console.log(menuAdmin);
+      $("#content-main iframe").attr("src","main.html?purview=4,5,6");
+      var menuAdmin = user.length>0 ? user[0]["menu"] :[];
       var menuHtml = ``;
       for (let i = 0; i < menuAdmin.length; i++) {
         function buildChildHtml(childrenList) {

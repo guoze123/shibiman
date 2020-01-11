@@ -1,5 +1,6 @@
 (function(document, window, $) {
   "use strict";
+  var url = "/configuration/queryPlan";
   $(".startTime").datepicker({
     startView: 1,
     todayBtn: "linked",
@@ -10,142 +11,217 @@
     format: "yyyy-mm"
   });
   $(".startYear").datepicker({
-    format: 'yyyy',
+    format: "yyyy",
     language: "zh-CN",
     autoclose: true,
-    startView: 2, maxViewMode: 2,minViewMode:2,
+    startView: 2,
+    maxViewMode: 2,
+    minViewMode: 2
   });
-  var columns = [
-    {
-      title: "计划内容",
-      field: "storeName"
-    },
-    {
-      title: "计划时间",
-      field: "openTime"
-    },
-    {
-      title: "责任人",
-      field: "storeType"
-    },
-    {
-      title: "部门",
-      field: "store_manager"
-    },
-    {
-      title: "进度",
-      field: "openStatus"
-    },
-    {
-      title: "描述",
-      field: "openStatus"
-    }
-  ];
+
   function initFn() {
-    $("#CompanyPlan").bootstrapTable({
-      method: "post",
-      url: base + "", //请求路径
-      striped: true, //是否显示行间隔色
-      pageNumber: 1, //初始化加载第一页
-      pagination: true, //是否分页
-      sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 10, //单页记录数
-      height:$(window).height() -150,
-      pageList: [10, 20, 30], //可选择单页记录数
-      showRefresh: false, //刷新按钮
-      cache: true, // 禁止数据缓存
-      search: false, // 是否展示搜索，
-      queryParams: queryParams,
-      columns: columns
-    });
+    ajax_data(
+      url,
+      {
+        params: {
+          jsonStr: JSON.stringify({})
+        },
+        contentType: "application/x-www-form-urlencoded"
+      },
+      function(res) {
+        $("#companyYearPlan").bootstrapTable({
+          data: res.year,
+          striped: true, //是否显示行间隔色
+          pageNumber: 1, //初始化加载第一页
+          cache: true, // 禁止数据缓存
+          search: false, // 是否展示搜索，
+          pagination: false, //是否分页
+          columns: [
+            {
+              title: "计划时间",
+              field: "planPeriod"
+            },
+            {
+              title: "计划内容",
+              field: "content"
+            },
+            {
+              title: "部门",
+              field: "department"
+            },
+            {
+              title: "进度",
+              field: "progress"
+            },
+            {
+              title: "描述",
+              field: "planDesc"
+            }
+          ]
+        });
+        $("#companyMonthPlan").bootstrapTable({
+          data: res.month,
+          striped: true, //是否显示行间隔色
+          cache: true, // 禁止数据缓存
+          search: false, // 是否展示搜索，
+          pagination: false, //是否分页
+          columns: [
+            {
+              title: "计划时间",
+              field: "planPeriod"
+            },
+            {
+              title: "计划内容",
+              field: "content"
+            },
+            {
+              title: "责任人",
+              field: "responsible"
+            },
+            {
+              title: "部门",
+              field: "department"
+            },
+            {
+              title: "进度",
+              field: "progress"
+            },
+            {
+              title: "描述",
+              field: "planDesc"
+            }
+          ]
+        });
+      }
+    );
   }
 
-  function operation(vlaue, row) {
-    var html = `
-      <button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>
-      <button type="button" id="delete" class="btn btn-danger deleteBtn btn-sm">删除</button>
-      `;
-    return html;
-  }
-  function queryParams(params) {
-    return {
-      type: $(".storeType input[type='radio']:checked").val()
-    };
-  }
   initFn();
   // 点击查询按钮
-  $(".storeType input[type='radio']").change(function() {
-    if ($(".storeType input[type='radio']:checked").val() == "1") {
-      $(".startTime").show();
-      $(".startYear").hide();
-      columns = [
-        {
-          title: "计划内容",
-          field: "storeName"
+  // 年度查询
+  $("#queryYearBtn").click(function() {
+    ajax_data(
+      url,
+      {
+        params: {
+          jsonStr: JSON.stringify({
+            planType: 0,
+            batchno: $(".startYear").val()
+          })
         },
-        {
-          title: "计划时间",
-          field: "openTime"
+        contentType: "application/x-www-form-urlencoded"
+      },
+      function(res) {
+        $("#companyYearPlan").bootstrapTable("destroy");
+        $("#companyYearPlan").bootstrapTable({
+          data: res.year,
+          striped: true, //是否显示行间隔色
+          cache: true, // 禁止数据缓存
+          search: false, // 是否展示搜索，
+          pagination: false, //是否分页
+          columns: [
+            {
+              title: "计划时间",
+              field: "planPeriod"
+            },
+            {
+              title: "计划内容",
+              field: "content"
+            },
+
+            {
+              title: "部门",
+              field: "department"
+            },
+            {
+              title: "进度",
+              field: "progress"
+            },
+            {
+              title: "描述",
+              field: "planDesc"
+            }
+          ]
+        });
+      }
+    );
+  });
+
+  $("#queryMonthBtn").click(function() {
+    ajax_data(
+      url,
+      {
+        params: {
+          jsonStr: JSON.stringify({
+            planType: 1,
+            batchno: $(".startTime").val()
+          })
         },
-        {
-          title: "责任人",
-          field: "storeType"
-        },
-        {
-          title: "部门",
-          field: "store_manager"
-        },
-        {
-          title: "进度",
-          field: "openStatus"
-        },
-        {
-          title: "描述",
-          field: "openStatus"
-        }
-      ];
-    } else {
-      $(".startTime").hide();
-      $(".startYear").show();
-      columns = [
-        {
-          title: "计划内容",
-          field: "storeName"
-        },
-        {
-          title: "计划时间",
-          field: "openTime"
-        },
-        {
-          title: "部门",
-          field: "store_manager"
-        },
-        {
-          title: "进度",
-          field: "openStatus"
-        },
-        {
-          title: "描述",
-          field: "openStatus"
-        }
-      ];
-    }
-    $("#CompanyPlan").bootstrapTable("destroy");
-    $("#CompanyPlan").bootstrapTable({
-      method: "post",
-      url: base + "", //请求路径
-      striped: true, //是否显示行间隔色
-      pageNumber: 1, //初始化加载第一页
-      pagination: true, //是否分页
-      sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 10, //单页记录数
-      height:$(window).height() -150,
-      pageList: [10, 20, 30], //可选择单页记录数
-      showRefresh: false, //刷新按钮
-      cache: true, // 禁止数据缓存
-      search: false, // 是否展示搜索
-      queryParams: queryParams,
-      columns: columns
+        contentType: "application/x-www-form-urlencoded"
+      },
+      function(res) {
+        $("#companyMonthPlan").bootstrapTable("destroy");
+        $("#companyMonthPlan").bootstrapTable({
+          data: res.month,
+          striped: true, //是否显示行间隔色
+          cache: true, // 禁止数据缓存
+          search: false, // 是否展示搜索，
+          pagination: false, //是否分页
+          columns: [
+            {
+              title: "计划时间",
+              field: "planPeriod"
+            },
+            {
+              title: "计划内容",
+              field: "content"
+            },
+            {
+              title: "责任人",
+              field: "responsible"
+            },
+            {
+              title: "部门",
+              field: "department"
+            },
+            {
+              title: "进度",
+              field: "progress"
+            },
+            {
+              title: "描述",
+              field: "planDesc"
+            }
+          ]
+        });
+      }
+    );
+  });
+
+  // 导出
+  $(".exportBtn").click(function() {
+    let form = $('<form id="to_export" style="display:none"></form>').attr({
+      action: base + "/common/exportPlanTemplate",
+      method: "post"
+    });
+    $("<input>")
+      .attr("name", "jsonStr")
+      .val(
+        JSON.stringify({})
+      )
+      .appendTo(form);
+    $("body").append(form);
+    $("#to_export")
+      .submit()
+      .remove();
+  });
+  // 导入
+  $("#uploadFile").change(function() {
+    var fromdata = new FormData();
+    fromdata.append("files", $(this)[0].files[0]);
+    file_upload("/common/importPlanFile", fromdata, function(res) {
+      $("#uploadFile").val("");
+      initFn();
     });
   });
 })(document, window, jQuery);

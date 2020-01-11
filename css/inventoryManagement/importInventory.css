@@ -28,7 +28,7 @@
 }
 
 #editData .return_top .condition,
-#detail .return_top .condition {
+#detail .return_top .condition, #entryDetail .return_top .condition {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -44,7 +44,7 @@
 }
 
 #editData .return_top .condition button,
-#detail .return_top .condition button {
+#detail .return_top .condition button, #entryDetail .return_top .condition button {
   margin-right: 10px;
 }
 

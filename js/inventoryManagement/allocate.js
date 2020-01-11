@@ -255,19 +255,14 @@
   });
   // 导出
   $(".exportBtn").click(function() {
-    let jsonStr = "hello word";
-    let exportType = "";
+  
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: base + "",
       method: "post"
     });
     $("<input>")
       .attr("name", "jsonStr")
-      .val(jsonStr)
-      .appendTo(form);
-    $("<input>")
-      .attr("name", "exportType")
-      .val(exportType)
+      .val($(".query_startTime").val())
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

@@ -1,0 +1,37 @@
+{
+    "startTime": "2020-01-11 00:00:00",
+    "ordernum": "DH-0-20191226-374722",
+    "totalAmount": 10180,
+    "payedAmount": 40,
+    "remark": "7j",
+    "entryType": 0,
+    "stockId": "04c37c61ff5f47a89d17df61f5916571",
+    "waresList": [
+        {
+            "waresId": 1,
+            "amount": 5850,
+            "showName": "商品",
+            "waresCount": 50,
+            "isGift": 0,
+            "waresName": "二代精华液"
+        },
+        {
+            "waresId": 2,
+            "amount": 2250,
+            "showName": "商品",
+            "waresCount": 50,
+            "isGift": 0,
+            "waresName": "一代精华液"
+        },
+        {
+            "waresId": 3,
+            "amount": 2080,
+            "showName": "商品",
+            "waresCount": 50,
+            "isGift": 0,
+            "waresName": "养发精华液"
+        }
+    ],
+    "fromStoreId": -1,
+    "toStoreId": 0
+}

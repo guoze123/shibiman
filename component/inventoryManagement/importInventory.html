@@ -77,13 +77,17 @@
                     </div>
                 </div>
                 <div class="list_row">
-                    <div>
+                    <div style="display: none;">
                         <span>应付金额</span>
                         <input type="text" class="form-control handleAmount" placeholder="应付金额" />
                     </div>
                     <div>
                         <span>实付金额</span>
                         <input type="text" class="form-control actualAmount" placeholder="实付金额" />
+                    </div>
+                    <div >
+                        <span>备注</span>
+                        <input type="text" class="form-control remark" placeholder="备注" />
                     </div>
                 </div>
                 <div class="list_row commodity firstGroup">
@@ -99,10 +103,7 @@
                     </div>
                 </div>
                 <div class="list_row">
-                    <div style="width: 100%;">
-                        <span>备注</span>
-                        <input type="text" class="form-control remark" placeholder="备注" />
-                    </div>
+                   
                 </div>
                 <div class="list_row">
                     <div style="width: 100%;">
@@ -124,7 +125,7 @@
             </div>
         </div>
     </div>
-    <div class="return_borrowed" id="detail" style="display: none; margin-bottom: 15px;">
+    <div class="return_borrowed" id="entryDetail" style="display: none; margin-bottom: 15px;">
         <div class="return_top">
             <table id="detailTable" data-mobile-responsive="true"></table>
             <div class="condition">

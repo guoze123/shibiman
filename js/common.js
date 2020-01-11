@@ -1,5 +1,5 @@
-var base = "http://192.168.0.102:8080/sipimo";
-base = "";
+var base = "http://192.168.0.103:8080/sipimo";
+//base = "";
 var ajaxLoding = 0;
 // if (!(window.location.href.indexOf("register") > -1 || window.location.href.indexOf("login") > -1)) {
 //   if (
@@ -170,7 +170,7 @@ function open_html(title, ht_id, fn, win_width) {
 function tips(text, icon) {
   layer.msg(text, {
     icon: icon, // 6 笑表情 5 哭表情
-    time: 3000 //2秒关闭（如果不配置，默认是3秒）
+    time: 4000 //2秒关闭（如果不配置，默认是3秒）
   });
 }
 
@@ -188,6 +188,19 @@ $(function() {
     //  alert(error);
     hide_loading();
   });
+  $.ajaxSetup({
+    complete: function(XMLHttpRequest, textStatus) {
+    },
+    statusCode: {
+        401: function() {
+            alert('登录失效，请重新登录');
+        },
+        504: function() {
+        },
+        500: function() {
+        }
+    }
+});
 });
 
 function get_local_time() {
@@ -325,7 +338,7 @@ function uploadFile(that) {
   var allwlmgFileSize = 2100000;
   var file = that[0].files[0];
   var imgUrlBase64;
-  if(file.type.indexOf("jpg") == -1 || file.type.indexOf("JPG") == -1  ){
+  if(!(file.type.indexOf("jp") > -1 || file.type.indexOf("JP") > -1 ) ){
     tips("请上传格式为jpg的图片",5);
     that.val("");
   }else{
