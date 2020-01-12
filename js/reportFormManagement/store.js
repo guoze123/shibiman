@@ -28,9 +28,9 @@
             showLoading: true,
             queryParams: queryParams,
             contentType: "application/x-www-form-urlencoded",
-            responseHandler: function(res) {
-                return res.storeData;
-            },
+            // responseHandler: function(res) {
+            //     return res.storeAvgData;
+            // },
             columns: [{
                     title: "时间",
                     field: "bathno"
@@ -89,12 +89,10 @@
     var operateEvents = {
         "click #detail": function(e, v, row) {
             ajax_data(
-                "", {
+                "/inventory/queryStoreAnalysisDetail", {
                     params: {
                         jsonStr: JSON.stringify({
-                            ownerId: row.stockId,
-                            startTime: $(".areaSearch .startTime").val(),
-                            endTime: $(".areaSearch .endTime").val()
+                            storeId: row.storeId
                         })
                     },
                     contentType: "application/x-www-form-urlencoded;charset=utf-8"
@@ -105,7 +103,7 @@
                         striped: true, //是否显示行间隔色
                         pagination: false, //是否分页,
                         data: res,
-                        height: $("body").height() < 500 ? $("body").height() - 120 : 330,
+                        height: $("body").height() < 500 ? $("body").height() - 120 : 300,
                         columns: [{
                                 title: "开支时间",
                                 field: "batchno"
@@ -139,14 +137,6 @@
                     $(".detailAddress").val() :
                     undefined
             })
-        };
-    }
-
-    function queryStoreParams(params) {
-        return {
-            startTime: $(".startTime").val(),
-            stopTime: $(".endTime").val(),
-            address: $(".detailAddress").val()
         };
     }
     initFn();

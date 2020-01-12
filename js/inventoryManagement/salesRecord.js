@@ -3,6 +3,7 @@
 
     function initFn() {
         // down_list(".detailAddress", "url", "选择地址");
+
         queryUserRecord();
         $("#storeSalesRecord").bootstrapTable({
             method: "post",
@@ -19,6 +20,7 @@
             showLoading: true,
             height: $(window).height() - 150,
             queryParams: queryParams,
+            contentType: "application/x-www-form-urlencoded",
             columns: [{
                     title: "录入时间",
                     field: "operationDate"
@@ -97,9 +99,6 @@
                 },
                 function(res) {}
             );
-
-
-
             open_html("修改信息", "#editData", function() {
                 $("input").val();
             });
@@ -216,15 +215,19 @@
 
     function queryParams() {
         return {
-            detailAddress: $(".detailAddress").val() ?
-                $(".detailAddress").val() : undefined
+            jsonStr:JSON.stringify({
+                startTime:$(".query_startTime").val() ? $(".query_startTime").val() :undefined,
+                endTime:$(".query_stopTime").val() ? $(".query_stopTime").val() :undefined,
+                address: $(".detailAddress").val() ?
+                    $(".detailAddress").val() : undefined
+            })
         };
     }
 
     function queryUserRecord() {
         $("#userSalesRecord").bootstrapTable({
             method: "post",
-            url: base + "", //请求路径
+            url: base + "/inventory/queryPersonalSaleRecord", //请求路径
             striped: true, //是否显示行间隔色
             pageNumber: 1, //初始化加载第一页
             pagination: true, //是否分页
@@ -237,6 +240,7 @@
             search: false, // 是否展示搜索
             showLoading: true,
             height: $(window).height() - 150,
+            contentType: "application/x-www-form-urlencoded",
             queryParams: queryParams,
             columns: [{
                     title: "录入时间",
@@ -309,7 +313,7 @@
             custType: $(".custType").val() //客户类型
         };
         let url = "";
-        url = "/inventory/modifySale";
+        url = "/inventory/modifyEntryStock";
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
             if (res.resultCode > -1) {
                 layer.close(layer.index);
@@ -332,19 +336,21 @@
 
     // 导出
     $(".exportBtn").click(function() {
-        let jsonStr = "hello word";
-        let exportType = "";
+        let url="";
+       if( $(".recordType input[type='radio']").val() == "0" ){
+        url="";
+       }else{
+        url="";
+       }
         let form = $('<form id="to_export" style="display:none"></form>').attr({
-            action: base + "",
+            action: base + url,
             method: "post"
         });
         $("<input>")
             .attr("name", "jsonStr")
-            .val(jsonStr)
-            .appendTo(form);
-        $("<input>")
-            .attr("name", "exportType")
-            .val(exportType)
+            .val(JSON.stringify({
+
+            }))
             .appendTo(form);
         $("body").append(form);
         $("#to_export")

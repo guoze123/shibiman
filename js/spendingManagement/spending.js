@@ -11,6 +11,8 @@
     format: "yyyy-mm"
   });
   function initFn() {
+    queryCostType();
+    queryDepartment();
     $("#spending").bootstrapTable({
       method: "post",
       url: base + "/cost/queryCost", //请求路径
@@ -28,16 +30,16 @@
       queryParams: queryParams,
       contentType: "application/x-www-form-urlencoded",
       columns: [
-        {
-          title: "开支id",
-          field: "costId"
-        },
+        // {
+        //   title: "开支id",
+        //   field: "costId"
+        // },
         {
           title: "开支时间",
           field: "costTime"
         },
         {
-          title: "开支的店铺",
+          title: "开支的店铺id",
           field: "ownerId"
         },
         {
@@ -48,13 +50,13 @@
           title: "开支金额",
           field: "costAmount"
         },
-        {
-          title: "发票截图",
-          field: "receiptPic",
-          formatter:function (vlaue,row) {
-            return ` <img src="" style="width: 50px; height: 50px" data-action="zoom"> `
-          }
-        },
+        // {
+        //   title: "发票截图",
+        //   field: "receiptPic",
+        //   formatter:function (vlaue,row) {
+        //     return ` <img src="" style="width: 50px; height: 50px" data-action="zoom"> `
+        //   }
+        // },
         {
           title: "备注信息",
           field: "remark"
@@ -67,8 +69,7 @@
         }
       ]
     });
-    queryCostType();
-    queryDepartment();
+   
   }
 
   function operation(vlaue, row) {
@@ -121,6 +122,7 @@
       $("#editData select").val("");
       $("#editData img").attr("src","")
     });
+    //$(".costTypeId").chosen({});
   });
   $(".uploadimg").change(function() {
     uploadFile($(this));
@@ -173,7 +175,6 @@
         res.forEach(function(element) {
           option += `<option value="${element.departmentId}">${element.departmentName}</option>`;
         });
-       
         $(".ownerId").html(option);
       }
     );
@@ -186,7 +187,7 @@
     };
     ajax_data(
       "/cost/queryCostCategory",
-      { params: JSON.stringify(params) },
+      { params: JSON.stringify(params),async:false},
       function(res) {
         let option = "<option value=''>开支分类</option>";
         res.forEach(function(element) {
@@ -195,7 +196,6 @@
         $(".query_costTypeId").html(option);
         $(".query_costTypeId").chosen({});
         $(".costTypeId").html(option);
-        $(".costTypeId").chosen({});
       }
     );
   }

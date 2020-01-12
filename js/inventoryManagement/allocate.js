@@ -1,7 +1,16 @@
 (function(document, window, $) {
     "use strict";
     var isadd = false;
-
+    
+    $(".query_startTime").datepicker({
+        startView: 1,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        minViewMode: 1,
+        format: "yyyy-mm"
+    });
     function initFn() {
         queryStore();
         $("#importInventory").bootstrapTable({
@@ -62,7 +71,7 @@
         let purviewList = getQueryString("purview").split(",");
         let html = "";
         if (purviewList.includes("3")) {
-            html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+            html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn" style="margin-right: 10px;">修改</button>`;
         }
         if (purviewList.includes("4")) {
             html += `<button type="button" id="detail" class="btn btn-primary btn-sm detailBtn">详情</button>`;
@@ -169,7 +178,7 @@
                         striped: true, //是否显示行间隔色
                         pagination: false, //是否分页,
                         data: res,
-                        height: $("body").height() < 500 ? $("body").height() - 120 : 250,
+                        height: $("body").height() < 500 ? $("body").height() - 120 : 300,
                         columns: [{
                                 title: "商品名称",
                                 field: "waresName"
@@ -261,24 +270,33 @@
             if (res.resultCode > -1) {
                 layer.close(layer.index);
                 $("#importInventory").bootstrapTable("refresh");
-            } else {}
+            } else {
+                let tipsText;
+                if (isadd) {
+                  tipsText = "调拨失败";
+                } else {
+                  tipsText = "修改信息失败";
+                }
+                tips(tipsText, 5);
+            }
         });
     });
     // 导出
     $(".exportBtn").click(function() {
+        let exportType = "";
         let form = $('<form id="to_export" style="display:none"></form>').attr({
-            action: base + "",
-            method: "post"
+          action: base + "/common/exportEntryStockData",
+          method: "post"
         });
         $("<input>")
-            .attr("name", "jsonStr")
-            .val($(".query_startTime").val())
-            .appendTo(form);
+          .attr("name", "jsonStr")
+          .val(JSON.stringify({ startTime: $(".query_startTime").val() }))
+          .appendTo(form);
         $("body").append(form);
         $("#to_export")
-            .submit()
-            .remove();
-    });
+          .submit()
+          .remove();
+      });
 })(document, window, jQuery);
 
 function addCommodity(that) {

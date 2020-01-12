@@ -8050,3 +8050,6 @@ li {
 .picList{
     max-height: 200px;
 }
+.editBtn{
+    margin-right: 10px;
+}

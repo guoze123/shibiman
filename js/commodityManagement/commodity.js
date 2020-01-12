@@ -53,11 +53,11 @@
   function operation(vlaue, row) {
     let purviewList = getQueryString("purview").split(",");
     let html = "";
-    if (purviewList.includes("2")) {
-      html = +`<button type="button" id="delete" class="btn btn-danger btn-sm deleteBtn">删除</button>`;
-    }
     if (purviewList.includes("3")) {
       html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
+    }
+    if (purviewList.includes("2")) {
+      html +=`<button type="button" id="delete" class="btn btn-danger btn-sm deleteBtn">删除</button>`;
     }
     return html;
   }

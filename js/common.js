@@ -1,4 +1,4 @@
-var base = "http://192.168.0.103:8080/sipimo";
+var base = "http://192.168.0.105:8080/sipimo";
 //base = "";
 var ajaxLoding = 0;
 // if (!(window.location.href.indexOf("register") > -1 || window.location.href.indexOf("login") > -1)) {
@@ -149,8 +149,8 @@ function open_frame(title, url) {
   });
 }
 
-function open_html(title, ht_id, fn, win_width) {
-  var h_w = (win_width || 800) + "px";
+function open_html(title, ht_id, fn) {
+  var h_w = "800px";
   var h_h = ($("body").height() < 500 ? $("body").height() - 40 : "500") + "px";
   layer.open({
     type: 1,
@@ -163,7 +163,15 @@ function open_html(title, ht_id, fn, win_width) {
       if (!!fn) {
         fn();
       }
-    }
+    },
+    // btn: ["确定", "取消"],
+    // yes: function(index, layero) {
+    //   //按钮【按钮一】的回调
+    // },
+    // btn2: function(index, layero) {
+    //   //按钮【按钮二】的回调
+    //   //return false 开启该代码可禁止点击该按钮关闭
+    // }
   });
 }
 // 成功 失败 错误的提示信息
@@ -189,18 +197,15 @@ $(function() {
     hide_loading();
   });
   $.ajaxSetup({
-    complete: function(XMLHttpRequest, textStatus) {
-    },
+    complete: function(XMLHttpRequest, textStatus) {},
     statusCode: {
-        401: function() {
-            alert('登录失效，请重新登录');
-        },
-        504: function() {
-        },
-        500: function() {
-        }
+      401: function() {
+        alert("登录失效，请重新登录");
+      },
+      504: function() {},
+      500: function() {}
     }
-});
+  });
 });
 
 function get_local_time() {
@@ -338,10 +343,10 @@ function uploadFile(that) {
   var allwlmgFileSize = 2100000;
   var file = that[0].files[0];
   var imgUrlBase64;
-  if(!(file.type.indexOf("jp") > -1 || file.type.indexOf("JP") > -1 ) ){
-    tips("请上传格式为jpg的图片",5);
+  if (!(file.type.indexOf("jp") > -1 || file.type.indexOf("JP") > -1)) {
+    tips("请上传格式为jpg的图片", 5);
     that.val("");
-  }else{
+  } else {
     if (file) {
       imgUrlBase64 = reader.readAsDataURL(file);
       reader.onload = function(e) {
@@ -375,7 +380,6 @@ function uploadFile(that) {
     } else {
     }
   }
- 
 }
 
 // 下拉搜素列表
@@ -402,10 +406,12 @@ function down_list(dom, url, deftext, queryParams) {
     ajax_data(
       url,
       {
-        paras: JSON.stringify({
+        params: JSON.stringify({
           [queryParams]: $(dom)
             .find(".search")
-            .val()
+            .val() ? $(dom)
+            .find(".search")
+            .val() :undefined
         }),
         type: "post"
       },
@@ -492,10 +498,10 @@ window.onload = function() {
     $(".detailBnt").remove();
     $(".searchList").remove();
   }
-  if(!purviewList.includes("5")){
-    $(".importBtn").remove()
+  if (!purviewList.includes("5")) {
+    $(".importBtn").remove();
   }
-  if(!purviewList.includes("6")){
-    $(".deleteBtn").remove()
+  if (!purviewList.includes("6")) {
+    $(".deleteBtn").remove();
   }
 };

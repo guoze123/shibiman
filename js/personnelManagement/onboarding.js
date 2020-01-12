@@ -1,6 +1,33 @@
+function open_html1(title, ht_id, fn, yesFn, closeFn) {
+  var h_w = "800px";
+  var h_h = ($("body").height() < 500 ? $("body").height() - 40 : "500") + "px";
+  layer.open({
+    type: 1,
+    title: title,
+    maxmin: true,
+    content: $(ht_id), //这里content
+    area: [h_w, h_h],
+    end: function() {
+      // 销毁弹出时 执行
+      if (!!fn) {
+        fn();
+      }
+    },
+    btn: ["确定", "取消"],
+    yes: function(index, layero) {
+      yesFn();
+    },
+    btn2: function(index, layero) {
+      closeFn();
+    }
+  });
+}
+
 (function(document, window, $) {
   "use strict";
   var isadd = false;
+  var allStroe = [];
+  var allRole = [];
   function initFn() {
     $("#employeeInfo").bootstrapTable({
       method: "post",
@@ -14,12 +41,12 @@
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
-      height:$(window).height()-150,
+      height: $(window).height() - 150,
       showLoading: true,
       queryParams: queryParams,
       columns: [
         {
-          title: "员工id",
+          title: "员工工号",
           field: "employeeId"
         },
         {
@@ -55,7 +82,7 @@
       ]
     });
 
-   // queryCompetence();
+    queryCompetence();
     queryStore();
   }
 
@@ -65,7 +92,7 @@
     if (purviewList.includes("3")) {
       html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
     }
-    return html
+    return html;
   }
   var operateEvents = {
     "click #edit": function(e, v, row) {
@@ -77,20 +104,42 @@
       $(".entryTime").val(row.entryTime); //入职时间
       $(".telephone").val(row.telephone); //电话
       $(".job").val(row.job); //职务
-      $(".role").val(row.role); //角色
-      $(".ownerId").val(row.ownerId);//店铺id
-      $(".address").val(row.address);//地址
+      //$(".role").val(row.role); //角色
+      $(".address").val(row.address); //地址
       $(".activeStatus").val(row.activeStatus); //状态 在离
-      $(".education").val(row.education) // 学历8 
-      open_html("修改信息", "#editData");
+      $(".education").val(row.education); // 学历8
+      $(".ownerId").val(`${row.ownerId}`); //店铺id
+      open_html1(
+        "修改信息",
+        "#editData",
+        function() {
+          $("#editData input").val("");
+          $("#editData select").val("");
+          $("#editData img").attr("src", "");
+        },
+        function() {
+          confirmBtn();
+        },
+        function() {
+          layer.closeAll("page");
+        }
+      );
     }
   };
-  function queryParams(params) {
+  function queryParams() {
     return {
-      employeeId: $(".query_employeeId").val()?$(".query_employeeId").val():undefined,
-      employeeName: $(".query_employeeName").val()?$(".query_employeeName").val():undefined, //姓名
-      ownerId: $(".query_ownerId").val()?$(".query_ownerId").val():undefined,
-      activeStatus: $(".query_activeStatus").val()?$(".query_activeStatus").val():undefined
+      employeeId: $(".query_employeeId").val()
+        ? $(".query_employeeId").val()
+        : undefined,
+      employeeName: $(".query_employeeName").val()
+        ? $(".query_employeeName").val()
+        : undefined, //姓名
+      ownerId: $(".query_ownerId").val()
+        ? $(".query_ownerId").val()
+        : undefined,
+      activeStatus: $(".query_activeStatus").val()
+        ? $(".query_activeStatus").val()
+        : undefined
     };
   }
   initFn();
@@ -105,17 +154,23 @@
   // 添加人员
   $(".addBtn").click(function() {
     isadd = true;
-    open_html("添加人员", "#editData",function(params) {
-      $("#editData input").val("");
-      $("#editData select").val("");
-      $("#editData img").attr("src","");
-    });
+    open_html1(
+      "添加人员",
+      "#editData",
+      function(params) {
+        $("#editData input").val("");
+        $("#editData select").val("");
+        $("#editData img").attr("src", "");
+      },
+      function() {
+        confirmBtn();
+      },
+      function() {
+        layer.closeAll("page");
+      }
+    );
   });
-  $(".condition .closeBtn").on("click", function(params) {
-   // layer.close();
-    layer.closeAll('page');
-  });
-  $(".condition .confirmBtn").on("click", function() {
+  function confirmBtn() {
     let params = {
       employeeId: $(".employeeId").val(), //员工id
       employeeName: $(".employeeName").val(), //姓名
@@ -128,10 +183,12 @@
       ownerId: $(".ownerId").val(), //店铺id
       address: $(".address").val(), //地址
       activeStatus: $(".activeStatus").val(), //状态 在离
-      education:$(".education").val() // 学历
+      education: $(".education").val() // 学历
     };
     let formdata = new FormData();
-    formdata.append("file", $(".uploadimg")[0].files[0]);
+    if ($(".uploadimg")[0].files[0]) {
+      formdata.append("file", $(".uploadimg")[0].files[0]);
+    }
     formdata.append("jsonStr", JSON.stringify(params));
     let url;
     if (isadd) {
@@ -139,37 +196,41 @@
     } else {
       url = "/personnel/modifyEmployeeInfo";
     }
-   
+
     file_upload(url, formdata, function(res) {
       console.log(res);
-      if(res.resultCode > -1){
+      if (res.resultCode > -1) {
         layer.close(layer.index);
         $("#employeeInfo").bootstrapTable("refresh");
-      }else{
+      } else {
         let tipsText;
-        if(isadd){
-          tipsText="添加人员信息失败"
-        }else{
-          tipsText="修改人员信息失败"
+        if (isadd) {
+          tipsText = "添加人员信息失败";
+        } else {
+          tipsText = "修改人员信息失败";
         }
-        tips(tipsText,5)
+        tips(tipsText, 5);
       }
     });
-  });
+  }
 
   // 查找角色
   function queryCompetence() {
-    ajax_data("/common/getCompetence", { params: JSON.stringify({}) }, function(
-      res
-    ) {
-      console.log(res);
-      let option = "<option value=''>选择角色 </option>";
-      res.forEach(function(element) {
-        option += `<option value="${element}">${element}</option>`;
-      });
-      $(".role").html(option);
-      $(".query_role").html(option);
-    });
+    ajax_data(
+      "/common/getCompetence",
+      { params: {}, contentType: "application/x-www-form-urlencoded" },
+      function(res) {
+        console.log(res);
+        let option = "<option value=''>选择角色</option>";
+        res.obj.forEach(function(element) {
+          option += `<option value="${element.id}">${element.name}</option>`;
+        });
+
+        allRole = res.obj;
+        $(".role").html(option);
+        $(".query_role").html(option);
+      }
+    );
   }
 
   // 查找门店
@@ -183,6 +244,7 @@
         res.forEach(function(element) {
           option += `<option value="${element.storeId}">${element.storeName}</option>`;
         });
+        allStroe = res;
         $(".query_ownerId").html(option);
         $(".ownerId").html(option);
         // $(".query_ownerId").chosen();

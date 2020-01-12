@@ -11,10 +11,19 @@
     <link href="../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
     <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet" />
     <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/plugins/datapicker/datepicker3.css">
     <link href="../../css/animate.css" rel="stylesheet" />
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/plugins/zoom/zoom.css" />
     <link rel="stylesheet" href="../../css/inventoryManagement/allocate.css" />
+    <style>
+    .fixed-table-border{
+        height: 0 !important;
+    }
+    .fixed-table-container{
+        border-bottom: 0px !important;
+    }
+    </style>
 </head>
 
 <body class="gray-bg">
@@ -29,7 +38,7 @@
                     <div class="col-sm-12">
                         <div class="example">
                             <div class="searchList" style="float:right;">
-                                日期：<input id="" class="laydate-icon form-control layer-date query_startTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+                                日期：<input id="" class="laydate-icon form-control layer-date query_startTime"/>
                                 <span>
                                     <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
                                         style="width:80px;">
@@ -138,6 +147,7 @@
     <script src="../../js/loading.js"></script>
     <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script src="../../js/plugins/layer/laydate/laydate.js"></script>
     <script src="../../js/plugins/zoom/zoom.js"></script>
     <!-- 自定义js -->
@@ -145,4 +155,4 @@
     <script src="../../js/inventoryManagement/allocate.js"></script>
 </body>
 
-</html>d
+</html>

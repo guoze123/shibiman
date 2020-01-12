@@ -14,14 +14,17 @@
 
     <link href="../../css/animate.css" rel="stylesheet" />
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
-
+    <link rel="stylesheet" href="../../css/plugins/datapicker/datepicker3.css">
     <link rel="stylesheet" href="../../css/inventoryManagement/importInventory.css" />
     <link rel="stylesheet" href="../../css/plugins/zoom/zoom.css" />
     <style>
-        .fixed-table-toolbar {
-            display: none;
+        .fixed-table-border{
+            height: 0 !important;
         }
-    </style>
+        .fixed-table-container{
+            border-bottom: 0px !important;
+        }
+        </style>
 </head>
 
 <body class="gray-bg">
@@ -36,7 +39,7 @@
                     <div class="col-sm-12">
                         <div class="example">
                             <div class="searchList" style="float:right;">
-                                日期：<input id="" class="laydate-icon form-control layer-date open_time query_startTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" /> 订单号：
+                                日期：<input id="" class="laydate-icon form-control layer-date open_time query_startTime"  /> 订单号：
                                 <input type="text" class="form-control query_ordernum" placeholder="订单号" />
                                 <span>
                                     <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
@@ -142,6 +145,7 @@
     <script src="../../js/plugins/bootstrap-table/tableExport.js"></script>
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="../../js/plugins/zoom/zoom.js"></script>
+    <script src="../../js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script src="../../js/plugins/layer/laydate/laydate.js"></script>
     <!-- 自定义js -->
     <script src="../../js/content.js?v=1.0.0"></script>

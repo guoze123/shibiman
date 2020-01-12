@@ -39,7 +39,7 @@
           columns: [
             {
               title: "计划时间",
-              field: "planPeriod"
+              field: "batchno"
             },
             {
               title: "计划内容",
@@ -68,7 +68,7 @@
           columns: [
             {
               title: "计划时间",
-              field: "planPeriod"
+              field: "batchno"
             },
             {
               title: "计划内容",
