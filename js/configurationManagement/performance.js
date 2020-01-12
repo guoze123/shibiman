@@ -1,9 +1,18 @@
 (function(document, window, $) {
   "use strict";
+  $(".startTime,.endTime").datepicker({
+    startView: 1,
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    autoclose: true,
+    minViewMode: 1,
+    format: "yyyy-mm"
+  });
   function initFn() {
     $("#importInventory").bootstrapTable({
       method: "post",
-      url: base + "/configuration/queryAchieve", //请求路径
+      url: base + "/personnel/queryEmployeeAchievement", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -15,6 +24,7 @@
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
       showLoading: true,
+      contentType: "application/x-www-form-urlencoded",
       queryParams: queryParams,
       columns: [
         {
@@ -22,65 +32,31 @@
           field: "employeeId"
         },
         {
-          title: "开始时间",
-          field: "startTime"
+          title: "员工名称",
+          field: "employeeName"
         },
         {
-          title: "结束时间",
-          field: "endTime"
+          title: "绩效时间",
+          field: "batchno"
         },
         {
           title: "绩效结果",
           field: "achievementResult"
         },
         {
-          title: "绩效描述",
+          title: "绩效原因",
           field: "reason"
         }
-        // {
-        //   title: "操作",
-        //   field: "publicationTime",
-        //   events: operateEvents,
-        //   formatter: operation //对资源进行操作,
-        // },
+     
       ]
-
-      // exportDataType: "all", //basic', 'all', 'selected'.
-      // exportOptions: {
-      //   fileName: "绩效数据", //文件名称设置
-      //   worksheetName: "sheet1", //表格工作区名称
-      //   tableName: "数据",
-      //   excelstyles: [
-      //     "background-color",
-      //     "color",
-      //     "font-size",
-      //     "font-weight",
-      //     "border-top"
-      //   ]
-      // },
-      // showExport: true, //是否显示导出按钮
-      // buttonsAlign: "right", //按钮位置
-      // exportTypes: ["excel"] //导出文件类型
     });
   }
-  function operation(vlaue, row) {
-    let purviewList = getQueryString("purview").split(",");
-    let html = "";
-    if (purviewList.includes("3")) {
-      html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
-    }
-    return html;
-  }
-
-  var operateEvents = {
-    "click #edit": function(e, v, row) {
-      open_html("修改信息", "#editData");
-    }
-  };
-  function queryParams(params) {
+  function queryParams() {
     return {
-      startTime: $(".startTime").val() ? $(".startTime").val() : undefined,
-      endTime: $(".endTime").val() ? $(".endTime").val() : undefined
+      jsonStr:JSON.stringify({
+        startTime: $(".startTime").val() ? $(".startTime").val() : undefined,
+        endTime: $(".endTime").val() ? $(".endTime").val() : undefined
+      })
     };
   }
   initFn();
@@ -88,7 +64,6 @@
   $("#eventqueryBtn").click(function() {
     $("#importInventory").bootstrapTable("refresh");
   });
-
   $("#uploadFile").change(function() {
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
@@ -107,7 +82,7 @@
     });
     $("<input>")
       .attr("name", "batchno")
-      .val("")
+      .val($(".startTime").val())
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

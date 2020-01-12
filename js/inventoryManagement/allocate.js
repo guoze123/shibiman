@@ -1,7 +1,7 @@
 (function(document, window, $) {
     "use strict";
     var isadd = false;
-    
+    var allWares=[];
     $(".query_startTime").datepicker({
         startView: 1,
         todayBtn: "linked",
@@ -13,6 +13,7 @@
     });
     function initFn() {
         queryStore();
+        queryWaresInfo();
         $("#importInventory").bootstrapTable({
             method: "post",
             url: base + "/inventory/queryEntryStock", //请求路径
@@ -52,10 +53,6 @@
                 {
                     title: "备注",
                     field: "remark"
-                },
-                {
-                    title: "发票",
-                    field: "picList"
                 },
                 {
                     title: "操作",
@@ -110,34 +107,36 @@
                         function(res) {}
                     );
                     $(".startTime").val(row.operationDate); // 日期
-                    $(".handleAmount").val(row.totalAmount); // 应付
+                    $(".handleAmount").val(row.amount); // 应付
                     $(".actualAmount").val(row.payedAmount); // 实付
                     $(".consignee").val(row.toStoreId); // 收货放
                     $(".shipper").val(row.fromStoreId); // 发货方
                     $(".remark").val(row.remark); // 备注
-                    $(".picList").attr("src", row.row);
+                  
+                    $("#editData img").attr("src",base+"/uploadImgs/"+row.stockId+".jpg");
+                    $("#editData img").attr("width","100px");
                     isadd = false;
+                    function selectWares(selectId) {
+                        let option = "";
+                        if (allwares.length) {
+                            allwares.forEach(function(item, index) {
+                                option += `<option value="${item.waresName}" data-id="${item.waresId}" ${ item.waresId == selectId ? "selected":""} >${item.waresName}</option>`;
+                            });
+                        }
+                        return option
+                    }
                     if (res.length == 1) {
                         $(".firstGroup")
                             .find(".name")
-                            .val(allWares(res[0].waresId));
+                            .val(selectWares(res[0].waresId));
                         $(".firstGroup")
                             .find(".number")
                             .val(res[0].waresCount);
                     }
                     if (res.length > 1) {
-                        function allWares(selectId) {
-                            let option = "";
-                            if (allwares.length) {
-                                allwares.forEach(function(item, index) {
-                                    option += `<option value="${item.waresName}" data-id="${item.waresId}" ${ item.waresId == selectId ? "selected":""} >${item.waresName}</option>`;
-                                });
-                            }
-                            return option
-                        }
                         $(".firstGroup")
                             .find(".name")
-                            .html(allWares(res[0].waresId));
+                            .html(selectWares(res[0].waresId));
                         $(".firstGroup")
                             .find(".number")
                             .val(res[0].waresCount);
@@ -147,7 +146,7 @@
                                     <div style="width: 100%;">
                                     <span>商品名称</span>
                                     <select class="form-control name">
-                                    ${allWares(res[i].waresId)}
+                                    ${selectWares(res[i].waresId)}
                                     </select>
                                     <span style="margin-left: 10px;">商品数量</span>
                                     <input type="text" placeholder="商品数量" class="form-control number" value="${res[i].waresCount}">
@@ -193,7 +192,9 @@
                             }
                         ]
                     });
-                    open_html("详情信息", "#entryDetail", function() {});
+                    open_html("详情信息", "#entryDetail", function() {
+
+                    });
                 }
             );
         }
@@ -335,3 +336,16 @@ function queryStore() {
         }
     );
 }
+function queryWaresInfo() {
+    let url = "/configuration/queryWaresInfo";
+    ajax_data(url, { params: JSON.stringify({}) }, function(res) {
+      let option = "<option value='' data-id=''>选择商品名称</option>";
+      if (res.length) {
+        res.forEach(function(item, index) {
+          option += `<option value="${item.waresName}" data-id="${item.waresId}">${item.waresName}</option>`;
+        });
+      }
+      allwares = res;
+      $(".commodity select").html(option);
+    });
+  }

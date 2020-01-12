@@ -112,6 +112,8 @@ $(".query_startTime").datepicker({
           $(".handleAmount").val(row.totalAmount); // 应付
           $(".actualAmount").val(row.payedAmount); // 实付
           $(".remark").val(row.remark); // 备注
+          $("#editData img").attr("src",base+"/uploadImgs/"+row.stockId+".jpg");
+          $("#editData img").attr("width","100px");
           if (res.length == 1) {
             $(".firstGroup")
               .find(".name")

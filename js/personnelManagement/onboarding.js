@@ -41,7 +41,7 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
-      height: $(window).height() - 150,
+      height: $(window).height() - 190,
       showLoading: true,
       queryParams: queryParams,
       columns: [
@@ -109,13 +109,15 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
       $(".activeStatus").val(row.activeStatus); //状态 在离
       $(".education").val(row.education); // 学历8
       $(".ownerId").val(`${row.ownerId}`); //店铺id
+      $("#editData img").attr("src",base+"/uploadImgs/"+row.telephone+".jpg");
+      $("#editData img").attr("width","100px");
       open_html1(
         "修改信息",
         "#editData",
         function() {
           $("#editData input").val("");
           $("#editData select").val("");
-          $("#editData img").attr("src", "");
+          $("#editData img").attr("src","");
         },
         function() {
           confirmBtn();
@@ -200,7 +202,7 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
     file_upload(url, formdata, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
-        layer.close(layer.index);
+        layer.closeAll("page");
         $("#employeeInfo").bootstrapTable("refresh");
       } else {
         let tipsText;

@@ -88,12 +88,14 @@
       $(".costAmount").val(row.costAmount);
       $(".receiptPic").val(row.receiptPic);
       $(".remark").val(row.remark);
-      $(".remark").attr("data_costId",row.costId)
+      $(".remark").attr("data_costId",row.costId);
+      $("#editData img").attr("src",base+"/uploadImgs/"+row.costId+".jpg")
+      $("#editData img").attr("width","100px")
       isadd = false;
       open_html("修改信息", "#editData",function() {
         $("#editData input").val("");
         $("#editData select").val("");
-        $("#editData img").attr("src","")
+        $("#editData img").attr("src","");
       });
     }
   };
