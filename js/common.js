@@ -1,4 +1,4 @@
-var base = "http://192.168.0.105:8080/sipimo";
+//var base = "http://192.168.0.105:8080/sipimo";
 //base = "";
 var ajaxLoding = 0;
 // if (!(window.location.href.indexOf("register") > -1 || window.location.href.indexOf("login") > -1)) {
