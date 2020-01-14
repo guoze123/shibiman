@@ -119,6 +119,12 @@
             $("#keepPaying .storeId").val(row.storeId);
             open_html("继续支付", "#keepPaying", function() {
                 $("input[type='text']").val("");
+            },
+            function() {
+            confirmFn();
+            },
+            function() {
+            closeFn();
             });
         }
     };
@@ -126,11 +132,11 @@
     function queryParams() {
         return {
             jsonStr: JSON.stringify({
-                startTime: $(".query_startTime").val() ?
-                    $(".query_startTime").val() :
+                startTime: $(".query_startTime").val().trim() ?
+                    $(".query_startTime").val().trim() :
                     undefined,
-                endTime: $(".query_stopTime").val() ?
-                    $(".query_stopTime").val() :
+                endTime: $(".query_stopTime").val().trim() ?
+                    $(".query_stopTime").val().trim() :
                     undefined
             })
         };
@@ -140,27 +146,26 @@
     $("#eventqueryBtn").click(function() {
         $("#payment").bootstrapTable("refresh");
     });
-
-    $(".condition .closeBtn").on("click", function(params) {
-        layer.close(layer.index);
-    });
+    function closeFn() {
+        layer.closeAll("page");
+    }
     // 添加或修改
-    $("#keepPaying .condition .confirmBtn").on("click", function() {
+    function confirmFn() {
         let params = {
-            storckId: $("#keepPaying .storckId").val(),
-            storeId: $("#keepPaying .storeId").val(),
-            paymentTime: $("#keepPaying .payTime").val(),
-            totalAmount: $("#keepPaying .totalAmount").val(),
-            paymentAmount: $("#keepPaying .amount").val(),
-            paymentWay: $("#keepPaying .payType inpu[type='radio']:checked").val()
+            storckId: $("#keepPaying .storckId").val().trim(),
+            storeId: $("#keepPaying .storeId").val().trim(),
+            paymentTime: $("#keepPaying .payTime").val().trim(),
+            totalAmount: $("#keepPaying .totalAmount").val().trim(),
+            paymentAmount: $("#keepPaying .amount").val().trim(),
+            paymentWay: $("#keepPaying .payType inpu[type='radio']:checked").val().trim()
         };
         ajax_data("", { params: JSON.stringify(params) }, function(res) {
             if (res.resultCode > -1) {
-                layer.close(layer.index);
+                layer.closeAll("page");
                 $("#payment").bootstrapTable("refresh");
             } else {
                 tips("支付失败", 5);
             }
         });
-    });
+    }
 })(document, window, jQuery);

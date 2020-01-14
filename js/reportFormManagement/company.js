@@ -1,6 +1,5 @@
 $(function() {
   var barChart = echarts.init(document.getElementById("echarts-bar-chart"));
-  $(window).resize(barChart.resize);
   $(".startTime,.endTime").datepicker({
     startView: 1,
     todayBtn: "linked",
@@ -15,7 +14,8 @@ $(function() {
       // 公司
       sales: "/inventory/queryCompanyPolyline"
     },
-    directStore:{ // 直营店
+    directStore: {
+      // 直营店
       sales: "/inventory/queryDerectStorePolyline"
     },
     store: {
@@ -25,18 +25,21 @@ $(function() {
   var urlSales = apiMap.company.sales;
   function init() {
     let params = {
-      startTime: $(".startTime").val(),
-      editTime: $(".endTime").val()
+      startTime: $(".startTime")
+        .val()
+        .trim(),
+      editTime: $(".endTime")
+        .val()
+        .trim()
     };
     let sales = [],
       profit = [],
       batchno = [];
     ajax_data(
       urlSales,
-      { params: JSON.stringify(params), async: false },
+      {params: JSON.stringify(params)},
       function(res) {
-       
-        let   baroption = {
+        let baroption = {
           title: {
             text: "趋势图"
           },
@@ -73,7 +76,7 @@ $(function() {
         };
         profit = [];
         batchno = [];
-        sales=[];
+        sales = [];
         res.profit.forEach(function(v, i) {
           profit.push(v.profit);
           batchno.push(v.batchno);
@@ -81,9 +84,9 @@ $(function() {
         res.sales.forEach(function(v, i) {
           sales.push(v.sales);
         });
-        baroption["series"][0]["data"]=sales;
-        baroption["series"][1]["data"]=profit;
-        baroption["xAxis"][0]["data"]=batchno;
+        baroption["series"][0]["data"] = sales;
+        baroption["series"][1]["data"] = profit;
+        baroption["xAxis"][0]["data"] = batchno;
         barChart.clear();
         barChart.setOption(baroption);
       }
@@ -96,9 +99,17 @@ $(function() {
   });
   $(".salseType input[type='radio']").change(function() {
     // 公司：0  直营店：1 加盟店：2
-    if ($(this).val() == "0") {
+    if (
+      $(this)
+        .val()
+        .trim() == "0"
+    ) {
       urlSales = apiMap.company.sales;
-    } else if ($(this).val() == "1") {
+    } else if (
+      $(this)
+        .val()
+        .trim() == "1"
+    ) {
       urlSales = apiMap.directStore.sales;
     } else {
       urlSales = apiMap.store.sales;

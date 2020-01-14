@@ -54,12 +54,14 @@
             type="text"
             class="form-control uname"
             placeholder="手机号"
+            autocomplete="off"
             oninput="validationPhone(this)"
           />
           <input
             type="password"
             class="form-control pword m-b"
             placeholder="密码"
+            autocomplete="off"
             oninput="validationPassword(this)"
           />
           <a href="">忘记密码了？</a>
@@ -139,6 +141,11 @@
           tips("登录失败,请检查用户名或密码", 5);
         }
       });
+    });
+    $(document).keyup(function(event) {
+      if (event.keyCode == 13 || event.keyCode == 108) {
+        $(".btn-login").trigger("click");
+      }
     });
   </script>
 </html>

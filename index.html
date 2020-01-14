@@ -1,365 +1,175 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="renderer" content="webkit" />
 
-    <title>诗碧曼</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="renderer" content="webkit" />
 
-    <meta name="keywords" content="H+" />
-    <meta name="description" content="H+" />
-    <!--[if lt IE 9]>
+  <title>诗碧曼</title>
+
+  <meta name="keywords" content="H+" />
+  <meta name="description" content="H+" />
+  <!--[if lt IE 9]>
       <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link href="./css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
-    <link href="./css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
-    <link href="./css/animate.css" rel="stylesheet" />
-    <link href="./css/style.css?v=4.1.0" rel="stylesheet" />
-    <style>
-      body {
-        min-width: 1000px !important;
-      }
-    </style>
-  </head>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link href="./css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+  <link href="./css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
+  <link href="./css/animate.css" rel="stylesheet" />
+  <link href="./css/style.css?v=4.1.0" rel="stylesheet" />
+  <style>
+    body {
+      min-width: 1000px !important;
+    }
+  </style>
+</head>
 
-  <body
-    class="fixed-sidebar full-height-layout gray-bg"
-    style="overflow:hidden"
-  >
-    <div id="wrapper">
-      <!--左侧导航开始-->
-      <div class="navbar-default navbar-static-side" role="navigation">
-        <div class="nav-close"><i class="fa fa-times-circle"></i></div>
-        <div class="sidebar-collapse">
-          <ul class="nav" id="side-menu">
-            <li class="nav-header">
-              <div class="dropdown profile-element">
-                <span
-                  ><img
-                    alt="image"
-                    class="img-circle"
-                    src="img/profile_small.jpg"
-                /></span>
-                <a href="javascript:;">
-                  <span class="clear">
-                    <span class="block m-t-xs"
-                      ><strong class="font-bold userName"
-                        >Beaut-zihan</strong
-                      ></span
-                    >
-                    <span class="text-muted text-xs block userJob"
-                      >超级管理员<b class="caret"></b
-                    ></span>
-                  </span>
-                </a>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+  <div id="wrapper">
+    <!--左侧导航开始-->
+    <div class="navbar-default navbar-static-side" role="navigation">
+      <div class="nav-close"><i class="fa fa-times-circle"></i></div>
+      <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+          <li class="nav-header">
+            <div class="dropdown profile-element" style="display: flex;align-items: flex-end">
+              <div>
+                <img alt="image" class="img-circle" src="img/avatar.jpg" />
               </div>
-              <div class="logo-element">H+</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!--左侧导航结束-->
-      <!--右侧部分开始-->
-      <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row content-tabs">
-          <button class="roll-nav roll-left J_tabLeft">
-            <i class="fa fa-backward"></i>
-          </button>
-          <nav class="page-tabs J_menuTabs">
-            <div class="page-tabs-content">
-              <a
-                href="javascript:;"
-                class="active J_menuTab"
-                data-id="main.html"
-                >首页</a
-              >
-            </div>
-          </nav>
-          <button class="roll-nav roll-right J_tabRight">
-            <i class="fa fa-forward"></i>
-          </button>
-          <div class="btn-group roll-nav roll-right">
-            <button class="dropdown J_tabClose" data-toggle="dropdown">
-              关闭操作<span class="caret"></span>
-            </button>
-            <ul role="menu" class="dropdown-menu dropdown-menu-right">
-              <li class="J_tabShowActive"><a>定位当前选项卡</a></li>
-              <li class="divider"></li>
-              <li class="J_tabCloseAll"><a>关闭全部选项卡</a></li>
-              <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
-            </ul>
-          </div>
-          <div class="roll-nav roll-right J_tabExit" onclick="logout()">
-            <i class="fa fa fa-sign-out"></i> 退出
-          </div>
-        </div>
-        <div class="row J_mainContent" id="content-main">
-          <iframe
-            class="J_iframe"
-            name="iframe0"
-            width="100%"
-            height="100%"
-            src=""
-            frameborder="0"
-            data-id="main.html"
-            seamless
-          ></iframe>
-        </div>
-      </div>
-      <!--右侧部分结束-->
-      <!--右侧边栏开始-->
-      <div id="right-sidebar">
-        <div class="sidebar-container">
-          <ul class="nav nav-tabs navs-3">
-            <li class="active">
-              <a data-toggle="tab" href="#tab-1">
-                <i class="fa fa-gear"></i> 主题
-              </a>
-            </li>
-            <li class="">
-              <a data-toggle="tab" href="#tab-2">
-                通知
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href="#tab-3">
-                项目进度
-              </a>
-            </li>
-          </ul>
-
-          <div class="tab-content">
-            <div id="tab-1" class="tab-pane active">
-              <div class="sidebar-title">
-                <h3><i class="fa fa-comments-o"></i> 主题设置</h3>
-                <small><i class="fa fa-tim"></i> </small>
-              </div>
-              <div class="skin-setttings">
-                <div class="title">主题设置</div>
-                <div class="setings-item">
-                  <span>收起左侧菜单</span>
-                  <div class="switch">
-                    <div class="onoffswitch">
-                      <input
-                        type="checkbox"
-                        name="collapsemenu"
-                        class="onoffswitch-checkbox"
-                        id="collapsemenu"
-                      />
-                      <label class="onoffswitch-label" for="collapsemenu">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="setings-item">
-                  <span>固定顶部</span>
-                  <div class="switch">
-                    <div class="onoffswitch">
-                      <input
-                        type="checkbox"
-                        name="fixednavbar"
-                        class="onoffswitch-checkbox"
-                        id="fixednavbar"
-                      />
-                      <label class="onoffswitch-label" for="fixednavbar">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="setings-item">
-                  <span>
-                    固定宽度
-                  </span>
-                  <div class="switch">
-                    <div class="onoffswitch">
-                      <input
-                        type="checkbox"
-                        name="boxedlayout"
-                        class="onoffswitch-checkbox"
-                        id="boxedlayout"
-                      />
-                      <label class="onoffswitch-label" for="boxedlayout">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
+              <div class="clear" style="margin-left: 10px;" >
+                <span class="block m-t-xs" style="color: #a7b1c2;"> 姓名：<strong class="font-bold userName">Beaut-zihan</strong></span>
+                <span class="text-muted text-xs block" style="color: #a7b1c2;"> 职位：<span class="userJob">超级管理员</span> </span>
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
-      <!--右侧边栏结束-->
     </div>
-    <!-- 全局js -->
-    <script src="js/jquery.min.js?v=2.1.4"></script>
-    <script src="js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="./js/common.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="js/plugins/layer/layer.min.js"></script>
-    <script src="./js/loading.js"></script>
-    <!-- 自定义js -->
-    <script src="js/hplus.js?v=4.1.0"></script>
-    <script type="text/javascript" src="js/contabs.js"></script>
-    <!-- 第三方插件 -->
-    <script src="js/plugins/pace/pace.min.js"></script>
-    <script>
-      // if (
-      //   getCookie("phoneNumber") == "undefined" ||
-      //   getCookie("phoneNumber") == null
-      // ) {
-      //   location.href = "login.html";
-      // }
-      if (
-        getCookie("phoneNumber") == "undefined" ||
-        getCookie("phoneNumber") == null
-      ) {
-        $(".userName").html(getCookie("employeeName"));
-        $(".userJob").html(getCookie("job"));
-      }
-      var user;
-      var urlConfig = {
-        "1_0": "./component/storeManagement/storeManagement.html", // 店铺管理
-        "2_0": "./component/inventoryManagement/importInventory.html", // 入库
-        "2_1": "./component/inventoryManagement/Allocate.html", // 调拨
-        "2_2": "./component/inventoryManagement/salesRecord.html", // 销售记录
-        "3_0": "./component/personnelManagement/onboarding.html", // 入职
-        "3_1": "./component/personnelManagement/departure.html", // 离职
-        "4_0": "./component/spendingManagement/spending.html", // 开支管理
-        "5_0": "./component/commodityManagement/commodity.html", // 商品管理
-        "6_0": "./component/reportFormManagement/company.html", // 公司
-        "6_1": "./component/reportFormManagement/store.html", // 店铺
-        "6_2": "./component/reportFormManagement/payment.html", // 支付情况
-        "6_3": "./component/reportFormManagement/statisticalSpending.html", // 开支统计
-        "7_0": "./component/configurationManagement/performance.html", // 绩效管理
-        "7_1": "./component/configurationManagement/storeTarget.html", // 店铺目标值
-        "7_2": "./component/configurationManagement/storeGrade.html", // 店铺等级
-        "7_3": "./component/configurationManagement/waresDiscount.html" // 商品折扣配置
-      };
-      ajax_data(
-        "/competence/getCompetence",
-        //"./testJson/login.json",
-        {
-          async: false,
-          type: "post",
-          params: { phoneNumber: getCookie("phoneNumber") },
-          contentType: "application/x-www-form-urlencoded"
-        },
-        function(res) {
-          var submenu = res.subObj;
-          for (let i in submenu) {
-            let arys = submenu[i].obj;
-            let sbuArys = submenu[i].subObj;
-            for (let k in arys) {
-              for (let n in sbuArys[arys[k].id]["obj"]) {
-                sbuArys[arys[k].id]["obj"][n].purview =
-                  sbuArys[arys[k].id]["subObj"][
-                    sbuArys[arys[k].id]["obj"][n].id
-                  ];
-                sbuArys[arys[k].id]["obj"][n].url_id =
-                  arys[k].id + "_" + sbuArys[arys[k].id]["obj"][n]["id"];
-              }
-              arys[k].children = sbuArys[arys[k].id]["obj"];
-            }
-          }
-          user = res.obj;
-          for (let n in user) {
-            user[n]["menu"] = submenu[user[n]["id"]]["obj"];
-            for (let j in user[n].menu) {
-              if (user[n].menu[j]["children"].length == 1) {
-                user[n].menu[j]["url_id"] =
-                  user[n].menu[j]["children"][0]["url_id"];
-                user[n].menu[j]["purview"] =
-                  user[n].menu[j]["children"][0]["purview"];
-                user[n].menu[j]["children"] = [];
-              } else {
-                user[n].menu[j]["url_id"] = "";
-              }
-            }
-          }
-        }
-      );
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+      <div class="row content-tabs">
+        <button class="roll-nav roll-left J_tabLeft">
+          <i class="fa fa-backward"></i>
+        </button>
+        <nav class="page-tabs J_menuTabs">
+          <div class="page-tabs-content">
+            <a href="javascript:;" class="active J_menuTab" data-id="main.html">首页</a>
+          </div>
+        </nav>
+        <button class="roll-nav roll-right J_tabRight">
+          <i class="fa fa-forward"></i>
+        </button>
+        <div class="btn-group roll-nav roll-right">
+          <button class="dropdown J_tabClose" data-toggle="dropdown">
+            关闭操作<span class="caret"></span>
+          </button>
+          <ul role="menu" class="dropdown-menu dropdown-menu-right">
+            <li class="J_tabShowActive"><a>定位当前选项卡</a></li>
+            <li class="divider"></li>
+            <li class="J_tabCloseAll"><a>关闭全部选项卡</a></li>
+            <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
+          </ul>
+        </div>
+        <div class="roll-nav roll-right J_tabExit" onclick="logout()">
+          <i class="fa fa fa-sign-out"></i> 退出
+        </div>
+      </div>
+      <div class="row J_mainContent" id="content-main">
+        <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="" frameborder="0" data-id="main.html"
+          seamless></iframe>
+      </div>
+    </div>
+    <!--右侧部分结束-->
+    <!--右侧边栏开始-->
+    <div id="right-sidebar">
+      <div class="sidebar-container">
+        <ul class="nav nav-tabs navs-3">
+          <li class="active">
+            <a data-toggle="tab" href="#tab-1">
+              <i class="fa fa-gear"></i> 主题
+            </a>
+          </li>
+          <li class="">
+            <a data-toggle="tab" href="#tab-2">
+              通知
+            </a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#tab-3">
+              项目进度
+            </a>
+          </li>
+        </ul>
 
-      $("#content-main iframe").attr("src","main.html?purview=4,5,6");
-      var menuAdmin = user.length>0 ? user[0]["menu"] :[];
-      var menuHtml = ``;
-      for (let i = 0; i < menuAdmin.length; i++) {
-        function buildChildHtml(childrenList) {
-          let childHtml = "";
-          if (!childrenList.length) {
-            return "";
-          } else {
-            for (let i in childrenList) {
-              childHtml += `
-                    <li>
-                     <a class="J_menuItem" href="${
-                       urlConfig[childrenList[i].url_id]
-                     }?purview=${childrenList[i].purview}" data-index="${
-                childrenList[i].url_id
-              }">${childrenList[i].name}</a>
-                    </li>
-                    `;
-            }
-          }
-          return childHtml;
-        }
-        menuHtml += `
-                <li>
-                    <a class="${
-                      menuAdmin[i].children.length > 0 ? "" : "J_menuItem"
-                    }" 
-                      href="${
-                        menuAdmin[i].children.length > 0
-                          ? "#"
-                          : `${urlConfig[menuAdmin[i].url_id]}?purview=${
-                              menuAdmin[i].purview
-                            }`
-                      }" data-index="${menuAdmin[i].id}">
-                        <i class="fa fa fa-bar-chart-o"></i>
-                        <span class="nav-label">${menuAdmin[i].name}</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    ${
-                      menuAdmin[i].children.length > 0
-                        ? ` <ul class="nav nav-second-level">
-                        ${buildChildHtml(menuAdmin[i].children)}
-                         </ul>`
-                        : ""
-                    }
-                </li>
-                `;
-      }
-      $("#side-menu").append(menuHtml);
-      function logout() {
-        ajax_data(
-          "/common/logout",
-          {
-            params: {
-              phoneNumber: getCookie("phoneNumber")
-            },
-            type: "post",
-            contentType: "application/x-www-form-urlencoded;charset=utf-8"
-          },
-          function(res) {
-            if (res.resultCode > -1) {
-              delCookie("phoneNumber");
-              delCookie("employeeName");
-              delCookie("job");
-              delCookie("ownerId");
-              delCookie("employeeId");
-              location.href = "login.html";
-            }
-          }
-        );
-      }
-    </script>
-  </body>
+        <div class="tab-content">
+          <div id="tab-1" class="tab-pane active">
+            <div class="sidebar-title">
+              <h3><i class="fa fa-comments-o"></i> 主题设置</h3>
+              <small><i class="fa fa-tim"></i> </small>
+            </div>
+            <div class="skin-setttings">
+              <div class="title">主题设置</div>
+              <div class="setings-item">
+                <span>收起左侧菜单</span>
+                <div class="switch">
+                  <div class="onoffswitch">
+                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu" />
+                    <label class="onoffswitch-label" for="collapsemenu">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="setings-item">
+                <span>固定顶部</span>
+                <div class="switch">
+                  <div class="onoffswitch">
+                    <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar" />
+                    <label class="onoffswitch-label" for="fixednavbar">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="setings-item">
+                <span>
+                  固定宽度
+                </span>
+                <div class="switch">
+                  <div class="onoffswitch">
+                    <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout" />
+                    <label class="onoffswitch-label" for="boxedlayout">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--右侧边栏结束-->
+  </div>
+  <!-- 全局js -->
+  <script src="js/jquery.min.js?v=2.1.4"></script>
+  <script src="js/bootstrap.min.js?v=3.3.6"></script>
+  <script src="./js/common.js"></script>
+  <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+  <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="js/plugins/layer/layer.min.js"></script>
+  <script src="./js/loading.js"></script>
+  <!-- 自定义js -->
+  <script src="js/hplus.js?v=4.1.0"></script>
+  <script type="text/javascript" src="js/contabs.js"></script>
+  <!-- 第三方插件 -->
+  <script src="js/plugins/pace/pace.min.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
 </html>

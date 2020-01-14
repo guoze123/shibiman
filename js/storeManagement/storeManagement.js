@@ -1,8 +1,10 @@
 (function(document, window, $) {
     "use strict";
+
     var store_type = { "1": "直营店", "2": "加盟店" };
     var store_status = { "0": "待定", "1": "营业", "-1": "停业" };
     var isadd = false; // 判断是添加还是修改
+    var storeId="";
     function initFn() {
         down_list(
             ".queryStoreManager",
@@ -74,11 +76,12 @@
     var operateEvents = {
         "click #edit": function(e, v, row) {
             isadd = false;
+            storeId=row.storeId
             $(".store_name").val(row.storeName);
             $(".open_time").val(row.openTime);
             $(".store_type").val(row.storeType);
             $(".selectedValue input").attr("data-id", row.managerId);
-            $(".selectedValue input").val(row.manager);
+            $(".selectedValue input").val(row.storeManager);
             $(".params_province").val(row.provinceId);
             $(".params_province").trigger("change");
             $(".params_city").val(row.cityId);
@@ -86,11 +89,20 @@
             $(".params_area").val(row.areaId);
             $(".open_status").val(row.openStatus);
             $(".detailAddress").val(row.address);
-            open_html("修改店铺信息", "#editData");
+            open_html("修改店铺信息", "#editData",function() {
+                $("#editData input").val("");
+                $("#editData select").val("");
+            },
+            function() {
+            confirmFn();
+            },
+            function() {
+            closeFn();
+            });
         },
         "click #delete": function(e, v, row) {
             firm("提示", "是否删除", function() {
-                layer.close(layer.index);
+                layer.closeAll("page");
                 ajax_data(
                     "/competence/deleteStoreInfo", {
                         params: { storeId: row.storeId },
@@ -112,13 +124,13 @@
 
     function queryParams() {
         return {
-            provinceId: $(".params_province").val() ?
-                $(".params_province").val() :
+            provinceId: $(".params_province").val().trim() ?
+                $(".params_province").val().trim() :
                 undefined,
-            cityId: $(".params_city").val() ? $(".params_city").val() : undefined,
-            areaId: $(".params_area").val() ? $(".params_area").val() : undefined,
-            storeName: $(".query_StoreName").val() ?
-                $(".query_StoreName").val() :
+            cityId: $(".params_city").val().trim() ? $(".params_city").val().trim() : undefined,
+            areaId: $(".params_area").val().trim() ? $(".params_area").val().trim() : undefined,
+            storeName: $(".query_StoreName").val().trim() ?
+                $(".query_StoreName").val().trim() :
                 undefined
         };
     }
@@ -130,29 +142,34 @@
 
     $(".addBtn").click(function() {
         isadd = true;
-        open_html("添加店铺", "#editData", function() {
-            // 关闭弹窗的回调
-            $("input").val("");
-            $("select").val("");
+        open_html("添加店铺", "#editData",function() {
+            $("#editData input").val("");
+            $("#editData select").val("");
+        },
+        function() {
+        confirmFn();
+        },
+        function() {
+        closeFn();
         });
     });
     // 修改信息
-    $(".condition .closeBtn").on("click", function(params) {
-        layer.close(layer.index);
-    });
-    $(".condition .confirmBtn").on("click", function() {
+    function closeFn(params) {
+        layer.closeAll("page");
+    }
+    function confirmFn() {
         let params = {
-            storeId: -1,
-            storeName: $(".store_name").val(),
-            openTime: $(".open_time").val(),
-            storeType: $(".store_type").val(),
-            managerId: $(".selectedValue input").val(),
-            storeManager: $(".selectedValue input").attr("data-id"),
-            provinceId: $(".params_province").val(),
-            cityId: $(".params_city").val(),
-            areaId: $(".params_area").val(),
-            openStatus: $(".open_status").val(),
-            detailAddress: $(".detailAddress").val()
+            storeId: storeId || -1,
+            storeName: $(".store_name").val().trim(),
+            openTime: $(".open_time").val().trim(),
+            storeType: $(".store_type").val().trim(),
+            storeManager: $(".selectedValue input").val().trim(),
+            managerId: $(".selectedValue input").attr("data-id"),
+            provinceId: $(".params_province").val().trim(),
+            cityId: $(".params_city").val().trim(),
+            areaId: $(".params_area").val().trim(),
+            openStatus: $(".open_status").val().trim(),
+            detailAddress: $(".detailAddress").val().trim()
         };
         let url = "";
         if (isadd) {
@@ -160,10 +177,11 @@
         } else {
             url = "/competence/modifyStoreInfo";
         }
+        
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
             console.log(res);
             if (res.resultCode > -1) {
-                layer.close(layer.index);
+                layer.closeAll("page");
                 $("#exampleTableFromData").bootstrapTable("refresh");
                
             } else {
@@ -176,7 +194,7 @@
                 tips(tipsText, 5);
             }
         });
-    });
+    }
     queryProvince();
     // 查询省份
     function queryProvince() {
@@ -200,13 +218,13 @@
                 }
                 $(dom).html(option);
                 $(dom).change(function() {
-                    if ($(this).val() == "") {
+                    if ($(this).val().trim() == "") {
                         $(this)
                             .next()
                             .val("");
                     }
                     let newParams = params;
-                    newParams["cityId"] = $(this).val();
+                    newParams["cityId"] = $(this).val().trim();
                     queryCounty($(this).next(), newParams);
                 });
             }
@@ -227,21 +245,21 @@
         );
     }
     $(".query_province").change(function() {
-        if ($(this).val() == "") {
+        if ($(this).val().trim() == "") {
             $(".query_city,.query_county").val("");
             $(".query_city,.query_county").attr("disabled", true);
         } else {
             $(".query_city,.query_county").attr("disabled", false);
         }
-        queryCity(".query_city", { provinceId: $(this).val() });
+        queryCity(".query_city", { provinceId: $(this).val().trim() });
     });
     $(".params_province").change(function() {
-        if ($(this).val() == "") {
+        if ($(this).val().trim() == "") {
             $(".params_city,.params_area").val("");
             $(".params_city,.params_area").attr("disabled", true);
         } else {
             $(".params_city,.params_area").attr("disabled", false);
         }
-        queryCity(".params_city", { provinceId: $(this).val() });
+        queryCity(".params_city", { provinceId: $(this).val().trim() });
     });
 })(document, window, jQuery);

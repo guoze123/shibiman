@@ -201,7 +201,7 @@ body.body-small .navbar-top-links li:last-child {
 }
 
 .nav-header {
-    padding: 33px 25px;
+    padding: 15px 10px;
     background: url("patterns/header-profile.png") no-repeat;
 }
 
@@ -1836,7 +1836,8 @@ table.dataTable thead .sorting:after {
 /* CIRCLE */
 
 .img-circle {
-    border-radius: 50%;
+    border-radius: 0;
+    width: 60px;
 }
 
 .btn-circle {

@@ -61,7 +61,7 @@
     $("#storeGrade").bootstrapTable("refresh");
   });
   $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
+    layer.closeAll("page");
   });
   // 添加或修改
   $(".storeType input[type='radio']").change(function(params) {
@@ -76,8 +76,8 @@
       let obj = {
         levelName: item.levelName,
         storeType: item.storeType,
-        startValue:$(`.minValue_${index}`).val(),
-        endValue:$(`.maxValue_${index}`).val(),
+        startValue:$(`.minValue_${index}`).val().trim(),
+        endValue:$(`.maxValue_${index}`).val().trim(),
       };
       params.push(obj);
     });

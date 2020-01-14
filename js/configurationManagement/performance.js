@@ -54,8 +54,8 @@
   function queryParams() {
     return {
       jsonStr:JSON.stringify({
-        startTime: $(".startTime").val() ? $(".startTime").val() : undefined,
-        endTime: $(".endTime").val() ? $(".endTime").val() : undefined
+        startTime: $(".startTime").val().trim() ? $(".startTime").val().trim() : undefined,
+        endTime: $(".endTime").val().trim() ? $(".endTime").val().trim() : undefined
       })
     };
   }
@@ -82,7 +82,7 @@
     });
     $("<input>")
       .attr("name", "batchno")
-      .val($(".startTime").val())
+      .val($(".startTime").val().trim())
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

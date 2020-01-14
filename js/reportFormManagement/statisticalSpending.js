@@ -13,7 +13,7 @@
 
     function initFn() {
         $("#statisticalSpending").bootstrapTable({
-            method: "post",
+            method: "get",
             url: base + "/cost/queryCostAnalysis", //请求路径
             //url: "../../testJson/storeManagement.json", //请求路径
             striped: true, //是否显示行间隔色
@@ -69,8 +69,8 @@
                     params: {
                         jsonStr: JSON.stringify({
                             ownerId: row.ownerId,
-                            startTime: $(".areaSearch .startTime").val(),
-                            endTime: $(".areaSearch .endTime").val()
+                            startTime: $(".searchList  .startTime").val().trim(),
+                            endTime: $(".searchList  .endTime").val().trim()
                         })
                     },
                     contentType: "application/x-www-form-urlencoded;charset=utf-8"
@@ -109,17 +109,17 @@
     function queryParams() {
         return {
             jsonStr: JSON.stringify({
-                startTime: $(".areaSearch .startTime").val() ?
-                    $(".areaSearch .startTime").val() :
+                startTime: $(".searchList .startTime").val().trim() ?
+                    $(".searchList  .startTime").val().trim() :
                     undefined, // 开支时间
-                endTime: $(".areaSearch .endTime").val() ?
-                    $(".areaSearch .startTime").val() :
+                endTime: $(".searchList  .endTime").val().trim() ?
+                    $(".searchList  .endTime").val().trim() :
                     undefined, // 开支时间
-                costTypeId: $(".areaSearch .query_costTypeId").val() ?
-                    $(".areaSearch .query_costTypeId").val() :
+                costTypeId: $(".searchList  .query_costTypeId").val().trim() ?
+                    $(".searchList  .query_costTypeId").val().trim() :
                     undefined, // 开支分类id
-                ownerId: $(".areaSearch .query_ownerName").val() ?
-                    $(".areaSearch .query_ownerName").val() :
+                ownerName: $(".searchList  .query_ownerName").val().trim() ?
+                    $(".searchList .query_ownerName").val().trim() :
                     undefined // 部门名称
             })
         };
@@ -134,7 +134,7 @@
         uploadFile($(this));
     });
     $(".condition .closeBtn").on("click", function(params) {
-        layer.close(layer.index);
+        layer.closeAll("page");
     });
 
     // 开支分类

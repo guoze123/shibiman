@@ -52,16 +52,12 @@
     
     return html;
   }
-  var operateEvents = {
-    "click #edit": function(e, v, row) {
-      open_html("修改信息", "#editData");
-    }
-  };
+  
   function queryParams() {
     return {
       activeStatus: "-1",
-      employeeName: $(".query_employeeName").val()
-        ? $(".query_employeeName").val()
+      employeeName: $(".query_employeeName").val().trim()
+        ? $(".query_employeeName").val().trim()
         : undefined
     };
   }
@@ -75,28 +71,34 @@
   $(".addBtn").click(function() {
     open_html("添加离职人员", "#editData", function() {
       $("input").val("");
+    },
+    function() {
+    confirmFn();
+    },
+    function() {
+    closeFn();
     });
   });
 
-  $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
-  });
-  $(".condition .confirmBtn").on("click", function() {
+  function closeFn() {
+    layer.closeAll("page");
+  }
+  function confirmFn() {
     let params = {
-      employeeId: $(".employeeId").val(), //员工id
-      leaveTime: $(".leaveTime").val(),
-      leaveReason: $(".leaveReason").val()
+      employeeId: $(".employeeId").val().trim(), //员工id
+      leaveTime: $(".leaveTime").val().trim(),
+      leaveReason: $(".leaveReason").val().trim()
     };
     let url;
     url = "/personnel/addLeaveEmployee";
     ajax_data(url, { params: JSON.stringify(params) }, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
-        layer.close(layer.index);
+        layer.closeAll("page");
         $("#departure").bootstrapTable("refresh");
       } else {
         tips("添加离职人员失败", 5);
       }
     });
-  });
+  }
 })(document, window, jQuery);

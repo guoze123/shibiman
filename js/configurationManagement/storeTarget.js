@@ -55,18 +55,18 @@
   function queryParams() {
     return {
       jsonStr: JSON.stringify({
-        storeName: $(".storeName").val() ? $(".storeName").val() : undefined
+        storeName: $(".storeName").val().trim() ? $(".storeName").val().trim() : undefined
       })
     };
   }
 
   initFn();
   $("#storeTarget").on("blur", ".inputTargetValue", function(e) {
-    console.log($(e.target).val());
+    console.log($(e.target).val().trim());
     let row = $("#storeTarget").bootstrapTable("getData")[
       $(e.target).attr("data-index")
     ];
-    row["targetValue"] = $(e.target).val();
+    row["targetValue"] = $(e.target).val().trim();
     $("#storeTarget").bootstrapTable("updateRow", {
       index: $(e.target).attr("data-index"),
       row: row
@@ -77,17 +77,17 @@
     $("#storeTarget").bootstrapTable("refresh");
   });
   $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
+    layer.closeAll("page");
   });
   // 添加或修改
   $("#keepPaying .condition .confirmBtn").on("click", function() {
     let params = {
-      storckId: $("#keepPaying .storckId").val(),
-      storckName: $("#keepPaying .storckName").val()
+      storckId: $("#keepPaying .storckId").val().trim(),
+      storckName: $("#keepPaying .storckName").val().trim()
     };
     ajax_data("", { params: JSON.stringify(params) }, function(res) {
       if (res.resultCode > -1) {
-        layer.close(layer.index);
+        layer.closeAll("page");
         $("#storeTarget").bootstrapTable("refresh");
       } else {
         tipe("修改信息失败", 5);
@@ -97,7 +97,6 @@
   // 点击提交 保存修改的数据
   $(".submitBtn").click(function() {
     var allTableData = $("#storeTarget").bootstrapTable("getData");
-    console.log(allTableData);
     let params = [];
     allTableData.forEach(function(item) {
       let obj = {
@@ -126,7 +125,6 @@
 
   // 导出
   $(".exportBtn").click(function() {
-
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: base + "/common/exportStoreTargetTemplate",
       method: "post"

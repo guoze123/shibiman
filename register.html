@@ -55,17 +55,25 @@
           <input
             type="text"
             class="form-control  employeeId uname"
+            autocomplete="off"
             placeholder="员工编号"
           />
-          <input type="text" class="form-control uname phoneNumber" placeholder="手机号" />
+          <input
+            type="text"
+            class="form-control uname phoneNumber"
+            autocomplete="off"
+            placeholder="手机号"
+          />
           <input
             type="password"
             class="form-control pword m-b"
+            autocomplete="off"
             placeholder="密码"
           />
           <input
             type="password"
             class="form-control confirmPasswd m-b"
+            autocomplete="off"
             placeholder="确认密码"
           />
           <button class="btn btn-success btn-block btn-register">注册</button>
@@ -124,11 +132,11 @@
       ) {
         if ($(".pword").val() !== $(".confirmPasswd").val()) {
           tips("密码填写不一致", 5);
-          return
+          return;
         }
-      }else{
+      } else {
         tips("将注册信息填写完整", 5);
-        return
+        return;
       }
 
       var params = {
@@ -141,20 +149,25 @@
         { params: JSON.stringify(params) },
         function(res) {
           if (res.resultCode > -1) {
-            setCookie("phoneNumber",res.personalInfo.phoneNumber);
-            setCookie("employeeName",res.personalInfo.employeeName);
-            setCookie("job",res.personalInfo.job);
-            setCookie("ownerId",res.personalInfo.ownerId);
-            setCookie("employeeId",res.personalInfo.employeeId);
+            setCookie("phoneNumber", res.personalInfo.phoneNumber);
+            setCookie("employeeName", res.personalInfo.employeeName);
+            setCookie("job", res.personalInfo.job);
+            setCookie("ownerId", res.personalInfo.ownerId);
+            setCookie("employeeId", res.personalInfo.employeeId);
 
             window.location.href = "index.html";
-          } else if( res.resultCode  == -2){
-            tips("用户存在", 5);
-          } else{
-            tips("失败", 5);
+          } else if (res.resultCode == -2) {
+            tips("用户已存在", 5);
+          } else {
+            tips("注册失败，请检查注册信息", 5);
           }
         }
       );
+    });
+    $(document).keyup(function(event) {
+      if (event.keyCode == 13 || event.keyCode == 108) {
+        $(".btn-register").trigger("click");
+      }
     });
   </script>
 </html>

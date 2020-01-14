@@ -57,7 +57,7 @@
       html += `<button type="button" id="edit" class="btn btn-info btn-sm editBtn">修改</button>`;
     }
     if (purviewList.includes("2")) {
-      html +=`<button type="button" id="delete" class="btn btn-danger btn-sm deleteBtn">删除</button>`;
+      html += `<button type="button" id="delete" class="btn btn-danger btn-sm deleteBtn">删除</button>`;
     }
     return html;
   }
@@ -70,11 +70,24 @@
       $(".category_name").val(row.categoryName); //商品分类
       $(".wares_price").val(row.waresPrice); //商品价格
       $(".wares_desc").val(row.waresDesc); //商品描述
-      open_html("修改信息", "#editData");
+      open_html(
+        "修改信息",
+        "#editData",
+        function() {
+          $("#editData input").val("");
+          $("#editData select").val("");
+        },
+        function() {
+          confirmFn();
+        },
+        function() {
+          closeFn();
+        }
+      );
     },
     "click #delete": function(e, v, row) {
       firm("提示", "是否删除", function() {
-        layer.close(layer.index);
+        layer.closeAll("page");
         ajax_data(
           "/configuration/deleteWaresInfo",
           {
@@ -85,23 +98,24 @@
             console.log(res);
             if (res.resultCode > -1) {
               tips("删除成功", 6);
+              $("#waresManagement").bootstrapTable("refresh"); //刷新url！
             } else {
               tips("删除失败", 5);
             }
           }
         );
-        $("#waresManagement").bootstrapTable("refresh"); //刷新url！
+        
       });
     }
   };
 
   function queryParams() {
     return {
-      waresName: $(".searchList .query_wares_name").val()
-        ? $(".searchList .query_wares_name").val()
+      waresName: $(".searchList .query_wares_name").val().trim()
+        ? $(".searchList .query_wares_name").val().trim()
         : undefined,
-      categoryName: $(".searchList .query_category_name").val()
-        ? $(".searchList .query_category_name").val()
+      categoryName: $(".searchList .query_category_name").val().trim()
+        ? $(".searchList .query_category_name").val().trim()
         : undefined
     };
   }
@@ -113,21 +127,34 @@
   // 添加商品
   $(".addBtn").click(function() {
     isadd = true;
-    open_html("添加商品", "#editData");
+    open_html(
+      "添加商品",
+      "#editData",
+      function() {
+        $("#editData input").val("");
+        $("#editData select").val("");
+      },
+      function() {
+        confirmFn();
+      },
+      function() {
+        closeFn();
+      }
+    );
   });
+  function closeFn() {
+    layer.closeAll("page");
+  }
 
-  $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
-  });
-  $(".condition .confirmBtn").on("click", function() {
+  function confirmFn() {
     let params = {
       waresId: $(".wares_name").attr("data-waresId")
         ? $(".wares_name").attr("data-waresId")
         : -1,
-      waresName: $(".wares_name").val(), // 名称
-      categoryName: $(".category_name").val(), //商品分类名称
-      waresPrice: $(".wares_price").val(), //商品价格
-      waresDesc: $(".wares_desc").val() //商品描述
+      waresName: $(".wares_name").val().trim(), // 名称
+      categoryName: $(".category_name").val().trim(), //商品分类名称
+      waresPrice: $(".wares_price").val().trim(), //商品价格
+      waresDesc: $(".wares_desc").val().trim() //商品描述
     };
     let url;
     if (isadd) {
@@ -138,7 +165,7 @@
     ajax_data(url, { params: JSON.stringify(params) }, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
-        layer.close(layer.index);
+        layer.closeAll("page");
         $("#waresManagement").bootstrapTable("refresh");
       } else {
         let tipsText;
@@ -150,8 +177,7 @@
         tips(tipsText, 5);
       }
     });
-  });
-
+  }
   // 查询商品分类
   function queryWaresCategory() {
     ajax_data(
@@ -167,4 +193,25 @@
       }
     );
   }
+
+  // 导出
+  $(".exportBtn").click(function() {
+    let form = $('<form id="to_export" style="display:none"></form>').attr({
+      action: base + "/common/exportWaresOrCostData",
+      method: "post"
+    });
+    $("<input>")
+      .attr("name", "type")
+      .val("0")
+      .appendTo(form);
+      $("<input>")
+      .attr("name", "jsonStr")
+      .val(JSON.stringify({waresName:$(".query_wares_name").val().trim(),categoryName:$(".query_category_name").val().trim()}))
+      .appendTo(form);
+    $("body").append(form);
+    $("#to_export")
+      .submit()
+      .remove();
+  });
+
 })(document, window, jQuery);

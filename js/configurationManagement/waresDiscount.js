@@ -68,8 +68,8 @@
       let obj = {
         waresId: item.waresId,
         waresName: item.waresName,
-        buyDiscount: $(`.purchase${item.waresId}`).val(),
-        sellDiscount: $(`.ship${item.waresId}`).val()
+        buyDiscount: $(`.purchase${item.waresId}`).val().trim(),
+        sellDiscount: $(`.ship${item.waresId}`).val().trim()
       };
       params.push(obj);
     });

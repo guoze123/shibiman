@@ -100,7 +100,13 @@
                 function(res) {}
             );
             open_html("修改信息", "#editData", function() {
-                $("input").val();
+                $("#editData input").val().trim();
+            },
+            function() {
+            confirmFn();
+            },
+            function() {
+            closeFn();
             });
         },
         "click #detail": function(e, v, row) {
@@ -109,8 +115,8 @@
                     params: {
                         jsonStr: JSON.stringify({
                             ownerId: row.stockId,
-                            startTime: $(".areaSearch .startTime").val(),
-                            endTime: $(".areaSearch .endTime").val()
+                            startTime: $(".areaSearch .startTime").val().trim(),
+                            endTime: $(".areaSearch .endTime").val().trim()
                         })
                     },
                     contentType: "application/x-www-form-urlencoded;charset=utf-8"
@@ -167,7 +173,13 @@
                 function(res) {}
             );
             open_html("修改信息", "#editUserData", function() {
-                $("input").val();
+                $("input").val().trim();
+            },
+            function() {
+            userConfirmFn();
+            },
+            function() {
+            closeFn();
             });
         },
         "click #userDetail": function(e, v, row) {
@@ -176,8 +188,8 @@
                     params: {
                         jsonStr: JSON.stringify({
                             ownerId: row.stockId,
-                            startTime: $(".areaSearch .startTime").val(),
-                            endTime: $(".areaSearch .endTime").val()
+                            startTime: $(".areaSearch .startTime").val().trim(),
+                            endTime: $(".areaSearch .endTime").val().trim()
                         })
                     },
                     contentType: "application/x-www-form-urlencoded;charset=utf-8"
@@ -216,10 +228,10 @@
     function queryParams() {
         return {
             jsonStr:JSON.stringify({
-                startTime:$(".query_startTime").val() ? $(".query_startTime").val() :undefined,
-                endTime:$(".query_stopTime").val() ? $(".query_stopTime").val() :undefined,
-                address: $(".detailAddress").val() ?
-                    $(".detailAddress").val() : undefined
+                startTime:$(".query_startTime").val().trim() ? $(".query_startTime").val().trim() :undefined,
+                endTime:$(".query_stopTime").val().trim() ? $(".query_stopTime").val().trim() :undefined,
+                address: $(".detailAddress").val().trim() ?
+                    $(".detailAddress").val().trim() : undefined
             })
         };
     }
@@ -272,60 +284,60 @@
     // 点击查询按钮
     $("#eventqueryBtn").click(function() {
         // recordType 0 店铺 1 个人
-        if ($(".recordType input:checked").val() == "0") {
+        if ($(".recordType input:checked").val().trim() == "0") {
             $("#storeSalesRecord").bootstrapTable("refresh");
         } else {
             $("#userSalesRecord").bootstrapTable("refresh");
         }
     });
-    $(".condition .closeBtn").on("click", function(params) {
-        layer.close(layer.index);
-    });
+   
 
-    $("#editData .condition .confirmBtn").on("click", function() {
+    function closeFn() {
+        layer.closeAll("page");
+    }
+    function confirmFn() {
         let params = {
             stockId: -1,
-            operationDate: $(".operationDate").val(), //录入时间
-            sellers: $(".sellers").val(), //销售员
-            storeId: $(".storeId").val(), //店铺id
-            totalAmount: $(".totalAmount").val(), //本次应付金额
-            payedAmount: $(".payedAmount").val(), //本次实付金额
-            custType: $(".custType").val() //客户类型
+            operationDate: $(".operationDate").val().trim(), //录入时间
+            sellers: $(".sellers").val().trim(), //销售员
+            storeId: $(".storeId").val().trim(), //店铺id
+            totalAmount: $(".totalAmount").val().trim(), //本次应付金额
+            payedAmount: $(".payedAmount").val().trim(), //本次实付金额
+            custType: $(".custType").val().trim() //客户类型
         };
         let url = "";
         url = "/inventory/modifySale";
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
             if (res.resultCode > -1) {
-                layer.close(layer.index);
+                layer.closeAll("page");
                 $("#storeSalesRecord").bootstrapTable("refresh");
             } else {
                 tips("修改信息失败", 5);
             }
         });
-    });
+    }
 
-    $("#editUserData .condition .confirmBtn").on("click", function() {
+    function userConfirmFn() {
         let params = {
             stockId: -1,
-            operationDate: $(".operationDate").val(), //录入时间
-            sellers: $(".sellers").val(), //销售员
-            storeId: $(".storeId").val(), //店铺id
-            custType: $(".custType").val() //客户类型
+            operationDate: $(".operationDate").val().trim(), //录入时间
+            sellers: $(".sellers").val().trim(), //销售员
+            storeId: $(".storeId").val().trim(), //店铺id
+            custType: $(".custType").val().trim() //客户类型
         };
         let url = "";
         url = "/inventory/modifyEntryStock";
         ajax_data(url, { params: JSON.stringify(params) }, function(res) {
             if (res.resultCode > -1) {
-                layer.close(layer.index);
+                layer.closeAll("page");
                 $("#userSalesRecord").bootstrapTable("refresh");
             } else {
                 tips("修改信息失败", 5);
             }
         });
-    });
-
+    }
     $(".recordType input[type='radio']").change(function() {
-        if ($(this).val() == "0") {
+        if ($(this).val().trim() == "0") {
             $(".storeSalesRecord").show();
             $(".userSalesRecord").hide();
         } else {
@@ -337,7 +349,7 @@
     // 导出
     $(".exportBtn").click(function() {
         let url="";
-       if( $(".recordType input[type='radio']").val() == "0" ){
+       if( $(".recordType input[type='radio']").val().trim() == "0" ){
         url="";
        }else{
         url="";

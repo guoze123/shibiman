@@ -96,6 +96,12 @@
         $("#editData input").val("");
         $("#editData select").val("");
         $("#editData img").attr("src","");
+      },
+      function() {
+      confirmFn();
+      },
+      function() {
+      closeFn();
       });
     }
   };
@@ -103,10 +109,10 @@
   function queryParams() {
     return {
       jsonStr: JSON.stringify({
-        startTime: $(".searchList .query_startTime").val(),
-        endTime: $(".searchList .query_endTime").val(),
-        costTypeId: $(".searchList .query_costTypeId").val(),
-        ownerName: $(".searchList .query_ownerName").val()
+        startTime: $(".searchList .query_startTime").val().trim(),
+        endTime: $(".searchList .query_endTime").val().trim(),
+        costTypeId: $(".searchList .query_costTypeId").val().trim(),
+        ownerName: $(".searchList .query_ownerName").val().trim()
       })
     };
   }
@@ -123,27 +129,35 @@
       $("#editData input").val("");
       $("#editData select").val("");
       $("#editData img").attr("src","")
+    },
+    function() {
+    confirmFn();
+    },
+    function() {
+    closeFn();
     });
     //$(".costTypeId").chosen({});
   });
   $(".uploadimg").change(function() {
     uploadFile($(this));
   });
-  $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
-  });
-  // 添加或修改
-  $(".condition .confirmBtn").on("click", function() {
+  function closeFn() {
+    layer.closeAll("page");
+  }
+
+  function confirmFn() {
     let formdata = new FormData();
     let params = {
-      costTime: $(".costTime").val(),
-      ownerId: $(".ownerId").val(),
-      costTypeId: $(".costTypeId").val(),
-      costAmount: $(".costAmount").val(),
-      remark: $(".remark").val(),
+      costTime: $(".costTime").val().trim(),
+      ownerId: $(".ownerId").val().trim(),
+      costTypeId: $(".costTypeId").val().trim(),
+      costAmount: $(".costAmount").val().trim(),
+      remark: $(".remark").val().trim(),
       costId:$(".remark").attr("data_costId")
     };
-    formdata.append("file", $(".uploadimg")[0].files[0]);
+    if($(".uploadimg")[0].files[0]){
+      formdata.append("file", $(".uploadimg")[0].files[0]);
+    }
     formdata.append("jsonStr", JSON.stringify(params));
     let url;
     if (isadd) {
@@ -154,7 +168,7 @@
     file_upload(url, formdata, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
-        layer.close(layer.index);
+        layer.closeAll("page");
         $("#spending").bootstrapTable("refresh");
       } else {
         let tipsText;
@@ -166,7 +180,8 @@
         tips(tipsText, 5);
       }
     });
-  });
+  }
+
   // 查询所有部门
   function queryDepartment() {
     ajax_data(
@@ -205,12 +220,16 @@
    // 导出
    $(".exportBtn").click(function() {
     let form = $('<form id="to_export" style="display:none"></form>').attr({
-      action: base + "/common/exportStoreTargetTemplate",
+      action: base + "/common/exportWaresOrCostData",
       method: "post"
     });
     $("<input>")
-      .attr("name", "batchno")
-      .val("")
+      .attr("name", "type")
+      .val("1")
+      .appendTo(form);
+      $("<input>")
+      .attr("name", "jsonStr")
+      .val(JSON.stringify({startTime:$(".query_startTime").val().trim(),endTime:$(".query_endTime").val().trim(),costTypeId: $(".costTypeId").val().trim(),ownerName: $(".searchList .query_ownerName").val().trim()}))
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

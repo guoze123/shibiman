@@ -51,7 +51,39 @@ $(".query_startTime").datepicker({
         },
         {
           title: "发票",
-          field: "picList"
+          field: "",
+          formatter:function(value,row){
+            return `<img  class="viewImg" src="${base+"/uploadImgs/"+row.stockId+".jpg"}"  style="width:50px;height:50px">`
+          },
+          events:{
+            'click .viewImg':function(e,v,row){
+             let url= base+"/uploadImgs/"+row.stockId+".jpg";
+              let image=new Image();
+              image.src = url;
+              image.onload = function() {
+                var width = image.width;
+                var height = image.height;
+                if (width > height) {
+                  height= (800 / width)*height
+                  width=800;
+                } else {
+                  width=(500 / height)*width
+                  height=500;
+                }
+                layer.open({
+                  type: 1,
+                  title: false,
+                  closeBtn: 1,
+                  area: [ width+"px",height+'px' ],
+                  skin: 'layui-layer-nobg', //没有背景色
+                  shadeClose: true,
+                  content: `<img src="${base+"/uploadImgs/"+row.stockId+".jpg"}" style="width:${width}px; height:${height}px "/>`
+                });
+              };
+              
+            }
+          
+          }
         },
         {
           title: "操作",
@@ -60,10 +92,8 @@ $(".query_startTime").datepicker({
           formatter: operation //对资源进行操作,
         }
       ]
-     
     });
   }
-
   function operation(vlaue, row) {
     let purviewList = getQueryString("purview").split(",");
     let html = "";
@@ -75,6 +105,8 @@ $(".query_startTime").datepicker({
     }
     return html;
   }
+
+
   var operateEvents = {
     "click #edit": function(e, v, row) {
       isadd = false;
@@ -112,30 +144,30 @@ $(".query_startTime").datepicker({
           $(".handleAmount").val(row.totalAmount); // 应付
           $(".actualAmount").val(row.payedAmount); // 实付
           $(".remark").val(row.remark); // 备注
-          $("#editData img").attr("src",base+"/uploadImgs/"+row.stockId+".jpg");
-          $("#editData img").attr("width","100px");
+          // $("#editData img").attr("src",base+"/uploadImgs/"+row.stockId+".jpg");
+          // $("#editData img").attr("width","100px");
+          function allWares(selectId) {
+            let option = "<option value='' data-id=''>选择商品名称</option>";
+            if (allwares.length) {
+              allwares.forEach(function(item, index) {
+                option += `<option value="${item.waresName}" data-id="${
+                  item.waresId
+                }" ${item.waresId == selectId ? "selected" : ""} >${
+                  item.waresName
+                }</option>`;
+              });
+            }
+            return option;
+          }
           if (res.length == 1) {
             $(".firstGroup")
               .find(".name")
-              .val(allWares(res[0].waresId));
+              .html(allWares(res[0].waresId));
             $(".firstGroup")
               .find(".number")
               .val(res[0].waresCount);
           }
           if (res.length > 1) {
-            function allWares(selectId) {
-              let option = "";
-              if (allwares.length) {
-                allwares.forEach(function(item, index) {
-                  option += `<option value="${item.waresName}" data-id="${
-                    item.waresId
-                  }" ${item.waresId == selectId ? "selected" : ""} >${
-                    item.waresName
-                  }</option>`;
-                });
-              }
-              return option;
-            }
             $(".firstGroup")
               .find(".name")
               .html(allWares(res[0].waresId));
@@ -165,6 +197,12 @@ $(".query_startTime").datepicker({
             $("#editData select").val("");
             $("#editData .newShop").remove();
             $("#editData img").attr("src", "");
+          },
+          function() {
+          confirmFn();
+          },
+          function() {
+          closeFn();
           });
         }
       );
@@ -204,13 +242,21 @@ $(".query_startTime").datepicker({
     }
   };
 
+  document.addEventListener("error", function (event) {
+    var ev= event||window.event;
+    var elem = ev.target;
+    if (elem.tagName.toLowerCase() == 'img') { 
+      // 图片加载失败  --替换为默认 
+      elem.src = base+"/pages/img/noImg.png"
+    }
+  }, true);
   function queryParams() {
     return {
-      startTime: $(".query_startTime").val()
-        ? $(".query_startTime").val()
+      startTime: $(".query_startTime").val().trim()
+        ? $(".query_startTime").val().trim()
         : undefined,
-      ordernum: $(".query_ordernum").val()
-        ? $(".query_ordernum").val()
+      ordernum: $(".query_ordernum").val().trim()
+        ? $(".query_ordernum").val().trim()
         : undefined
     };
   }
@@ -222,6 +268,12 @@ $(".query_startTime").datepicker({
       $("#editData select").val("");
       $("#editData .newShop").remove();
       $("#editData img").attr("src", "");
+    },
+    function() {
+    confirmFn();
+    },
+    function() {
+    closeFn();
     });
   });
   initFn();
@@ -233,20 +285,21 @@ $(".query_startTime").datepicker({
   $(".uploadimg").change(function() {
     uploadFile($(this));
   });
-  $(".condition .closeBtn").on("click", function(params) {
-    layer.close(layer.index);
-  });
-  // 添加或修改
-  $(".condition .confirmBtn").on("click", function() {
+ 
+  function closeFn() {
+    layer.closeAll("page");
+  }
+
+  function confirmFn() {
     let waresList = [];
     $(".commodity").each(function() {
       let wares = {};
       wares["waresName"] = $(this)
         .find(".name")
-        .val();
+        .val().trim();
       wares["waresCount"] = $(this)
         .find(".number")
-        .val();
+        .val().trim();
       wares["waresId"] = $(this)
         .find(".name option:selected")
         .attr("data-id");
@@ -255,11 +308,11 @@ $(".query_startTime").datepicker({
     });
 
     let params = {
-      startTime: $(".startTime").val(), // 日期
-      ordernum: $(".ordernum").val(), //订单号
-      totalAmount: $(".handleAmount").val(), // 应付
-      payedAmount: $(".actualAmount").val(), // 实付
-      remark: $(".remark").val(), // 备注
+      startTime: $(".startTime").val().trim(), // 日期
+      ordernum: $(".ordernum").val().trim(), //订单号
+      totalAmount: $(".handleAmount").val().trim(), // 应付
+      payedAmount: $(".actualAmount").val().trim(), // 实付
+      remark: $(".remark").val().trim(), // 备注
       entryType: 0,
       waresList: waresList,
       fromStoreId: -1, // 总公司
@@ -278,7 +331,7 @@ $(".query_startTime").datepicker({
     file_upload(url, formdata, function(res) {
       console.log(res);
       if (res.resultCode > -1) {
-        layer.close(layer.index);
+        layer.closeAll("page");
         $("#importInventory").bootstrapTable("refresh");
       } else {
         let tipsText;
@@ -290,8 +343,8 @@ $(".query_startTime").datepicker({
         tips(tipsText, 5);
       }
     });
-  });
-  
+  }
+ 
   $(".exportBtn").click(function() {
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: base + "/common/exportEntryStockData",
@@ -299,7 +352,7 @@ $(".query_startTime").datepicker({
     });
     $("<input>")
       .attr("name", "jsonStr")
-      .val(JSON.stringify({ startTime: $(".query_startTime").val() }))
+      .val(JSON.stringify({ startTime: $(".query_startTime").val().trim() }))
       .appendTo(form);
     $("body").append(form);
     $("#to_export")
@@ -309,8 +362,6 @@ $(".query_startTime").datepicker({
 })(document, window, jQuery);
 
 function addCommodity(that) {
-  // <input type="text" placeholder="商品名称" class="form-control name">
-  // <select class="form-control name"></select>
   let option = "<option value=''>选择商品名称</option>";
   if (allwares.length) {
     allwares.forEach(function(item, index) {
@@ -330,7 +381,7 @@ function addCommodity(that) {
             </div></div>
               `;
   $(".imgdesc").before(strHtml);
-  //queryWaresInfo()
+ 
 }
 
 function deleteCommodity(that) {

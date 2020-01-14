@@ -1,14 +1,14 @@
-//var base = "http://192.168.0.105:8080/sipimo";
-//base = "";
+var base = "http://192.168.0.102:8080/sipimo";
+base = "";
 var ajaxLoding = 0;
-// if (!(window.location.href.indexOf("register") > -1 || window.location.href.indexOf("login") > -1)) {
-//   if (
-//     getCookie("phoneNumber") == "undefined" ||
-//     getCookie("phoneNumber") == null
-//   ) {
-//     location.href = "login.html";
-//   }
-// }
+//if (!(window.location.href.indexOf("register") > -1 || window.location.href.indexOf("login") > -1)) {
+//  if (
+//    getCookie("phoneNumber") == "undefined" ||
+//    getCookie("phoneNumber") == null
+//  ) {
+//    location.href = "login.html";
+//  }
+//}
 
 function getQueryString(e) {
   var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
@@ -53,6 +53,18 @@ function delCookie(e) {
     document.cookie = e + "=" + a + "; path=/;expires=" + t.toGMTString();
 }
 
+
+function clearCookie() {            
+  var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+  if (keys) {
+      for (var i = keys.length; i--;) {
+          document.cookie = keys[i] + '=0;path=/;expires=' + new Date(0).toUTCString();//清除当前域名下的,例如：m.kevis.com
+          document.cookie = keys[i] + '=0;path=/;domain=' + document.domain + ';expires=' + new Date(0).toUTCString();//清除当前域名下的，例如 .m.kevis.com
+          document.cookie = keys[i] + '=0;path=/;domain=kevis.com;expires=' + new Date(0).toUTCString();//清除一级域名下的或指定的，例如 .kevis.com
+      }
+  }
+}
+
 function ajax_data(url, opt, basefunc) {
   $.ajax({
     url: base + url,
@@ -79,9 +91,7 @@ function ajax_data(url, opt, basefunc) {
         hide_loading();
       }
       if (textStatus == "timeout") {
-        if (error_callback != null && error_callback != "") {
-          tips("网络超时", 5);
-        }
+        tips("网络超时", 5);
       }
     },
     error: function(XMLHttpRequest) {
@@ -149,7 +159,7 @@ function open_frame(title, url) {
   });
 }
 
-function open_html(title, ht_id, fn) {
+function open_html(title, ht_id, fn,confirmFn,closeFn) {
   var h_w = "800px";
   var h_h = ($("body").height() < 500 ? $("body").height() - 40 : "500") + "px";
   layer.open({
@@ -164,21 +174,25 @@ function open_html(title, ht_id, fn) {
         fn();
       }
     },
-    // btn: ["确定", "取消"],
-    // yes: function(index, layero) {
-    //   //按钮【按钮一】的回调
-    // },
-    // btn2: function(index, layero) {
-    //   //按钮【按钮二】的回调
-    //   //return false 开启该代码可禁止点击该按钮关闭
-    // }
+    btn: ["确定", "取消"],
+    yes: function(index, layero) {
+      if(confirmFn){
+        confirmFn&&confirmFn()
+      }else{
+        layer.closeAll("page")
+      }
+      
+    },
+    btn2: function(index, layero) {
+      layer.closeAll("page")
+    }
   });
 }
 // 成功 失败 错误的提示信息
 function tips(text, icon) {
   layer.msg(text, {
     icon: icon, // 6 笑表情 5 哭表情
-    time: 4000 //2秒关闭（如果不配置，默认是3秒）
+    time: 2000 //2秒关闭（如果不配置，默认是3秒）
   });
 }
 
@@ -419,7 +433,7 @@ function down_list(dom, url, deftext, queryParams) {
         console.log(res);
         let option = "";
         res.forEach(element => {
-          option += `<li data-id="${element.id}" title="${element.name}"> ${element.name} </li>`;
+          option += `<li data-id="${element.employeeId}" title="${element.employeeName}"> ${element.employeeName} </li>`;
         });
         $(dom)
           .find(".child_list")

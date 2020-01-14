@@ -130,17 +130,17 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
   };
   function queryParams() {
     return {
-      employeeId: $(".query_employeeId").val()
-        ? $(".query_employeeId").val()
+      employeeId: $(".query_employeeId").val().trim()
+        ? $(".query_employeeId").val().trim()
         : undefined,
-      employeeName: $(".query_employeeName").val()
-        ? $(".query_employeeName").val()
+      employeeName: $(".query_employeeName").val().trim()
+        ? $(".query_employeeName").val().trim()
         : undefined, //姓名
-      ownerId: $(".query_ownerId").val()
-        ? $(".query_ownerId").val()
+      ownerId: $(".query_ownerId").val().trim()
+        ? $(".query_ownerId").val().trim()
         : undefined,
-      activeStatus: $(".query_activeStatus").val()
-        ? $(".query_activeStatus").val()
+      activeStatus: $(".query_activeStatus").val().trim()
+        ? $(".query_activeStatus").val().trim()
         : undefined
     };
   }
@@ -174,18 +174,18 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
   });
   function confirmBtn() {
     let params = {
-      employeeId: $(".employeeId").val(), //员工id
-      employeeName: $(".employeeName").val(), //姓名
-      employeeSex: $(".employeeSex").val(), //性别
-      identityNumber: $(".identityNumber").val(), //身份证
-      entryTime: $(".entryTime").val(), //入职时间
-      telephone: $(".telephone").val(), //电话
-      job: $(".job").val(), //职务
-      role: $(".role").val(), //角色
-      ownerId: $(".ownerId").val(), //店铺id
-      address: $(".address").val(), //地址
-      activeStatus: $(".activeStatus").val(), //状态 在离
-      education: $(".education").val() // 学历
+      employeeId: $(".employeeId").val().trim(), //员工id
+      employeeName: $(".employeeName").val().trim(), //姓名
+      employeeSex: $(".employeeSex").val().trim(), //性别
+      identityNumber: $(".identityNumber").val().trim(), //身份证
+      entryTime: $(".entryTime").val().trim(), //入职时间
+      telephone: $(".telephone").val().trim(), //电话
+      job: $(".job").val().trim(), //职务
+      role: $(".role").val().trim(), //角色
+      ownerId: $(".ownerId").val().trim(), //店铺id
+      address: $(".address").val().trim(), //地址
+      activeStatus: $(".activeStatus").val().trim(), //状态 在离
+      education: $(".education").val().trim() // 学历
     };
     let formdata = new FormData();
     if ($(".uploadimg")[0].files[0]) {

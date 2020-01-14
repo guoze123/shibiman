@@ -131,10 +131,10 @@
     function queryParams(params) {
         return {
             jsonStr: JSON.stringify({
-                startTime: $(".startTime").val() ? $(".startTime").val() : undefined,
-                endTime: $(".endTime").val() ? $(".endTime").val() : undefined,
-                address: $(".detailAddress").val() ?
-                    $(".detailAddress").val() :
+                startTime: $(".startTime").val().trim() ? $(".startTime").val().trim() : undefined,
+                endTime: $(".endTime").val().trim() ? $(".endTime").val().trim() : undefined,
+                address: $(".detailAddress").val().trim() ?
+                    $(".detailAddress").val().trim() :
                     undefined
             })
         };
