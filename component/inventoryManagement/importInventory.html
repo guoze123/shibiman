@@ -18,13 +18,14 @@
     <link rel="stylesheet" href="../../css/inventoryManagement/importInventory.css" />
     <link rel="stylesheet" href="../../css/plugins/zoom/zoom.css" />
     <style>
-        .fixed-table-border{
+        .fixed-table-border {
             height: 0 !important;
         }
-        .fixed-table-container{
+        
+        .fixed-table-container {
             border-bottom: 0px !important;
         }
-        </style>
+    </style>
 </head>
 
 <body class="gray-bg">
@@ -39,7 +40,7 @@
                     <div class="col-sm-12">
                         <div class="example">
                             <div class="searchList" style="float:right;">
-                                日期：<input id="" class="laydate-icon form-control layer-date open_time query_startTime"  /> 订单号：
+                                日期：<input id="" class="laydate-icon form-control layer-date open_time query_startTime" /> 订单号：
                                 <input type="text" class="form-control query_ordernum" placeholder="订单号" />
                                 <span>
                                     <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
@@ -69,11 +70,11 @@
             <div class="textContent">
                 <div class="list_row">
                     <div>
-                        <span>订单日期</span>
+                        <span><i class="required">*</i>订单日期</span>
                         <input id="" class="laydate-icon form-control layer-date startTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="订单日期" />
                     </div>
                     <div>
-                        <span>订单号</span>
+                        <span<i class="required">*</i>>订单号</span<i class="required">*</i>>
                         <input type="text" class="form-control ordernum" placeholder="订单号" />
                     </div>
                 </div>
@@ -83,7 +84,7 @@
                         <input type="text" class="form-control handleAmount" placeholder="应付金额" />
                     </div>
                     <div>
-                        <span>实付金额</span>
+                        <span><i class="required">*</i>实付金额</span>
                         <input type="text" class="form-control actualAmount" placeholder="实付金额" />
                     </div>
                     <div>
@@ -93,10 +94,10 @@
                 </div>
                 <div class="list_row commodity firstGroup">
                     <div style="width: 100%;" class="">
-                        <span>商品名称</span>
+                        <span><i class="required">*</i>商品名称</span>
                         <!-- <input type="text" placeholder="商品名称" class="form-control name" /> -->
                         <select class="form-control name"></select>
-                        <span style="margin-left: 10px;">商品数量</span>
+                        <span style="margin-left: 10px;"><i class="required">*</i>商品数量</span>
                         <input type="text" placeholder="商品数量" class="form-control number" />
                         <button style=" margin-left: 10px;" onclick="addCommodity(this)">
                             添加商品
@@ -119,13 +120,13 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <div class="return_borrowed" id="entryDetail" style="display: none; margin-bottom: 15px;">
         <div class="return_top">
             <table id="detailTable" data-mobile-responsive="true"></table>
-           
+
         </div>
     </div>
     <!-- 全局js -->

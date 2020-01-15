@@ -17,12 +17,13 @@
     <link rel="stylesheet" href="../../css/plugins/zoom/zoom.css" />
     <link rel="stylesheet" href="../../css/inventoryManagement/allocate.css" />
     <style>
-    .fixed-table-border{
-        height: 0 !important;
-    }
-    .fixed-table-container{
-        border-bottom: 0px !important;
-    }
+        .fixed-table-border {
+            height: 0 !important;
+        }
+        
+        .fixed-table-container {
+            border-bottom: 0px !important;
+        }
     </style>
 </head>
 
@@ -38,7 +39,7 @@
                     <div class="col-sm-12">
                         <div class="example">
                             <div class="searchList" style="float:right;">
-                                日期：<input id="" class="laydate-icon form-control layer-date query_startTime"/>
+                                日期：<input id="" class="laydate-icon form-control layer-date query_startTime" />
                                 <span>
                                     <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
                                         style="width:80px;">
@@ -67,21 +68,21 @@
             <div class="textContent">
                 <div class="list_row">
                     <div>
-                        <span>订单日期</span>
+                        <span><i class="required">*</i>订单日期</span>
                         <input id="" class="laydate-icon form-control layer-date startTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="订单日期" />
                     </div>
                     <div>
-                        <span>应付金额</span>
+                        <span><i class="required">*</i>应付金额</span>
                         <input type="text" class="form-control handleAmount" placeholder="应付金额" />
                     </div>
                 </div>
                 <div class="list_row">
                     <div>
-                        <span>实付金额</span>
+                        <span><i class="required">*</i>实付金额</span>
                         <input type="text" class="form-control actualAmount" placeholder="实付金额" />
                     </div>
                     <div>
-                        <span>发货方</span>
+                        <span><i class="required">*</i>发货方</span>
                         <select name="" id="" class="form-control m-b shipper">
                             <option value="">选择发货方</option>
                         </select>
@@ -93,7 +94,7 @@
                         <input type="text" class="form-control remark" placeholder="备注" />
                     </div>
                     <div>
-                        <span>收货方</span>
+                        <span><i class="required">*</i>收货方</span>
                         <select name="" id="" class="form-control m-b consignee">
                             <option value="">选择收货方</option>
                         </select>
@@ -101,9 +102,11 @@
                 </div>
                 <div class="list_row commodity">
                     <div style="width: 100%;">
-                        <span>商品名称</span>
-                        <select class="form-control name"></select>
-                        <span style="margin-left: 10px;">商品数量</span>
+                        <span><i class="required">*</i>商品名称</span>
+                        <select class="form-control name">
+                            <option value=''>选择商品名称</option>
+                        </select>
+                        <span style="margin-left: 10px;"><i class="required">*</i>商品数量</span>
                         <input type="text" placeholder="商品数量" class="form-control number" />
                         <button style=" margin-left: 10px;" onclick="addCommodity(this)">
                             添加商品
@@ -123,14 +126,14 @@
                     </div>
                 </div>
             </div>
-          
+
         </div>
     </div>
 
     <div class="return_borrowed" id="entryDetail" style="display: none; margin-bottom: 15px;">
         <div class="return_top">
             <table id="detailTable" data-mobile-responsive="true"></table>
-           
+
         </div>
     </div>
     <!-- 全局js -->

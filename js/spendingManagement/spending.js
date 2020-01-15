@@ -2,13 +2,13 @@
   "use strict";
   var isadd = false;
   $(".query_startTime ,.query_endTime,.costTime").datepicker({
-    startView: 1,
+    
     todayBtn: "linked",
     keyboardNavigation: false,
     forceParse: false,
     autoclose: true,
-    minViewMode: 1,
-    format: "yyyy-mm"
+  
+    format: "yyyy-mm-dd"
   });
   function initFn() {
     queryCostType();
@@ -181,6 +181,16 @@
   }
 
   function confirmFn() {
+    let required = true;
+    $(".required").parent().next().each(function() {
+        if (!$(this).val().trim()) {
+            required = false
+        }
+    })
+    if (!required) {
+        tips(requiredText, 5);
+        return
+    }
     let formdata = new FormData();
     let params = {
       costTime: $(".costTime").val().trim(),
