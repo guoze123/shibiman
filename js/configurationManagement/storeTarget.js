@@ -144,9 +144,13 @@
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
     file_upload("/common/importStoreTargetFiles", fromdata, function(res) {
-      console.log(res);
+      if(res.length>0){
+        $("#storeTarget").bootstrapTable("refresh");
+        tips("文件导入成功",6)
+      }else{
+        tips("文件导入失败，请重新导入",5)
+      }
       $("#uploadFile").val("");
-      $("#storeTarget").bootstrapTable("refresh");
     });
   });
 })(document, window, jQuery);

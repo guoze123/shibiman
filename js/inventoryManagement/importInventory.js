@@ -3,13 +3,12 @@ var allwares = ""; //所有商品
   var isadd = false;
 
 $(".query_startTime").datepicker({
-    startView: 1,
     todayBtn: "linked",
     keyboardNavigation: false,
     forceParse: false,
     autoclose: true,
-    minViewMode: 1,
-    format: "yyyy-mm"
+    clearBtn:true,
+    format: "yyyy-mm-dd"
   });
   function initFn() {
     queryWaresInfo();

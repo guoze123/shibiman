@@ -50,13 +50,40 @@
           title: "开支金额",
           field: "costAmount"
         },
-        // {
-        //   title: "发票截图",
-        //   field: "receiptPic",
-        //   formatter:function (vlaue,row) {
-        //     return ` <img src="" style="width: 50px; height: 50px" data-action="zoom"> `
-        //   }
-        // },
+        {
+          title: "发票",
+          formatter:function(value,row){
+            return `<img  class="viewImg" src="${base+"/uploadImgs/"+row.costId+".jpg"}"  style="width:50px;height:50px">`
+          },
+          events:{
+            'click .viewImg':function(e,v,row){
+              let url= base+"/uploadImgs/"+row.costId+".jpg";
+              let image=new Image();
+              image.src = url;
+              image.onload = function() {
+                var width = image.width;
+                var height = image.height;
+                if (width > height) {
+                  height= (800 / width)*height
+                  width=800;
+                } else {
+                  width=(500 / height)*width
+                  height=500;
+                }
+                layer.open({
+                  type: 1,
+                  title: false,
+                  closeBtn: 1,
+                  area: [ width+"px",height+'px' ],
+                  skin: 'layui-layer-nobg', //没有背景色
+                  shadeClose: true,
+                  content: `<img src="${url}" style="width:${width}px; height:${height}px "/>`
+                });
+              };
+            }
+          
+          }
+        },
         {
           title: "备注信息",
           field: "remark"
@@ -89,8 +116,8 @@
       $(".receiptPic").val(row.receiptPic);
       $(".remark").val(row.remark);
       $(".remark").attr("data_costId",row.costId);
-      $("#editData img").attr("src",base+"/uploadImgs/"+row.costId+".jpg")
-      $("#editData img").attr("width","100px")
+      // $("#editData img").attr("src",base+"/uploadImgs/"+row.costId+".jpg")
+      // $("#editData img").attr("width","100px")
       isadd = false;
       open_html("修改信息", "#editData",function() {
         $("#editData input").val("");
@@ -118,11 +145,19 @@
   }
 
   initFn();
+
+  document.addEventListener("error", function (event) {
+    var ev= event||window.event;
+    var elem = ev.target;
+    if (elem.tagName.toLowerCase() == 'img') { 
+      // 图片加载失败  --替换为默认 
+      elem.src = base+"/pages/img/noImg.png"
+    }
+  }, true);
   // 点击查询按钮
   $("#eventqueryBtn").click(function() {
     $("#spending").bootstrapTable("refresh");
   });
-
   $(".addBtn").click(function() {
     isadd = true;
     open_html("添加开支", "#editData", function() {

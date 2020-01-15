@@ -8054,3 +8054,8 @@ li {
 .editBtn{
     margin-right: 10px;
 }
+
+.required{
+    color: red;
+    margin-right: 3px;
+}

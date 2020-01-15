@@ -68,9 +68,13 @@
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
     file_upload("/common/importAchievement", fromdata, function(res) {
-      console.log(res);
+      if(res.length > 0){
+        $("#importInventory").bootstrapTable("refresh");
+        tips("文件导入成功",6)
+      }else{
+        tips("文件导入失败，请重新导入",5)
+      }
       $("#uploadFile").val("");
-      $("#importInventory").bootstrapTable("refresh");
     });
   });
 

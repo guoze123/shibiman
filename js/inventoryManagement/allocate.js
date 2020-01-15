@@ -16,9 +16,9 @@ var allwares = ""; //所有商品
     queryStore();
     queryWaresInfo();
     $("#importInventory").bootstrapTable({
-      method: "get",
-      //url: base + "/inventory/queryEntryStock", //请求路径
-      url:  "../../testJson/storeManagement.json", //请求路径
+      method: "post",
+      url: base + "/inventory/queryEntryStock", //请求路径
+     // url:  "../../testJson/storeManagement.json", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -55,7 +55,6 @@ var allwares = ""; //所有商品
         },
         {
           title: "发票",
-          field: "picList",
           formatter:function(value,row){
             return `<img  class="viewImg" src="${base+"/uploadImgs/"+row.stockId+".jpg"}"  style="width:50px;height:50px">`
           },
@@ -269,7 +268,7 @@ var allwares = ""; //所有商品
     var elem = ev.target;
     if (elem.tagName.toLowerCase() == 'img') { 
       // 图片加载失败  --替换为默认 
-      elem.src = "../../img/noImg.png"
+      elem.src = base+"/pages/img/noImg.png"
     }
   }, true);
   $(".addBtn").click(function() {

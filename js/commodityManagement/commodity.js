@@ -147,6 +147,11 @@
   }
 
   function confirmFn() {
+    // if(){
+
+    // }
+
+
     let params = {
       waresId: $(".wares_name").attr("data-waresId")
         ? $(".wares_name").attr("data-waresId")

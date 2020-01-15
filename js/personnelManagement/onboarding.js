@@ -74,6 +74,40 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
           field: "job"
         },
         {
+          title: "简历",
+          formatter:function(value,row){
+            return `<img  class="viewImg" src="${base+"/uploadImgs/"+row.phoneNumber+".jpg"}"  style="width:50px;height:50px">`
+          },
+          events:{
+            'click .viewImg':function(e,v,row){
+              let url= base+"/uploadImgs/"+row.phoneNumber+".jpg";
+              let image=new Image();
+              image.src = url;
+              image.onload = function() {
+                var width = image.width;
+                var height = image.height;
+                if (width > height) {
+                  height= (800 / width)*height
+                  width=800;
+                } else {
+                  width=(500 / height)*width
+                  height=500;
+                }
+                layer.open({
+                  type: 1,
+                  title: false,
+                  closeBtn: 1,
+                  area: [ width+"px",height+'px' ],
+                  skin: 'layui-layer-nobg', //没有背景色
+                  shadeClose: true,
+                  content: `<img src="${url}" style="width:${width}px; height:${height}px "/>`
+                });
+              };
+            }
+          
+          }
+        },
+        {
           title: "操作",
           field: "publicationTime",
           events: operateEvents,
@@ -109,8 +143,6 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
       $(".activeStatus").val(row.activeStatus); //状态 在离
       $(".education").val(row.education); // 学历8
       $(".ownerId").val(`${row.ownerId}`); //店铺id
-      $("#editData img").attr("src",base+"/uploadImgs/"+row.telephone+".jpg");
-      $("#editData img").attr("width","100px");
       open_html1(
         "修改信息",
         "#editData",
@@ -145,6 +177,16 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
     };
   }
   initFn();
+
+  document.addEventListener("error", function (event) {
+    var ev= event||window.event;
+    var elem = ev.target;
+    if (elem.tagName.toLowerCase() == 'img') { 
+      // 图片加载失败  --替换为默认 
+      elem.src = base+"/pages/img/noImg.png"
+    }
+  }, true);
+
   // 点击查询按钮
   $("#eventqueryBtn").click(function() {
     $("#employeeInfo").bootstrapTable("refresh");

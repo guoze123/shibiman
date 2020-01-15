@@ -10,9 +10,9 @@ body.signin {
     color: rgba(255,255,255,.95);
 }
 
-.signinpanel {
-    width: 750px;
-    margin: 10% auto 0 auto;
+.passwordErr,.phoneErr,.errHeight{
+    height: 20px;
+    line-height: 20px;
 }
 
 .signinpanel .logopanel {
@@ -30,7 +30,8 @@ body.signin {
 
 .signinpanel .form-control {
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
+    height: 42px;
 }
 
 .signinpanel .uname {
@@ -43,6 +44,38 @@ body.signin {
 
 .signinpanel .btn {
     margin-top: 15px;
+}
+
+.login_content,.register_content{
+    width: 470px;
+    height: 350px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -260px 0 0 -235px;
+    background: rgba(245,245,245,.7);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.register_content{
+    height:464px;
+    margin: -275px 0 0 -235px;
+}
+.register_content input{
+   margin-top: 2px !important;
+}
+.login_header,.register_header{
+    background: #1c84c6;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+}
+.login_text,.register_text{
+    width: 325px;
+    margin: 30px auto;
 }
 
 .signinpanel form {
