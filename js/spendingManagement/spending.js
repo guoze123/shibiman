@@ -2,20 +2,20 @@
   "use strict";
   var isadd = false;
   $(".query_startTime ,.query_endTime,.costTime").datepicker({
-    
     todayBtn: "linked",
     keyboardNavigation: false,
     forceParse: false,
     autoclose: true,
-  
+
     format: "yyyy-mm-dd"
   });
   function initFn() {
     queryCostType();
     queryDepartment();
     $("#spending").bootstrapTable({
-      method: "post",
-      url: base + "/cost/queryCost", //请求路径
+      method: "get",
+      //url: base + "/cost/queryCost", //请求路径
+      url: "../../testJson/storeManagement.json", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -52,36 +52,38 @@
         },
         {
           title: "发票",
-          formatter:function(value,row){
-            return `<img  class="viewImg" src="${base+"/uploadImgs/"+row.costId+".jpg"}"  style="width:50px;height:50px">`
+          formatter: function(value, row) {
+            return `<img  class="viewImg" src="${base +
+              "/uploadImgs/" +
+              row.costId +
+              ".jpg"}"  style="width:50px;height:50px">`;
           },
-          events:{
-            'click .viewImg':function(e,v,row){
-              let url= base+"/uploadImgs/"+row.costId+".jpg";
-              let image=new Image();
+          events: {
+            "click .viewImg": function(e, v, row) {
+              let url = base + "/uploadImgs/" + row.costId + ".jpg";
+              let image = new Image();
               image.src = url;
               image.onload = function() {
                 var width = image.width;
                 var height = image.height;
                 if (width > height) {
-                  height= (800 / width)*height
-                  width=800;
+                  height = (800 / width) * height;
+                  width = 800;
                 } else {
-                  width=(500 / height)*width
-                  height=500;
+                  width = (500 / height) * width;
+                  height = 500;
                 }
                 layer.open({
                   type: 1,
                   title: false,
                   closeBtn: 1,
-                  area: [ width+"px",height+'px' ],
-                  skin: 'layui-layer-nobg', //没有背景色
+                  area: [width + "px", height + "px"],
+                  skin: "layui-layer-nobg", //没有背景色
                   shadeClose: true,
                   content: `<img src="${url}" style="width:${width}px; height:${height}px "/>`
                 });
               };
             }
-          
           }
         },
         {
@@ -96,7 +98,6 @@
         }
       ]
     });
-   
   }
 
   function operation(vlaue, row) {
@@ -115,62 +116,85 @@
       $(".costAmount").val(row.costAmount);
       $(".receiptPic").val(row.receiptPic);
       $(".remark").val(row.remark);
-      $(".remark").attr("data_costId",row.costId);
+      $(".remark").attr("data_costId", row.costId);
       // $("#editData img").attr("src",base+"/uploadImgs/"+row.costId+".jpg")
       // $("#editData img").attr("width","100px")
       isadd = false;
-      open_html("修改信息", "#editData",function() {
-        $("#editData input").val("");
-        $("#editData select").val("");
-        $("#editData img").attr("src","");
-      },
-      function() {
-      confirmFn();
-      },
-      function() {
-      closeFn();
-      });
+      open_html(
+        "修改信息",
+        "#editData",
+        function() {
+          $("#editData input").val("");
+          $("#editData select").val("");
+          $("#editData img").attr("src", "");
+        },
+        function() {
+          confirmFn();
+        },
+        function() {
+          closeFn();
+        }
+      );
     }
   };
   //查询条件
   function queryParams() {
     return {
       jsonStr: JSON.stringify({
-        startTime: $(".searchList .query_startTime").val().trim(),
-        endTime: $(".searchList .query_endTime").val().trim(),
-        costTypeId: $(".searchList .query_costTypeId").val().trim(),
-        ownerName: $(".searchList .query_ownerName").val().trim()
+        startTime: $(".searchList .query_startTime")
+          .val()
+          .trim(),
+        endTime: $(".searchList .query_endTime")
+          .val()
+          .trim(),
+        costTypeId: $(".searchList .query_costTypeId")
+          .val()
+          .trim(),
+        ownerName: $(".searchList .query_ownerName")
+          .val()
+          .trim()
       })
     };
   }
 
   initFn();
 
-  document.addEventListener("error", function (event) {
-    var ev= event||window.event;
-    var elem = ev.target;
-    if (elem.tagName.toLowerCase() == 'img') { 
-      // 图片加载失败  --替换为默认 
-      elem.src = base+"/pages/img/noImg.png"
-    }
-  }, true);
+  document.getElementById("spending").addEventListener(
+    "error",
+    function(event) {
+      var ev = event || window.event;
+      var elem = ev.target;
+      if (elem.tagName.toLowerCase() == "img") {
+        // 图片加载失败  --替换为默认
+        elem.src = base + "/pages/img/noImg.png";
+        $(elem).css({
+          visibility:"hidden",
+        })
+      }
+    },
+    true
+  );
   // 点击查询按钮
   $("#eventqueryBtn").click(function() {
     $("#spending").bootstrapTable("refresh");
   });
   $(".addBtn").click(function() {
     isadd = true;
-    open_html("添加开支", "#editData", function() {
-      $("#editData input").val("");
-      $("#editData select").val("");
-      $("#editData img").attr("src","")
-    },
-    function() {
-    confirmFn();
-    },
-    function() {
-    closeFn();
-    });
+    open_html(
+      "添加开支",
+      "#editData",
+      function() {
+        $("#editData input").val("");
+        $("#editData select").val("");
+        $("#editData img").attr("src", "");
+      },
+      function() {
+        confirmFn();
+      },
+      function() {
+        closeFn();
+      }
+    );
     //$(".costTypeId").chosen({});
   });
   $(".uploadimg").change(function() {
@@ -182,25 +206,42 @@
 
   function confirmFn() {
     let required = true;
-    $(".required").parent().next().each(function() {
-        if (!$(this).val().trim()) {
-            required = false
+    $(".required")
+      .parent()
+      .next()
+      .each(function() {
+        if (
+          !$(this)
+            .val()
+            .trim()
+        ) {
+          required = false;
         }
-    })
+      });
     if (!required) {
-        tips(requiredText, 5);
-        return
+      tips(requiredText, 5);
+      return;
     }
     let formdata = new FormData();
     let params = {
-      costTime: $(".costTime").val().trim(),
-      ownerId: $(".ownerId").val().trim(),
-      costTypeId: $(".costTypeId").val().trim(),
-      costAmount: $(".costAmount").val().trim(),
-      remark: $(".remark").val().trim(),
-      costId:$(".remark").attr("data_costId")
+      costTime: $(".costTime")
+        .val()
+        .trim(),
+      ownerId: $(".ownerId")
+        .val()
+        .trim(),
+      costTypeId: $(".costTypeId")
+        .val()
+        .trim(),
+      costAmount: $(".costAmount")
+        .val()
+        .trim(),
+      remark: $(".remark")
+        .val()
+        .trim(),
+      costId: $(".remark").attr("data_costId")
     };
-    if($(".uploadimg")[0].files[0]){
+    if ($(".uploadimg")[0].files[0]) {
       formdata.append("file", $(".uploadimg")[0].files[0]);
     }
     formdata.append("jsonStr", JSON.stringify(params));
@@ -249,11 +290,11 @@
     };
     ajax_data(
       "/cost/queryCostCategory",
-      { params: JSON.stringify(params),async:false},
+      { params: JSON.stringify(params), async: false },
       function(res) {
         let option = "<option value=''>开支分类</option>";
         res.forEach(function(element) {
-          option += `<option value="${element}">${element}</option>`;
+          option += `<option value="${element.categoryId}">${element.categoryName}</option>`;
         });
         $(".query_costTypeId").html(option);
         $(".query_costTypeId").chosen({});
@@ -262,8 +303,8 @@
     );
   }
 
-   // 导出
-   $(".exportBtn").click(function() {
+  // 导出
+  $(".exportBtn").click(function() {
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: base + "/common/exportWaresOrCostData",
       method: "post"
@@ -272,9 +313,24 @@
       .attr("name", "type")
       .val("1")
       .appendTo(form);
-      $("<input>")
+    $("<input>")
       .attr("name", "jsonStr")
-      .val(JSON.stringify({startTime:$(".query_startTime").val().trim(),endTime:$(".query_endTime").val().trim(),costTypeId: $(".costTypeId").val().trim(),ownerName: $(".searchList .query_ownerName").val().trim()}))
+      .val(
+        JSON.stringify({
+          startTime: $(".query_startTime")
+            .val()
+            .trim(),
+          endTime: $(".query_endTime")
+            .val()
+            .trim(),
+          costTypeId: $(".costTypeId")
+            .val()
+            .trim(),
+          ownerName: $(".searchList .query_ownerName")
+            .val()
+            .trim()
+        })
+      )
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

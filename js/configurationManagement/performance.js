@@ -47,15 +47,26 @@
           title: "绩效原因",
           field: "reason"
         }
-     
       ]
     });
   }
   function queryParams() {
     return {
-      jsonStr:JSON.stringify({
-        startTime: $(".startTime").val().trim() ? $(".startTime").val().trim() : undefined,
-        endTime: $(".endTime").val().trim() ? $(".endTime").val().trim() : undefined
+      jsonStr: JSON.stringify({
+        startTime: $(".startTime")
+          .val()
+          .trim()
+          ? $(".startTime")
+              .val()
+              .trim()
+          : undefined,
+        endTime: $(".endTime")
+          .val()
+          .trim()
+          ? $(".endTime")
+              .val()
+              .trim()
+          : undefined
       })
     };
   }
@@ -68,11 +79,11 @@
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
     file_upload("/common/importAchievement", fromdata, function(res) {
-      if(res.length > 0){
+      if (res.length > 0) {
         $("#importInventory").bootstrapTable("refresh");
-        tips("文件导入成功",6)
-      }else{
-        tips("文件导入失败，请重新导入",5)
+        tips("文件导入成功", 6);
+      } else {
+        tips("文件导入失败，请重新导入", 5);
       }
       $("#uploadFile").val("");
     });
@@ -86,7 +97,11 @@
     });
     $("<input>")
       .attr("name", "batchno")
-      .val($(".startTime").val().trim())
+      .val(
+        $(".startTime")
+          .val()
+          .trim()
+      )
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

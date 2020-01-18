@@ -206,9 +206,7 @@
     });
     $("<input>")
       .attr("name", "jsonStr")
-      .val(
-        JSON.stringify({})
-      )
+      .val(JSON.stringify({}))
       .appendTo(form);
     $("body").append(form);
     $("#to_export")
@@ -220,11 +218,11 @@
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
     file_upload("/common/importPlanFile", fromdata, function(res) {
-      if(res.length > 0){
+      if (res.length > 0) {
         initFn();
-        tips("文件导入成功",6)
-      }else{
-        tips("文件导入失败",5)
+        tips("文件导入成功", 6);
+      } else {
+        tips("文件导入失败", 5);
       }
       $("#uploadFile").val("");
     });

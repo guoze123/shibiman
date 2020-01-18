@@ -1,8 +1,6 @@
 (function(document, window, $) {
   "use strict";
-  var storeType={
-
-  }
+  var storeType = {};
   function initFn() {
     $("#storeGrade").bootstrapTable({
       method: "post",
@@ -17,27 +15,30 @@
       search: false, // 是否展示搜索
       showLoading: true,
       contentType: "application/x-www-form-urlencoded",
-     queryParams: queryParams,
+      queryParams: queryParams,
       columns: [
         {
           title: "店铺等级类型",
           field: "levelName"
-        },{
+        },
+        {
           title: "店铺类型",
           field: "storeType",
-          formatter:function (value,row,index) {
-           console.log(index);
-            return (
-              row.storeType== 0 ? "直营店":"加盟店"
-            )
+          formatter: function(value, row, index) {
+            console.log(index);
+            return row.storeType == 0 ? "直营店" : "加盟店";
           }
         },
         {
           title: "店铺销售额",
-          formatter: function(value, row,index) {
+          formatter: function(value, row, index) {
             return `<div style="display:flex;align-items:center">
-             <input class="form-control minValue_${index}" value="${row.startValue ? row.startValue : ""}" style="width:150px;margin-right:5px;">——
-              <input class="form-control maxValue_${index}" value="${row.endValue ? row.endValue : ""}" style="width:150px;margin-right:5px;">
+             <input class="form-control minValue_${index}" value="${
+              row.startValue ? row.startValue : ""
+            }" style="width:150px;margin-right:5px;">——
+              <input class="form-control maxValue_${index}" value="${
+              row.endValue ? row.endValue : ""
+            }" style="width:150px;margin-right:5px;">
             </div>`;
           }
         }
@@ -72,12 +73,16 @@
     var allTableData = $("#storeGrade").bootstrapTable("getData");
     console.log(allTableData);
     let params = [];
-    allTableData.forEach(function(item,index) {
+    allTableData.forEach(function(item, index) {
       let obj = {
         levelName: item.levelName,
         storeType: item.storeType,
-        startValue:$(`.minValue_${index}`).val().trim(),
-        endValue:$(`.maxValue_${index}`).val().trim(),
+        startValue: $(`.minValue_${index}`)
+          .val()
+          .trim(),
+        endValue: $(`.maxValue_${index}`)
+          .val()
+          .trim()
       };
       params.push(obj);
     });
@@ -90,7 +95,7 @@
       function(res) {
         console.log(res);
         if (res.resultCode > -1) {
-          tips("修改信息成功",6)
+          tips("修改信息成功", 6);
           $("#storeGrade").bootstrapTable("refresh");
         } else {
           tips("提交失败", 5);
@@ -98,5 +103,4 @@
       }
     );
   });
-
 })(document, window, jQuery);

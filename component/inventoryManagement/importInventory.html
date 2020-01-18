@@ -74,7 +74,7 @@
                         <input id="" class="laydate-icon form-control layer-date startTime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="订单日期" />
                     </div>
                     <div>
-                        <span<i class="required">*</i>>订单号</span<i class="required">*</i>>
+                        <span><i class="required">*</i>订单号</span>
                         <input type="text" class="form-control ordernum" placeholder="订单号" />
                     </div>
                 </div>
@@ -95,8 +95,9 @@
                 <div class="list_row commodity firstGroup">
                     <div style="width: 100%;" class="">
                         <span><i class="required">*</i>商品名称</span>
-                        <!-- <input type="text" placeholder="商品名称" class="form-control name" /> -->
-                        <select class="form-control name"></select>
+                        <select class="form-control name">
+                            <option value=''>选择商品</option>
+                        </select>
                         <span style="margin-left: 10px;"><i class="required">*</i>商品数量</span>
                         <input type="text" placeholder="商品数量" class="form-control number" />
                         <button style=" margin-left: 10px;" onclick="addCommodity(this)">

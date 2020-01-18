@@ -1,175 +1,152 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../css/font-awesome.css" rel="stylesheet" />
-    <link
-      href="../../css/plugins/bootstrap-table/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-    <link href="../../css/animate.css" rel="stylesheet" />
-    <link href="../../css/plugins/chosen/chosen.css" rel="stylesheet">
-    <link href="../../css/style.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="../../css/storeManagement/storeManagement.css"
-    />
-    <style>
-    .chosen-container{
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/font-awesome.css" rel="stylesheet" />
+  <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+  <link href="../../css/animate.css" rel="stylesheet" />
+  <link href="../../css/plugins/chosen/chosen.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/storeManagement/storeManagement.css" />
+  <style>
+    .chosen-container {
       width: 152px !important;
     }
-    </style>
-  </head>
-  <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>店铺管理</h5>
-          <div class="ibox-tools"></div>
-        </div>
-        <div class="ibox-content">
-          <div class="row row-lg">
-            <div class="col-sm-12">
-              <div class="example">
-                <div class="searchList" style="float:right;">
-                  <div class="areaSearch">
-                    <select class="form-control m-b query_province">
-                      <option value="">选择省份</option>
-                     
-                    </select>
-                    <select class="form-control m-b query_city" >
-                      <option value="">选择城市</option>
-                     
-                    </select>
-                    <select class="form-control m-b query_county">
-                      <option value="">选择区县</option>
-                    </select>
-                    <div>
-                      <input type="text" class="form-control query_StoreName" placeholder="输入店铺名称">
-                    </div>
+  </style>
+</head>
+
+<body class="gray-bg">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>店铺管理</h5>
+        <div class="ibox-tools"></div>
+      </div>
+      <div class="ibox-content">
+        <div class="row row-lg">
+          <div class="col-sm-12">
+            <div class="example">
+              <div class="searchList" style="float:right;">
+                <div class="areaSearch">
+                  <select class="form-control m-b query_province">
+                    <option value="">选择省份</option>
+
+                  </select>
+                  <select class="form-control m-b query_city">
+                    <option value="">选择城市</option>
+
+                  </select>
+                  <select class="form-control m-b query_county">
+                    <option value="">选择区县</option>
+                  </select>
+                  <div>
+                    <input type="text" class="form-control query_StoreName" placeholder="输入店铺名称">
                   </div>
-                  <span>
-                    <button
-                      type="button"
-                      id="eventqueryBtn"
-                      class="btn btn-success queryBtn"
-                      style="width:80px;"
-                    >
-                      查询
-                    </button>
-                    <button
-                      type="button"
-                      id="addBtn"
-                      class="btn btn-primary addBtn"
-                      style="width:80px;"
-                    >
-                      添加
-                    </button>
-                  </span>
                 </div>
-                <table
-                  id="exampleTableFromData"
-                  data-mobile-responsive="true"
-                ></table>
+                <span>
+                  <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
+                    查询
+                  </button>
+                  <button type="button" id="addBtn" class="btn btn-primary addBtn" style="width:80px;">
+                    添加
+                  </button>
+                </span>
               </div>
+              <table id="exampleTableFromData" data-mobile-responsive="true"></table>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    <!-- 修改/添加模板 -->
-    <div
-      class="return_borrowed"
-      id="editData"
-      style="display: none; margin-bottom: 15px;"
-    >
-      <div class="return_top">
-        <div class="textContent">
-          <div class="list_row">
-            <div>
-              <span>店铺名称</span>
-              <input class="form-control store_name" type="text" placeholder="店铺名称" />
-            </div>
-            <div>
-              <span>店长名称</span>
-              <div class="queryStoreManager manager">
-              </div>
+  </div>
+
+  <!-- 修改/添加模板 -->
+  <div class="return_borrowed" id="editData" style="display: none; margin-bottom: 15px;">
+    <div class="return_top">
+      <div class="textContent">
+        <div class="list_row">
+          <div>
+            <span><i class="required">*</i>店铺名称</span>
+            <input class="form-control store_name" type="text" placeholder="店铺名称" />
+          </div>
+          <div>
+            <span><i class="" style="color: red;">*</i>店长名称</span>
+            <div class="queryStoreManager manager">
             </div>
           </div>
-          <div class="list_row">
-            <div>
-                <span>开店时间</span>
-                <input
-                id=""
-                class="laydate-icon form-control layer-date open_time"
-                onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
-                />
-            </div>
-            <div>
-                <span>店铺状态</span>
-                <select class="form-control m-b open_status">
-                    <option value="">选择店铺状态</option>
-                    <option value="0">待定</option>
-                    <option value="1">营业</option>
-                    <option value="-1">停业</option>
-                </select>
-            </div>
+        </div>
+        <div class="list_row">
+          <div>
+            <span><i class="required">*</i>开店时间</span>
+            <input id="" class="laydate-icon form-control layer-date open_time"
+              onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
           </div>
-          <div class="list_row">
-            <div style="width: 100%;">
-              <span>区域选择</span>
-              <select class="form-control m-b params_province" >
-                <option value="">请选择省份</option>
-              </select>
-              <select class="form-control m-b params_city" >
-                <option value="">请选择城市</option>
-              </select>
-              <select class="form-control m-b params_area">
-                <option value="">请选择区县</option>
-              </select>
-            </div>
+          <div>
+            <span><i class="required">*</i>店铺状态</span>
+            <select class="form-control m-b open_status">
+              <option value="">选择店铺状态</option>
+              <option value="0">待定</option>
+              <option value="1">营业</option>
+              <option value="-1">停业</option>
+            </select>
           </div>
-          <div class="list_row">
-            <div>
-              <span>
-                详细地信息
-              </span>
-              <input type="text" class="form-control detailAddress"   placeholder="详细地信息">
-            </div>
-            <div>
-              <span>店铺类型</span>
-              <select class="form-control m-b store_type" name="account">
-                <option value="">选择店铺类型</option>
-                <option value="1">直营店</option>
-                <option value="2">加盟店</option>
-              </select>
-            </div>
+        </div>
+        <div class="list_row">
+          <div style="width: 100%;">
+            <span><i class="arae_list" style="color: red;">*</i>区域选择</span>
+            <select class="form-control m-b params_province">
+              <option value="">请选择省份</option>
+            </select>
+            <select class="form-control m-b params_city">
+              <option value="">请选择城市</option>
+            </select>
+            <select class="form-control m-b params_area">
+              <option value="">请选择区县</option>
+            </select>
+          </div>
+        </div>
+        <div class="list_row">
+          <div>
+            <span>
+              <i class="required">*</i>详细地信息
+            </span>
+            <input type="text" class="form-control detailAddress" placeholder="详细地信息">
+          </div>
+          <div>
+            <span><i class="required">*</i>店铺类型</span>
+            <select class="form-control m-b store_type" name="account">
+              <option value="">选择店铺类型</option>
+              <option value="1">直营店</option>
+              <option value="2">加盟店</option>
+            </select>
           </div>
         </div>
       </div>
     </div>
-    <!-- 全局js -->
-    <script src="../../js/jquery.min.js?v=2.1.4"></script>
-    <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="../../js/common.js"></script>
-    <script src="../../js/plugins/layer/layer.min.js"></script>
-    <script src="../../js/plugins/chosen/chosen.jquery.js"></script>
-    <script src="../../js/loading.js"></script>
-    <!-- 自定义js -->
-    <script src="../../js/content.js?v=1.0.0"></script>
-    <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="../../js/plugins/layer/laydate/laydate.js"></script>
-    <script src="../../js/storeManagement/storeManagement.js"></script>
-    <script>
-           
-    </script>
-  </body>
+  </div>
+  <!-- 全局js -->
+  <script src="../../js/jquery.min.js?v=2.1.4"></script>
+  <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
+  <script src="../../js/common.js"></script>
+  <script src="../../js/plugins/layer/layer.min.js"></script>
+  <script src="../../js/plugins/chosen/chosen.jquery.js"></script>
+  <script src="../../js/loading.js"></script>
+  <!-- 自定义js -->
+  <script src="../../js/content.js?v=1.0.0"></script>
+  <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+  <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+  <script src="../../js/plugins/layer/laydate/laydate.js"></script>
+  <script src="../../js/storeManagement/storeManagement.js"></script>
+  <script>
+
+  </script>
+</body>
+
 </html>

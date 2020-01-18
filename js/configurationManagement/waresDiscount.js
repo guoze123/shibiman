@@ -9,7 +9,7 @@
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-    
+
       pageSize: 10, //单页记录数
       pageList: [10, 20, 30], //可选择单页记录数
       showRefresh: false, //刷新按钮
@@ -36,7 +36,10 @@
           title: "商品进货折扣",
           formatter: function(value, row, index) {
             return `<div style="display:flex;align-items:center">
-                        <input class="form-control ${"purchase" + row.waresId}"  value="${row.buyDiscount}" style="width:150px;margin-right:5px;">
+                        <input class="form-control ${"purchase" +
+                          row.waresId}"  value="${
+              row.buyDiscount
+            }" style="width:150px;margin-right:5px;">
                         </div>`;
           }
         },
@@ -44,7 +47,10 @@
           title: "商品发货折扣",
           formatter: function(value, row) {
             return `<div style="display:flex;align-items:center">
-                        <input class="form-control ${"ship" +row.waresId}" value="${row.sellDiscount}" style="width:150px;margin-right:5px;"><div>`;
+                        <input class="form-control ${"ship" +
+                          row.waresId}" value="${
+              row.sellDiscount
+            }" style="width:150px;margin-right:5px;"><div>`;
           }
         }
       ]
@@ -68,19 +74,30 @@
       let obj = {
         waresId: item.waresId,
         waresName: item.waresName,
-        buyDiscount: $(`.purchase${item.waresId}`).val().trim(),
-        sellDiscount: $(`.ship${item.waresId}`).val().trim()
+        buyDiscount: $(`.purchase${item.waresId}`)
+          .val()
+          .trim(),
+        sellDiscount: $(`.ship${item.waresId}`)
+          .val()
+          .trim()
       };
       params.push(obj);
     });
-    ajax_data("/configuration/modifyDiscount", { params:{jsonStr:JSON.stringify(params)},contentType: "application/x-www-form-urlencoded"}, function(res) {
-      console.log(res);
-      if (res.resultCode > -1) {
-        tips("修改信息成功",6)
-        $("#waresDiscount").bootstrapTable("refresh");
-      } else {
-        tips("提交失败", 5);
+    ajax_data(
+      "/configuration/modifyDiscount",
+      {
+        params: { jsonStr: JSON.stringify(params) },
+        contentType: "application/x-www-form-urlencoded"
+      },
+      function(res) {
+        console.log(res);
+        if (res.resultCode > -1) {
+          tips("修改信息成功", 6);
+          $("#waresDiscount").bootstrapTable("refresh");
+        } else {
+          tips("提交失败", 5);
+        }
       }
-    });
+    );
   });
 })(document, window, jQuery);

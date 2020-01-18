@@ -55,18 +55,30 @@
   function queryParams() {
     return {
       jsonStr: JSON.stringify({
-        storeName: $(".storeName").val().trim() ? $(".storeName").val().trim() : undefined
+        storeName: $(".storeName")
+          .val()
+          .trim()
+          ? $(".storeName")
+              .val()
+              .trim()
+          : undefined
       })
     };
   }
 
   initFn();
   $("#storeTarget").on("blur", ".inputTargetValue", function(e) {
-    console.log($(e.target).val().trim());
+    console.log(
+      $(e.target)
+        .val()
+        .trim()
+    );
     let row = $("#storeTarget").bootstrapTable("getData")[
       $(e.target).attr("data-index")
     ];
-    row["targetValue"] = $(e.target).val().trim();
+    row["targetValue"] = $(e.target)
+      .val()
+      .trim();
     $("#storeTarget").bootstrapTable("updateRow", {
       index: $(e.target).attr("data-index"),
       row: row
@@ -82,8 +94,12 @@
   // 添加或修改
   $("#keepPaying .condition .confirmBtn").on("click", function() {
     let params = {
-      storckId: $("#keepPaying .storckId").val().trim(),
-      storckName: $("#keepPaying .storckName").val().trim()
+      storckId: $("#keepPaying .storckId")
+        .val()
+        .trim(),
+      storckName: $("#keepPaying .storckName")
+        .val()
+        .trim()
     };
     ajax_data("", { params: JSON.stringify(params) }, function(res) {
       if (res.resultCode > -1) {
@@ -144,11 +160,11 @@
     var fromdata = new FormData();
     fromdata.append("files", $(this)[0].files[0]);
     file_upload("/common/importStoreTargetFiles", fromdata, function(res) {
-      if(res.length>0){
+      if (res.length > 0) {
         $("#storeTarget").bootstrapTable("refresh");
-        tips("文件导入成功",6)
-      }else{
-        tips("文件导入失败，请重新导入",5)
+        tips("文件导入成功", 6);
+      } else {
+        tips("文件导入失败，请重新导入", 5);
       }
       $("#uploadFile").val("");
     });
