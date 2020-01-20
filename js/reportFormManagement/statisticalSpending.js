@@ -168,7 +168,7 @@
       function(res) {
         let option = "<option value=''>开支分类</option>";
         res.forEach(function(element) {
-          option += `<option value="${element}">${element}</option>`;
+          option += `<option value="${element.categoryId}">${element.categoryName}</option>`;
         });
         $(".query_costTypeId").html(option);
         $(".query_costTypeId").chosen({});

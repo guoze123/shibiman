@@ -1,12 +1,15 @@
 // if (
 //   getCookie("phoneNumber") == null
 // ) {
-//   location.href = "login.html";
+//   location.href = base+"/common/userLogin";
 // }
+var role="";
 if (getCookie("phoneNumber") != null) {
   $(".userName").html(getCookie("employeeName"));
   $(".userJob").html(getCookie("job"));
+  role=getCookie("role")
 }
+
 var user;
 var urlConfig = {
   "1_0": "./component/storeManagement/storeManagement.html", // 店铺管理
@@ -76,10 +79,27 @@ ajax_data(
   }
 );
 
-$("#content-main iframe").attr("src", "main.html?purview=4,5,6");
-var menuAdmin = user.length > 0 ? user[0]["menu"] : [];
+
+let menuAdmin=[];
+if(user.length){
+  user.forEach(function(item) {
+    if(item.id == role){
+      menuAdmin=item.menu
+    }
+  })
+}
 var menuHtml = ``;
 for (let i = 0; i < menuAdmin.length; i++) {
+  if(menuAdmin[i].id == "0"){
+    if(menuAdmin.length){
+      $("#content-main iframe").attr("src", `main.html?purview=${menuAdmin[i].purview}`);
+      
+    }else{
+      $("#content-main iframe").attr("src", "");
+    }
+    continue 
+  }
+
   function buildChildHtml(childrenList) {
     let childHtml = "";
     if (!childrenList.length) {
@@ -144,7 +164,7 @@ function logout() {
         delCookie("ownerId");
         delCookie("employeeId");
         clearCookie();
-        location.href = "login.html";
+        location.href = base+"/common/userLogin";
       }
     }
   );

@@ -106,6 +106,7 @@
         setCookie("job", res.personalInfo.job);
         setCookie("ownerId", res.personalInfo.ownerId);
         setCookie("employeeId", res.personalInfo.employeeId);
+        setCookie("role", res.personalInfo.role);
         window.location.href = "${pageContext.request.contextPath}/common/index";
       } else {
         tips("登录失败,请检查用户名或密码", 5);

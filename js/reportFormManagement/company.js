@@ -28,7 +28,7 @@ $(function() {
       startTime: $(".startTime")
         .val()
         .trim(),
-      editTime: $(".endTime")
+      endTime: $(".endTime")
         .val()
         .trim()
     };

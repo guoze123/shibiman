@@ -4,7 +4,7 @@
   function initFn() {
     $("#departure").bootstrapTable({
       method: "post",
-      url: base + "/personnel/queryEmployeeInfo", //请求路径
+      url: base + "/personnel/queryLeaveEmployeeInfo", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -16,6 +16,7 @@
       cache: true, // 禁止数据缓存
       search: false, // 是否展示搜索
       showLoading: true,
+      contentType: "application/x-www-form-urlencoded",
       queryParams: queryParams,
       columns: [
         {
@@ -56,14 +57,9 @@
 
   function queryParams() {
     return {
-      activeStatus: "-1",
       employeeName: $(".query_employeeName")
         .val()
         .trim()
-        ? $(".query_employeeName")
-            .val()
-            .trim()
-        : undefined
     };
   }
   initFn();

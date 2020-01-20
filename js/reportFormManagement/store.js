@@ -148,10 +148,10 @@
               .val()
               .trim()
           : undefined,
-        address: $(".detailAddress")
+        storeName: $(".query_storeName")
           .val()
           .trim()
-          ? $(".detailAddress")
+          ? $(".query_storeName")
               .val()
               .trim()
           : undefined
@@ -174,7 +174,7 @@
     });
     $("<input>")
       .attr("name", "batchno")
-      .val("")
+      .val($(".startTime").val())
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

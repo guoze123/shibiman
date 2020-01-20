@@ -1,5 +1,11 @@
 (function(document, window, $) {
   "use strict";
+  let purviewList = getQueryString("purview").split(",");
+  if(purviewList.includes("5") || purviewList.includes("6")){
+
+  }else{
+    $(".main_title").remove()
+  }
   var url = "/configuration/queryPlan";
   $(".startTime").datepicker({
     startView: 1,

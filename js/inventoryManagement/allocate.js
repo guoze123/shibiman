@@ -64,7 +64,6 @@ var allwares = ""; //所有商品
           events: {
             "click .viewImg": function(e, v, row) {
               let url = base + "/uploadImgs/" + row.stockId + ".jpg";
-              // let url= "../../img/login-background.jpg";
               let image = new Image();
               image.src = url;
               image.onload = function() {
@@ -133,6 +132,7 @@ var allwares = ""; //所有商品
             toStoreId: row.toStoreId, // 收货放
             remark: row.remark, // 备注
             waresList: res, // 商品
+            stockId: row.stockId,
             entryType: 2,
             transferType: row.transferType
           };

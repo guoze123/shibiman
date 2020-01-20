@@ -12,7 +12,7 @@
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 5, //单页记录数
+      pageSize: 10, //单页记录数
       pageList: [10, 20, 30], //可选择单页记录数
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
@@ -269,10 +269,10 @@
               .val()
               .trim()
           : undefined,
-        address: $(".detailAddress")
+        storeName: $(".query_storeName")
           .val()
           .trim()
-          ? $(".detailAddress")
+          ? $(".query_storeName")
               .val()
               .trim()
           : undefined
@@ -420,23 +420,30 @@
 
   // 导出
   $(".exportBtn").click(function() {
-   let typeVal=""
+    let typeVal = "";
     if (
-      $(".recordType input[type='radio']")
+      $(".recordType input[type='radio']:checked")
         .val()
         .trim() == "0"
     ) {
-      typeVal="0"
+      typeVal = 0;
     } else {
-      typeVal="1"
+      typeVal = 1;
     }
     let form = $('<form id="to_export" style="display:none"></form>').attr({
       action: base + "/common/exportSaleData",
       method: "post"
     });
     $("<input>")
-      .attr("name", "type")
-      .val(typeVal)
+      .attr("name", "jsonStr")
+      .val(
+        JSON.stringify({
+          startTime: $(".query_startTime").val(),
+          endTime: $(".query_stopTime").val(),
+          type:typeVal,
+          storeName: $(".query_storeName").val()
+        })
+      )
       .appendTo(form);
     $("body").append(form);
     $("#to_export")

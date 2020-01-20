@@ -165,6 +165,9 @@
   $("#eventqueryBtn").click(function() {
     $("#exampleTableFromData").bootstrapTable("refresh");
   });
+  window.onload=function(params) {
+    $("#exampleTableFromData").bootstrapTable("refresh");
+  }
 
   $(".addBtn").click(function() {
     isadd = true;
@@ -210,9 +213,9 @@
       return;
     }
     if (
-      $(".arae_list .params_province").val() == "" ||
-      $(".arae_list .params_city").val() == "" ||
-      $(".arae_list .params_area").val() == ""
+      $(".params_province").val() == "" ||
+      $(".params_city").val() == "" ||
+      $(".params_area").val() == ""
     ) {
       tips(requiredText, 5);
       return;
@@ -287,7 +290,7 @@
   function queryCity(dom, params) {
     ajax_data(
       "/configuration/queryCity",
-      { params: JSON.stringify(params), async: false },
+      { params: params, async: false,contentType: "application/x-www-form-urlencoded"},
       function(res) {
         var option = '<option value="">选择城市</option>';
         for (let i in res) {
@@ -305,9 +308,9 @@
               .val("");
           }
           let newParams = params;
-          newParams["cityId"] = $(this)
-            .val()
-            .trim();
+          newParams["cityId"] = parseInt($(this)
+          .val()
+          .trim());
           queryCounty($(this).next(), newParams);
         });
       }
@@ -318,7 +321,7 @@
   function queryCounty(dom, params) {
     ajax_data(
       "/configuration/queryArea",
-      { params: JSON.stringify(params), async: false },
+      { params: params, async: false, contentType: "application/x-www-form-urlencoded"},
       function(res) {
         var option = '<option value="">选择省份</option>';
         for (let i in res) {
@@ -340,9 +343,9 @@
       $(".query_city,.query_county").attr("disabled", false);
     }
     queryCity(".query_city", {
-      provinceId: $(this)
-        .val()
-        .trim()
+      provinceId: parseInt($(this)
+      .val()
+      .trim())
     });
   });
   $(".params_province").change(function() {
@@ -357,9 +360,9 @@
       $(".params_city,.params_area").attr("disabled", false);
     }
     queryCity(".params_city", {
-      provinceId: $(this)
-        .val()
-        .trim()
+      provinceId:  parseInt($(this)
+      .val()
+      .trim())
     });
   });
 })(document, window, jQuery);

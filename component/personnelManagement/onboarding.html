@@ -72,12 +72,6 @@
 						<input class="form-control employeeName" type="text" placeholder="姓名" />
 					</div>
 					<div>
-						<span><i class="required">*</i>员工工号</span>
-						<input class="form-control employeeId" type="text" placeholder="员工工号" />
-					</div>
-				</div>
-				<div class="list_row">
-					<div>
 						<span><i class="required">*</i>性别</span>
 						<select class="form-control m-b employeeSex">
 							<option value="">选择性别</option>
@@ -85,16 +79,24 @@
 							<option value="女">女</option>
 						</select>
 					</div>
+				</div>
+				<div class="list_row">
 					<div>
 						<span><i class="required">*</i>身份证号</span>
 						<input class="form-control identityNumber" type="text" placeholder="身份证号" />
+					</div>
+					<div>
+						<span><i class="required">*</i>归属门店</span>
+						<select class="form-control m-b ownerId">
+							<option value="">请选择门店</option>
+						</select>
 					</div>
 				</div>
 				<div class="list_row">
 					<div>
 						<span><i class="required">*</i>入职日期</span>
 						<input id="" class="laydate-icon form-control layer-date entryTime"
-							onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="入职日期" />
+							onclick="laydate({istime: false, format: 'YYYY-MM-DD'})" placeholder="入职日期" />
 					</div>
 					<div>
 						<span><i class="required">*</i>电话</span>
@@ -128,13 +130,7 @@
 					</div>
 				</div>
 				<div class="list_row">
-					<div>
-						<span><i class="required">*</i>归属门店</span>
-						<select class="form-control m-b ownerId">
-							<option value="">请选择门店</option>
-						</select>
-					</div>
-					<div>
+					<div style="width: 100%;">
 						<span>住址</span>
 						<input class="form-control address" type="text" placeholder="住址" />
 					</div>

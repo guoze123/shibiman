@@ -22,6 +22,7 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
     }
   });
 }
+var employeeId="";
 
 (function(document, window, $) {
   "use strict";
@@ -37,7 +38,7 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
       sidePagination: "client", //server:服务器端分页|client：前端分页
-      pageSize: 5, //单页记录数
+      pageSize: 10, //单页记录数
       pageList: [10, 20, 30], //可选择单页记录数
       showRefresh: false, //刷新按钮
       cache: true, // 禁止数据缓存
@@ -134,7 +135,7 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
   var operateEvents = {
     "click #edit": function(e, v, row) {
       isadd = false;
-      $(".employeeId").val(row.employeeId); //员工id
+      employeeId=row.employeeId;
       $(".employeeName").val(row.employeeName); //姓名
       $(".employeeSex").val(row.employeeSex); //性别
       $(".identityNumber").val(row.identityNumber); //身份证
@@ -264,9 +265,7 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
       return;
     }
     let params = {
-      employeeId: $(".employeeId")
-        .val()
-        .trim(), //员工id
+      employeeId: isadd?undefined:employeeId,
       employeeName: $(".employeeName")
         .val()
         .trim(), //姓名

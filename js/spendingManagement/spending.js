@@ -6,16 +6,14 @@
     keyboardNavigation: false,
     forceParse: false,
     autoclose: true,
-
     format: "yyyy-mm-dd"
   });
   function initFn() {
     queryCostType();
     queryDepartment();
     $("#spending").bootstrapTable({
-      method: "get",
-      //url: base + "/cost/queryCost", //请求路径
-      url: "../../testJson/storeManagement.json", //请求路径
+      method: "post",
+      url: base + "/cost/queryCost", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页

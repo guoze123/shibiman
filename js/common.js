@@ -424,7 +424,7 @@ function down_list(dom, url, deftext, queryParams) {
                       type="text"
                       class="search form-control"
                       style="width: 138px"
-                      placeholder="输入搜素条件"
+                      placeholder="输入搜索条件"
                     />
                     <ul class="child_list"></ul>
                   </div>
@@ -534,6 +534,6 @@ window.onload = function() {
     $(".importBtn").remove();
   }
   if (!purviewList.includes("6")) {
-    $(".deleteBtn").remove();
+    $(".exportBtn").remove();
   }
 };
