@@ -3,7 +3,7 @@
 // ) {
 //   location.href = base+"/common/userLogin";
 // }
-var role="";
+var role="1";
 if (getCookie("phoneNumber") != null) {
   $(".userName").html(getCookie("employeeName"));
   $(".userJob").html(getCookie("job"));

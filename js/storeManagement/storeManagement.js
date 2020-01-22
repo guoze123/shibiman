@@ -305,7 +305,7 @@
           ) {
             $(this)
               .next()
-              .val("");
+              .html('<option value="">选择区县</option>');
           }
           let newParams = params;
           newParams["cityId"] = parseInt($(this)
@@ -323,7 +323,7 @@
       "/configuration/queryArea",
       { params: params, async: false, contentType: "application/x-www-form-urlencoded"},
       function(res) {
-        var option = '<option value="">选择省份</option>';
+        var option = '<option value="">选择区县</option>';
         for (let i in res) {
           option += `<option value="${res[i].id}">${res[i].name}</option>`;
         }

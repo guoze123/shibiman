@@ -1,0 +1,290 @@
+[
+    {
+        "waresId": 1,
+        "waresPrice": 168.00,
+        "sellDiscount": 5.00,
+        "waresName": "美发控油滋养液",
+        "categoryName": "养发产品",
+        "buyDiscount": 1.60
+    },
+    {
+        "waresId": 2,
+        "waresPrice": 690.00,
+        "sellDiscount": 5.00,
+        "waresName": "白金美发精华液3#",
+        "categoryName": "养发产品",
+        "buyDiscount": 6.00
+    },
+    {
+        "waresId": 3,
+        "waresPrice": 68.00,
+        "sellDiscount": 5.00,
+        "waresName": "草本洗发水250ml",
+        "categoryName": "养发产品",
+        "buyDiscount": 6.00
+    },
+    {
+        "waresId": 4,
+        "waresPrice": 380.00,
+        "sellDiscount": 5.00,
+        "waresName": "美发精华液3",
+        "categoryName": "养发产品",
+        "buyDiscount": 7.00
+    },
+    {
+        "waresId": 5,
+        "waresPrice": 128.00,
+        "sellDiscount": 5.00,
+        "waresName": "草本洗发水500ml",
+        "categoryName": "养发产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 6,
+        "waresPrice": 128.00,
+        "sellDiscount": 5.00,
+        "waresName": "美发精华液水性护发素2",
+        "categoryName": "养发产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 7,
+        "waresPrice": 498.00,
+        "sellDiscount": 5.00,
+        "waresName": "美发精华液尊贵版",
+        "categoryName": "养发产品",
+        "buyDiscount": 6.00
+    },
+    {
+        "waresId": 8,
+        "waresPrice": 128.00,
+        "sellDiscount": 5.00,
+        "waresName": "茶麸洗发水500ml",
+        "categoryName": "养发产品",
+        "buyDiscount": 4.50
+    },
+    {
+        "waresId": 9,
+        "waresPrice": 268.00,
+        "sellDiscount": 5.00,
+        "waresName": "养发博士",
+        "categoryName": "养发产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 10,
+        "waresPrice": 68.00,
+        "sellDiscount": 5.00,
+        "waresName": "气垫梳",
+        "categoryName": "消耗产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 11,
+        "waresPrice": 1.00,
+        "sellDiscount": 5.00,
+        "waresName": "草本洗发水10ml",
+        "categoryName": "养发产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 12,
+        "waresPrice": 2.00,
+        "sellDiscount": 5.00,
+        "waresName": "购物袋",
+        "categoryName": "消耗产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 13,
+        "waresPrice": 45.00,
+        "sellDiscount": 5.00,
+        "waresName": "T恤",
+        "categoryName": "消耗产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 14,
+        "waresPrice": 16.00,
+        "sellDiscount": 5.00,
+        "waresName": "围脖",
+        "categoryName": "消耗产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 15,
+        "waresPrice": 38.00,
+        "sellDiscount": 5.00,
+        "waresName": "工作围裙",
+        "categoryName": "消耗产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 16,
+        "waresPrice": 45.00,
+        "sellDiscount": 5.00,
+        "waresName": "马甲",
+        "categoryName": "消耗产品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 17,
+        "waresPrice": 128.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼水动力保湿液",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 18,
+        "waresPrice": 49.50,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼水动力洁面乳",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 19,
+        "waresPrice": 128.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼水动力全日保湿霜",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 20,
+        "waresPrice": 168.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼日霜",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 21,
+        "waresPrice": 360.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼晚霜",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 22,
+        "waresPrice": 178.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼多层次瞬透保湿眼啫喱",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 23,
+        "waresPrice": 98.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼精纯轻盈隔离霜3#白色",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 24,
+        "waresPrice": 98.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼精纯轻盈隔离霜2#自然色",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 25,
+        "waresPrice": 98.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼精纯轻盈隔离霜1#绿色",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 26,
+        "waresPrice": 300.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼玻尿酸精华蚕丝面膜",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 27,
+        "waresPrice": 49.50,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼透金纯洁面膏",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 28,
+        "waresPrice": 138.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼透金纯美肤乳",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 29,
+        "waresPrice": 128.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼透金纯精华水",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 30,
+        "waresPrice": 199.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼薰衣草复方精油",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 31,
+        "waresPrice": 199.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼粉刺液",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 32,
+        "waresPrice": 68.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼美脚霜",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 33,
+        "waresPrice": 78.00,
+        "sellDiscount": 5.00,
+        "waresName": "诗碧曼精纯柔和卸妆液",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 34,
+        "waresPrice": 80.00,
+        "sellDiscount": 5.00,
+        "waresName": "深大玉妹补水修护露",
+        "categoryName": "化妆品",
+        "buyDiscount": 8.00
+    },
+    {
+        "waresId": 35,
+        "waresPrice": 80.00,
+        "sellDiscount": 5.00,
+        "waresName": "深大玉妹水乳液",
+        "categoryName": "化妆品",
+        "buyDiscount": 4.00
+    },
+    {
+        "waresId": 36,
+        "waresPrice": 98.00,
+        "sellDiscount": 5.00,
+        "waresName": "深大玉妹嫩肤霜",
+        "categoryName": "化妆品",
+        "buyDiscount": 9.00
+    }
+]
