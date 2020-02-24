@@ -6,6 +6,28 @@
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 5px;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.searchList div.left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.searchList div.right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .searchList .areaSearch {
@@ -21,6 +43,10 @@
   width: 150px;
   margin: 0 5px;
   text-align: center;
+}
+
+.searchList input {
+  width: 130px;
 }
 
 .searchList button {

@@ -3721,7 +3721,7 @@ nav.page-tabs .page-tabs-content {
 }
 
 #content-main {
-    height: calc(100% - 42px);
+    height: calc(100% - 80px);
     overflow: hidden;
 }
 
@@ -7969,10 +7969,36 @@ body.skin-3 {
 }
 
 .searchList {
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-bottom: 5px;
-}
+    width: 100%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  
+  .searchList div.left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  
+  .searchList div.right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
 
 
 /* 下拉框 样式 */
@@ -8058,4 +8084,8 @@ li {
 .required{
     color: red;
     margin-right: 3px;
+}
+.menu_active{
+    background: #137479 !important;
+    color: #fff !important;
 }

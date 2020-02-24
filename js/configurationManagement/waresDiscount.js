@@ -3,7 +3,7 @@
   var isadd = false; // 判断是添加还是修改
   function initFn() {
     $("#waresDiscount").bootstrapTable({
-      method: "get",
+      method: "post",
       url: "../../testJson/queryDis.json", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
@@ -85,7 +85,9 @@
   });
 
   function queryParams() {
-    return {};
+    return {
+      waresName:$(".waresName").val().trim() ? $(".waresName").val().trim():undefined
+    };
   }
   // 点提交按钮
   $(".submitBtn").click(function() {

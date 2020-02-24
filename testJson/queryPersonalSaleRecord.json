@@ -1,0 +1,122 @@
+[
+    {
+        "payedAmount": 10000.00,
+        "operationDate": "2021-01-03 00::00",
+        "totalAmount": 8280.00,
+        "batchno": "2021-01-03",
+        "stockId": "d33f7ed63692485e9412990c0eca9a60",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": null,
+        "storeId": 1101,
+        "sellers": "王铭"
+    },
+    {
+        "payedAmount": 12121.00,
+        "operationDate": "2020-02-03 14:59:56",
+        "totalAmount": 690.00,
+        "batchno": "2020-02-03",
+        "stockId": "00c7c74e645a4b04a5be4110fa537ce4",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "12",
+        "storeId": 1101,
+        "sellers": "王铭"
+    },
+    {
+        "payedAmount": 12.00,
+        "operationDate": "2020-02-03 14:59:20",
+        "totalAmount": 816.00,
+        "batchno": "2020-02-03",
+        "stockId": "f781e584b4504958b12f4e0ceeaf11e5",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": null,
+        "storeId": 1101,
+        "sellers": "王铭"
+    },
+    {
+        "payedAmount": 123.00,
+        "operationDate": "2020-02-03 14:58:22",
+        "totalAmount": 8280.00,
+        "batchno": "2020-02-03",
+        "stockId": "024c70e82df24752b3c60a48eaa51298",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "12",
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    },
+    {
+        "payedAmount": 1.00,
+        "operationDate": "2020-01-29 01:25:50",
+        "totalAmount": 690.00,
+        "batchno": "2020-02-01",
+        "stockId": "d4aaea7156024ff096d2c2828e5286c4",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "123123",
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    },
+    {
+        "payedAmount": 1.00,
+        "operationDate": "2020-01-29 01:24:08",
+        "totalAmount": 690.00,
+        "batchno": "2020-02-01",
+        "stockId": "bead1317cc374c70954693f0b63942c8",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": null,
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    },
+    {
+        "payedAmount": 100.00,
+        "operationDate": "2020-01-29 01:23:44",
+        "totalAmount": 690.00,
+        "batchno": "2020-02-01",
+        "stockId": "f035775b15b74d41b4671d2a42d3f260",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "123",
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    },
+    {
+        "payedAmount": 100.00,
+        "operationDate": "2020-01-29 00:12:04",
+        "totalAmount": 690.00,
+        "batchno": "2020-01-29",
+        "stockId": "334fa58649c344428157427b0adbd362",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "123",
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    },
+    {
+        "payedAmount": 100.00,
+        "operationDate": "2020-01-29 00:12:04",
+        "totalAmount": 690.00,
+        "batchno": "2020-01-29",
+        "stockId": "334fa58649c344428157427b0adbd362",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "123",
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    },
+    {
+        "payedAmount": 100.00,
+        "operationDate": "2020-01-29 00:12:04",
+        "totalAmount": 690.00,
+        "batchno": "2020-01-29",
+        "stockId": "334fa58649c344428157427b0adbd362",
+        "custType": null,
+        "storeName": "吉祥村",
+        "remark": "123",
+        "storeId": 1101,
+        "sellers": "王铭，test98"
+    }
+]

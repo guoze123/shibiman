@@ -1,15 +1,34 @@
 (function(document, window, $) {
   "use strict";
   var isadd = false;
-  $(".startTime ,.endTime").datepicker({
-    startView: 1,
-    todayBtn: "linked",
-    keyboardNavigation: false,
-    forceParse: false,
-    autoclose: true,
-    minViewMode: 1,
-    format: "yyyy-mm"
-  });
+  dataTimeRange(".startTime",".endTime")
+  function dataTimeRange(start,end){//日期范围
+    $(start).datepicker({
+      endDate : new Date(),
+      //startView : 1,
+      todayBtn : "linked",
+      keyboardNavigation : false,
+      forceParse : false,
+      autoclose : true,
+      format : "yyyy-mm-dd"
+    }).on('changeDate',function(e){
+        var startTime = e.date;
+        $(end).datepicker('setStartDate',startTime);
+    });
+    //结束时间
+    $(end).datepicker({
+      endDate : new Date(),
+      //startView : 1,
+      todayBtn : "linked",
+      keyboardNavigation : false,
+      forceParse : false,
+      autoclose : true,
+      format : "yyyy-mm-dd"
+    }).on('changeDate',function(e){
+        var endTime = e.date;
+        $(start).datepicker('setEndDate',endTime);
+    });
+  } 
 
   function initFn() {
     $("#statisticalSpending").bootstrapTable({
@@ -51,7 +70,7 @@
         }
       ]
     });
-    queryCostType();
+    //queryCostType();
   }
 
   function operation(vlaue, row) {
@@ -158,7 +177,7 @@
   $(".condition .closeBtn").on("click", function(params) {
     layer.closeAll("page");
   });
-
+  $(".query_costTypeId").chosen({});
   // 开支分类
   function queryCostType() {
     let params = {};

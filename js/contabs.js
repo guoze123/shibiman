@@ -168,6 +168,9 @@ $(function() {
   });
 
   function menuItem() {
+    $(".J_menuItem").removeClass("menu_active");
+    $(this).addClass("menu_active");
+
     // 获取标识数据
     var dataUrl = $(this).attr("href"),
       dataIndex = $(this).data("index"),
@@ -269,7 +272,43 @@ $(function() {
           .parents(".J_menuTab")
           .next(".J_menuTab:eq(0)")
           .addClass("active");
+        let that = this;
+        $(".J_menuItem").removeClass("menu_active");
+        $(".J_menuItem").each(function() {
+          if (
+            $(this).attr("href") ==
+            $(that)
+              .parents(".J_menuTab")
+              .next(".J_menuTab:eq(0)")
+              .data("id")
+          ) {
+            $(this).addClass("menu_active");
+            if (
+              $(this)
+                .parents("ul")
+                .hasClass("nav-second-level")
+            ) {
+              $(this)
+                .parents("ul")
+                .addClass("in");
+              $(this)
+                .parents("ul")
+                .parent("li")
+                .siblings("li")
+                .removeClass("active")
+                .end()
+                .addClass("active");
+            }else{
+              
+            }
+          }
+        });
 
+        $(".nav-second-level").each(function () {
+          if(!$(this).parents("li").hasClass("active")){
+            $(this).removeClass("in")
+          }
+        })
         $(".J_mainContent .J_iframe").each(function() {
           if ($(this).data("id") == activeId) {
             $(this)
@@ -321,6 +360,42 @@ $(function() {
           .parents(".J_menuTab")
           .prev(".J_menuTab:last")
           .addClass("active");
+        let that = this;
+        $(".J_menuItem").removeClass("menu_active");
+        $(".J_menuItem").each(function() {
+          if (
+            $(this).attr("href") ==
+            $(that)
+              .parents(".J_menuTab")
+              .prev(".J_menuTab:last")
+              .data("id")
+          ) {
+            $(this).addClass("menu_active");
+            if (
+              $(this)
+                .parents("ul")
+                .hasClass("nav-second-level")
+            ) {
+              $(this)
+                .parents("ul")
+                .addClass("in");
+              $(this)
+                .parents("ul")
+                .parent("li")
+                .siblings("li")
+                .removeClass("active")
+                .end()
+                .addClass("active");
+            }
+          } else {
+            
+          }
+        });
+        $(".nav-second-level").each(function () {
+          if(!$(this).parents("li").hasClass("active")){
+            $(this).removeClass("in")
+          }
+        })
         $(".J_mainContent .J_iframe").each(function() {
           if ($(this).data("id") == activeId) {
             $(this)
@@ -405,6 +480,35 @@ $(function() {
         .siblings(".J_menuTab")
         .removeClass("active");
       scrollToTab(this);
+      $(".J_menuItem").removeClass("menu_active");
+      $(".J_menuItem").each(function() {
+        if ($(this).attr("href") == currentId) {
+          $(this).addClass("menu_active");
+          if (
+            $(this)
+              .parents("ul")
+              .hasClass("nav-second-level")
+          ) {
+            $(this)
+              .parents("ul")
+              .addClass("in");
+            $(this)
+              .parents("ul")
+              .parent("li")
+              .siblings("li")
+              .removeClass("active")
+              .end()
+              .addClass("active");
+          }
+        } else {
+         
+        }
+      });
+      $(".nav-second-level").each(function () {
+        if(!$(this).parents("li").hasClass("active")){
+          $(this).removeClass("in")
+        }
+      })
     }
   }
 
@@ -446,5 +550,11 @@ $(function() {
         $(this).addClass("active");
       });
     $(".page-tabs-content").css("margin-left", "0");
+    $(".J_menuItem").removeClass("menu_active");
+    $(".nav-second-level").each(function () {
+      if(!$(this).parents("li").hasClass("active")){
+        $(this).removeClass("in")
+      }
+    })
   });
 });

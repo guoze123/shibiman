@@ -2,6 +2,16 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  width: 100%;
+  justify-content: space-between;
+  div.left{
+    display: flex;
+    justify-content: flex-start;
+  }
+  div.right{
+    display: flex;
+    justify-content: flex-end;
+  }
   .areaSearch {
     display: flex;
     align-items: center;
@@ -10,6 +20,9 @@
       margin: 0 5px;
       text-align: center;
     }
+  }
+  input{
+    width: 130px;
   }
   button {
     margin-bottom: 0 !important;

@@ -4,8 +4,8 @@
   .areaSearch {
     display: flex;
     align-items: center;
-    select {
-      width: 150px;
+    select,input {
+      width: 130px;
       margin: 0 5px;
       text-align: center;
     }

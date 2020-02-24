@@ -9,7 +9,8 @@ if (getCookie("phoneNumber") != null) {
   $(".userJob").html(getCookie("job"));
   role=getCookie("role")
 }
-
+var phoneReg = /^1[0-9]{10}$/,
+passwordReg = /^[0-9a-zA-Z]{6,10}$/;
 var user;
 var urlConfig = {
   "1_0": "./component/storeManagement/storeManagement.html", // 店铺管理
@@ -24,6 +25,7 @@ var urlConfig = {
   "6_1": "./component/reportFormManagement/store.html", // 店铺
   "6_2": "./component/reportFormManagement/payment.html", // 支付情况
   "6_3": "./component/reportFormManagement/statisticalSpending.html", // 开支统计
+  "6_4": "./component/reportFormManagement/personal.html", // 个人统计
   "7_0": "./component/configurationManagement/performance.html", // 绩效管理
   "7_1": "./component/configurationManagement/storeTarget.html", // 店铺目标值
   "7_2": "./component/configurationManagement/storeGrade.html", // 店铺等级
@@ -92,7 +94,7 @@ var menuHtml = ``;
 for (let i = 0; i < menuAdmin.length; i++) {
   if(menuAdmin[i].id == "0"){
     if(menuAdmin.length){
-      $("#content-main iframe").attr("src", `main.html?purview=${menuAdmin[i].purview}`);
+      $("#content-main iframe").attr("src", `main.html?purview=${menuAdmin[i].purview}&v=${new Date().valueOf()}`);
       
     }else{
       $("#content-main iframe").attr("src", "");
@@ -110,7 +112,7 @@ for (let i = 0; i < menuAdmin.length; i++) {
                       <li>
                        <a class="J_menuItem" href="${
                          urlConfig[childrenList[i].url_id]
-                       }?purview=${childrenList[i].purview}" data-index="${
+                       }?purview=${childrenList[i].purview}&v=${new Date().valueOf()}" data-index="${
           childrenList[i].url_id
         }">${childrenList[i].name}</a>
                       </li>
@@ -169,3 +171,65 @@ function logout() {
     }
   );
 }
+
+
+$("#updata_password").on("click",function () { 
+  layer.open({
+    type: 1,
+    title: "修改密码",
+    maxmin: true,
+    content: $("#updata_password_content",), //这里content
+    area: ["400px", "310px"],
+    end: function() {
+      // 销毁弹出时 执行
+      $("#updata_password_content input").val("");
+    },
+    btn: ["确定", "取消"],
+    yes: function(index, layero) {
+      confirmFn()
+    },
+    btn2: function(index, layero) {
+      layer.closeAll("page");
+    }
+  });
+})
+
+function validationPassword(that) {
+  let errStr =
+      '<span id="password-error" class="has-error  m-b-none"><i class="fa fa-times-circle"></i>6-10位数字字母组成的字符</span>';
+  if ($(that).val()) {
+      if (passwordReg.test($(that).val())) {
+        $(that).parent().next().find(".has-error").remove();
+      } else {
+          $(that).parent().next().html(errStr);
+      }
+  } else {
+    $(that).parent().next().find(".has-error").remove();
+  }
+}
+
+function confirmFn(){ 
+    if( !($(".newPasswd").val().trim() && $(".passwd").val().trim()) ){
+      tips("将信息填写完整",5)
+      return
+    }
+    if($(".newPasswd").val().trim()  ==  $(".passwd").val().trim() ){
+      tips("新旧密码不能相同",5)
+      return
+    }
+    let params={
+      phoneNumber:getCookie("phoneNumber"),
+      basePasswd: $(".passwd").val().trim(),
+      passwd:$(".newPasswd").val().trim()
+    }
+    ajax_data("/common/modifyPasswd",{params:JSON.stringify(params)},function (res) {
+      if(res.resultCode > -1){
+        tips("密码修改成功",6)
+        setTimeout(function () { layer.closeAll("page"); },3000)
+      }else{
+        tips("密码修改成功",6)
+      }
+    })
+}
+
+

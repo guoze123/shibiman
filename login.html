@@ -37,7 +37,10 @@
         <input type="password" class="form-control pword" placeholder="密码" autocomplete="off"
           oninput="validationPassword(this)" />
         <div class="passwordErr"></div>
-        <a href="${pageContext.request.contextPath}/common/userRegister">点击注册</a>
+        <div style="display: flex;justify-content:space-between;">
+          <a href="${pageContext.request.contextPath}/common/userRegister">点击注册</a>
+          <a href="${pageContext.request.contextPath}/common/forgetPassword">忘记密码</a>
+        </div>
         <button class="btn btn-success btn-block btn-login">
           登录
         </button>

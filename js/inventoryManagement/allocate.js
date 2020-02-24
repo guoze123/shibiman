@@ -275,7 +275,7 @@ var allwares = ""; //所有商品
       var elem = ev.target;
       if (elem.tagName.toLowerCase() == "img") {
         // 图片加载失败  --替换为默认
-        elem.src = base + "/pages/img/noImg.png";
+        elem.src = "../../img/noImg.png";
         $(elem).css({
           visibility: "hidden"
         });

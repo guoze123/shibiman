@@ -33,31 +33,35 @@
         <div class="row row-lg">
           <div class="col-sm-12">
             <div class="example">
-              <div class="searchList" style="float:right;">
-                <div class="areaSearch">
-                  <select class="form-control m-b query_province">
-                    <option value="">选择省份</option>
-
-                  </select>
-                  <select class="form-control m-b query_city">
-                    <option value="">选择城市</option>
-
-                  </select>
-                  <select class="form-control m-b query_county">
-                    <option value="">选择区县</option>
-                  </select>
-                  <div>
-                    <input type="text" class="form-control query_StoreName" placeholder="输入店铺名称">
-                  </div>
-                </div>
-                <span>
-                  <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
-                    查询
-                  </button>
+              <div class="searchList">
+                <div class="left">
                   <button type="button" id="addBtn" class="btn btn-primary addBtn" style="width:80px;">
                     添加
                   </button>
-                </span>
+                </div>
+                <div class="right">
+                  <div class="areaSearch">
+                    <select class="form-control m-b query_province">
+                      <option value="">选择省份</option>
+
+                    </select>
+                    <select class="form-control m-b query_city">
+                      <option value="">选择城市</option>
+
+                    </select>
+                    <select class="form-control m-b query_county">
+                      <option value="">选择区县</option>
+                    </select>
+                    <div>
+                      <input type="text" class="form-control query_StoreName" placeholder="输入店铺名称">
+                    </div>
+                  </div>
+                  <span>
+                    <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
+                      查询
+                    </button>
+                  </span>
+                </div>
               </div>
               <table id="exampleTableFromData" data-mobile-responsive="true"></table>
             </div>

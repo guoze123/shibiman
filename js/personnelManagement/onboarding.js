@@ -22,18 +22,20 @@ function open_html1(title, ht_id, fn, yesFn, closeFn) {
     }
   });
 }
-var employeeId="";
+var employeeId = "";
 
 (function(document, window, $) {
   "use strict";
   var isadd = false;
   var allStroe = [];
   var allRole = [];
-
+  var personnelRatio = echarts.init(document.getElementById("personnelRatio"));
+  var personnel = echarts.init(document.getElementById("personnel"));
   function initFn() {
     $("#employeeInfo").bootstrapTable({
-      method: "post",
-      url: base + "/personnel/queryEmployeeInfo", //请求路径
+      method: "get",
+      //  url: base + "/personnel/queryEmployeeInfo", //请求路径
+      url: "../../testJson/queryEmployeeInfo.json", //请求路径
       striped: true, //是否显示行间隔色
       pageNumber: 1, //初始化加载第一页
       pagination: true, //是否分页
@@ -45,15 +47,19 @@ var employeeId="";
       search: false, // 是否展示搜索
       height: $(window).height() - 190,
       showLoading: true,
+      sortable: true, //是否启用排序
+      sortOrder: "asc", //排序方式
       queryParams: queryParams,
       columns: [
         {
           title: "员工工号",
-          field: "employeeId"
+          field: "employeeId",
+          sortable: true
         },
         {
           title: "员工姓名",
-          field: "employeeName"
+          field: "employeeName",
+          sortable: true
         },
         {
           title: "性别",
@@ -119,11 +125,106 @@ var employeeId="";
         }
       ]
     });
-
     queryCompetence();
     queryStore();
+    queryRatio();
+    queryPersonnel()
   }
+  // 查询人员比例
+  function queryRatio() {
+    ajax_data("",{params:{},contentType:"application/x-www-form-urlencoded"},function (res) {
 
+    })
+    let option = {
+      tooltip: {
+        formatter: "{b}:{c}({d}%)"
+      },
+
+      legend: {
+        x: "left",
+        orient: "vertical",
+        data: ["在职", "离职"]
+      },
+      labelLine: {
+        normal: {
+          show: false // show设置线是否显示，默认为true，可选值：true ¦ false
+        }
+      },
+      series: [
+        {
+         
+          type: "pie",
+          radius: "70%",
+          itemStyle: {
+            normal: {
+              label: {
+                show: false
+              },
+              labelLine: {
+                show: false
+              }
+            }
+          },
+          data: [
+            { value: 335, name: "在职" },
+            { value: 35, name: "离职" }
+          ]
+        }
+      ]
+    };
+    personnelRatio.setOption(option);
+  }
+  // 查询 每个月的 入职离职人数
+  function queryPersonnel() {
+    
+    ajax_data("",{params:{},contentType:"application/x-www-form-urlencoded"},function (res) {
+
+    })
+    let option = {
+      tooltip: {
+        trigger: "axis",
+        axisPointer: {
+          // 坐标轴指示器，坐标轴触发有效
+          type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      legend: {
+        data: ["入职", "离职"]
+      },
+      grid: {
+       x:30,
+       x2:10
+      },
+      xAxis: [
+        {
+          type: "category",
+          data: ["一", "二", "三"]
+        }
+      ],
+      yAxis: [
+        {
+          type: "value"
+        }
+      ],
+      series: [
+        {
+          name: "入职",
+          type: "bar",
+          data: [320, 332, 301]
+        },
+        {
+          name: "离职",
+          type: "bar",
+          data: [120, 132, 101]
+        }
+      ]
+    };
+    personnel.setOption(option);
+  }
+  $(window).resize(function() {
+    personnelRatio.resize();
+    personnel.resize();
+  });
   function operation(vlaue, row) {
     let purviewList = getQueryString("purview").split(",");
     let html = "";
@@ -135,7 +236,7 @@ var employeeId="";
   var operateEvents = {
     "click #edit": function(e, v, row) {
       isadd = false;
-      employeeId=row.employeeId;
+      employeeId = row.employeeId;
       $(".employeeName").val(row.employeeName); //姓名
       $(".employeeSex").val(row.employeeSex); //性别
       $(".identityNumber").val(row.identityNumber); //身份证
@@ -208,10 +309,10 @@ var employeeId="";
       var elem = ev.target;
       if (elem.tagName.toLowerCase() == "img") {
         // 图片加载失败  --替换为默认
-        elem.src = base + "/pages/img/noImg.png";
+        elem.src = "../../img/noImg.png";
         $(elem).css({
-          visibility:"hidden"
-        })
+          visibility: "hidden"
+        });
       }
     },
     true
@@ -265,7 +366,7 @@ var employeeId="";
       return;
     }
     let params = {
-      employeeId: isadd?undefined:employeeId,
+      employeeId: isadd ? undefined : employeeId,
       employeeName: $(".employeeName")
         .val()
         .trim(), //姓名

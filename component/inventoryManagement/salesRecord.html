@@ -20,7 +20,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>销售记录</h5>
+                <h5>库存管理</h5>
                 <div class="ibox-tools"></div>
             </div>
             <div class="ibox-content">
@@ -28,43 +28,26 @@
                     <div class="col-sm-12">
                         <div class="example">
                             <div class="searchList">
-                                <div style="margin-right: 15px;" class="recordType">
-                                    <input type="radio" name="record" id="" checked value="0" style="width: 20px;" />
-                                    店铺销售记录
-                                    <input type="radio" name="record" id="" value="1" style="width: 20px;" /> 个人销售记录
+                                <div class="left">
                                 </div>
-                                <div>
-                                    <input id="" class="laydate-icon form-control layer-date query_startTime"
-                                        onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                        placeholder="开始时间" />
-                                </div>
-                                <div>
-                                    <input id="" class="laydate-icon form-control layer-date query_stopTime"
-                                        onclick="laydate({istime: false, format: 'YYYY-MM-DD'})"
-                                        placeholder="结束时间" />
-                                </div>
-
-                                <div>
-                                   店铺名称
-                                    <input class="query_storeName form-control" placeholder="店铺名称" />
+                                <div class="right">
+                                    <input type="radio" name="store" id="" checked value="0" style="width: 20px;" />
+                                    公司
+                                    <input type="radio" name="store" id="" value="1" style="width: 20px;" />店铺
+                                    <input type="text" class="query_storeName form-control" placeholder="店铺名称" />
+                                    <span>
+                                        <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
+                                            style="width:80px;">
+                                            查询
+                                        </button>
+                                        <!-- <button type="button" id="eventAddBtn" class="btn btn-info exportBtn"
+                                            style="width:80px;" aria-label="Export">
+                                            导出
+                                        </button> -->
+                                    </span>
                                 </div>
                             </div>
-                            <span style="display: block;width: 100%; text-align: right;">
-                                <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
-                                    style="width:80px;">
-                                    查询
-                                </button>
-                                <button type="button" id="eventAddBtn" class="btn btn-info exportBtn"
-                                    style="width:80px;" aria-label="Export">
-                                    导出
-                                </button>
-                            </span>
-                            <div class="storeSalesRecord">
-                                <table id="storeSalesRecord" data-mobile-responsive="true"></table>
-                            </div>
-                            <div class="userSalesRecord" style="display: none;">
-                                <table id="userSalesRecord" data-mobile-responsive="true"></table>
-                            </div>
+                            <table id="stockInformation" data-mobile-responsive="true"></table>
                         </div>
                     </div>
                 </div>

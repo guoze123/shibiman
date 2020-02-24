@@ -257,7 +257,6 @@
     } else {
       url = "/competence/modifyStoreInfo";
     }
-
     ajax_data(url, { params: JSON.stringify(params) }, function(res) {
       console.log(res);
       if (res.resultCode > -1) {

@@ -537,3 +537,96 @@ window.onload = function() {
     $(".exportBtn").remove();
   }
 };
+
+/*
+* name:时间范围控件
+* start:起始时间表单class值
+* end:结束时间表单class值
+*
+*/
+function monthRange(start,end){//日期范围
+  $(start).datepicker({
+    endDate : new Date(),
+    startView : 1,
+		todayBtn : "linked",
+		keyboardNavigation : false,
+		forceParse : false,
+		autoclose : true,
+		minViewMode : 1,
+		format : "yyyy-mm"
+  }).on('changeDate',function(e){
+      var startTime = e.date;
+      $(end).datepicker('setStartDate',startTime);
+  });
+  //结束时间
+  $(end).datepicker({
+    endDate : new Date(),
+    startView : 1,
+		todayBtn : "linked",
+		keyboardNavigation : false,
+		forceParse : false,
+		autoclose : true,
+		minViewMode : 1,
+		format : "yyyy-mm"
+  }).on('changeDate',function(e){
+      var endTime = e.date;
+      $(start).datepicker('setEndDate',endTime);
+  });
+} 
+
+function dateRange(start,end){//日期范围
+  $(start).datepicker({
+    endDate : new Date(),
+    todayBtn : "linked",
+    keyboardNavigation : false,
+    forceParse : false,
+    autoclose : true,
+    format : "yyyy-mm-dd"
+  }).on('changeDate',function(e){
+      var startTime = e.date;
+      $(end).datepicker('setStartDate',startTime);
+  });
+  //结束时间
+  $(end).datepicker({
+    endDate : new Date(),
+    todayBtn : "linked",
+    keyboardNavigation : false,
+    forceParse : false,
+    autoclose : true,
+    format : "yyyy-mm-dd"
+  }).on('changeDate',function(e){
+      var endTime = e.date;
+      $(start).datepicker('setEndDate',endTime);
+  });
+} 
+function yearRange(start,end){//日期范围
+  $(start).datepicker({
+    todayBtn : "linked",
+    keyboardNavigation : false,
+    forceParse : false,
+    autoclose : true,
+    format : "yyyy",
+    startView: 2,
+    maxViewMode: 2,
+    minViewMode: 2
+  }).on('changeDate',function(e){
+      var startTime = e.date;
+      $(end).datepicker('setStartDate',startTime);
+  });
+  //结束时间
+  $(end).datepicker({
+    todayBtn : "linked",
+    keyboardNavigation : false,
+    forceParse : false,
+    autoclose : true,
+    startView: 2,
+    maxViewMode: 2,
+    minViewMode: 2,
+    format : "yyyy"
+  }).on('changeDate',function(e){
+      var endTime = e.date;
+      $(start).datepicker('setEndDate',endTime);
+  });
+} 
+
+

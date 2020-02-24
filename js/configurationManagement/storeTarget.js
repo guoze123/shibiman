@@ -1,5 +1,14 @@
 (function(document, window, $) {
   "use strict";
+  $(".query_startTime").datepicker({
+    startView: 1,
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    autoclose: true,
+    minViewMode: 1,
+    format: "yyyy-mm"
+  });
   function initFn() {
     $("#storeTarget").bootstrapTable({
       method: "post",
