@@ -62,26 +62,32 @@
 						<div class="row row-lg">
 							<div class="col-sm-12">
 								<div class="example">
-									<div class="searchList">
-										<input type="text" class="form-control query_employeeId" placeholder="员工工号" />
-										<input type="text" class="form-control query_employeeName" placeholder="员工姓名" />
-										<select class="form-control m-b query_ownerId">
+									<div class="searchList" style="margin-top: 10px;"> 
+										<div class="left">
+										  <button type="button" id="" class="btn btn-primary addBtn" style="width:80px;">
+											添加
+										  </button>
+										</div>
+										<div class="right">
+										  <input type="text" class="form-control query_userinformation" placeholder="员工信息" />
+										  <select class="form-control m-b query_ownerId">
 											<option value="">选择店铺</option>
-										</select>
-										<select class="form-control m-b query_activeStatus">
+										  </select>
+										  <select class="form-control m-b query_activeStatus">
 											<option value="">选择在职状态</option>
 											<option value="0">在职</option>
 											<option value="-1">离职</option>
-										</select>
-									</div>
-									<span style="display: block;width: 100%;text-align: right;">
-										<button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
-											查询
-										</button>
-										<button type="button" id="eventqueryBtn" class="btn btn-primary addBtn" style="width:80px;">
-											添加
-										</button>
-									</span>
+										  </select>
+										  <span style="text-align: right;">
+											<button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
+											  查询
+											</button>
+											<button type="button" id="" class="btn btn-primary exportBtn" style="width:80px;">
+											  导出
+											</button>
+										  </span>
+										</div>
+									  </div>
 									<table id="employeeInfo" data-mobile-responsive="true"></table>
 								</div>
 							</div>

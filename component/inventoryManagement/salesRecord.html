@@ -29,22 +29,39 @@
                         <div class="example">
                             <div class="searchList">
                                 <div class="left">
+
                                 </div>
                                 <div class="right">
-                                    <input type="radio" name="store" id="" checked value="0" style="width: 20px;" />
-                                    公司
-                                    <input type="radio" name="store" id="" value="1" style="width: 20px;" />店铺
-                                    <input type="text" class="query_storeName form-control" placeholder="店铺名称" />
-                                    <span>
-                                        <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
-                                            style="width:80px;">
-                                            查询
-                                        </button>
-                                        <!-- <button type="button" id="eventAddBtn" class="btn btn-info exportBtn"
-                                            style="width:80px;" aria-label="Export">
-                                            导出
-                                        </button> -->
-                                    </span>
+                                    <div style="margin-right: 15px;" class="recordType">
+                                        <input type="radio" name="record" id="" checked value="0"
+                                            style="width: 20px;" />
+                                        店铺
+                                        <input type="radio" name="record" id="" value="1" style="width: 20px;" /> 个人
+                                    </div>
+                                    <div>
+                                        <input id="" class="laydate-icon form-control layer-date query_startTime"
+                                            placeholder="开始时间" />
+                                    </div>
+                                    <div>
+                                        <input id="" class="laydate-icon form-control layer-date query_stopTime"
+                                            placeholder="结束时间" />
+                                    </div>
+                                    <div>
+                                        <input class="query_storeName form-control" placeholder="店铺名称" />
+                                    </div>
+                                    <div>
+                                        <input class="query_userinformation form-control" placeholder="个人信息" />
+                                    </div>
+                                    
+                                    <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
+                                        style="width:80px;">
+                                        查询
+                                    </button>
+                                    <button type="button" id="eventAddBtn" class="btn btn-info exportBtn"
+                                        style="width:80px; margin-left: 5px;" aria-label="Export">
+                                        导出
+                                    </button>
+                                    
                                 </div>
                             </div>
                             <table id="stockInformation" data-mobile-responsive="true"></table>

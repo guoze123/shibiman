@@ -66,6 +66,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
   padding: 5px;

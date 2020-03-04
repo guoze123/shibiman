@@ -39,23 +39,28 @@
                 <div class="row row-lg">
                     <div class="col-sm-12">
                         <div class="example">
-                            <div class="searchList" style="float:right;">
-                                日期：<input id="" class="laydate-icon form-control layer-date open_time query_startTime" /> 订单号：
-                                <input type="text" class="form-control query_ordernum" placeholder="订单号" />
-                                <span>
-                                    <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
-                                        style="width:80px;">
-                                        查询
-                                    </button>
-                                    <button type="button" id="" class="btn btn-info exportBtn"
-                                        style="width:80px;" aria-label="Export">
-                                        导出
-                                    </button>
+                            <div class="searchList" >
+                                <div class="left">
                                     <button type="button" id="eventAddBtn" class="btn btn-primary addBtn"
                                         style="width:80px;">
                                         添加
                                     </button>
-                                </span>
+                                </div>
+                                <div class="right">
+                                    <input id="" class="laydate-icon form-control layer-date open_time query_startTime"
+                                        placeholder="时间" /> 订单号：
+                                    <input type="text" class="form-control query_ordernum" placeholder="订单号" />
+                                    <span>
+                                        <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn"
+                                            style="width:80px;">
+                                            查询
+                                        </button>
+                                        <button type="button" id="" class="btn btn-info exportBtn" style="width:80px;"
+                                            aria-label="Export">
+                                            导出
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
                             <table id="importInventory" data-mobile-responsive="true"></table>
                         </div>
