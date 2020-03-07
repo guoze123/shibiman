@@ -207,7 +207,12 @@ var serving_bar = echarts.init(document.getElementById("serving_bar"));
       series: [{
         name: '服务次数',
         type: 'bar',
-        data: [10, 52, 200, 334, 390, 330, 220]
+        data: [10, 52, 200, 334, 390, 330, 220],
+        itemStyle:{
+          normal:{
+            color:"#1a7bb9"
+          }
+        }
       }]
     };
     sales_bar.clear();

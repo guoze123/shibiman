@@ -14,35 +14,63 @@
   <link rel="stylesheet" href="../../css/plugins/datapicker/datepicker3.css" />
   <link rel="stylesheet" href="../../css/plugins/chosen/chosen.css" />
   <link href="../../css/animate.css" rel="stylesheet" />
-  <link href="../../css/style.css?v=4.1.0" rel="stylesheet"/>
+  <link href="../../css/style.css?v=4.1.0" rel="stylesheet" />
   <link rel="stylesheet" href="../../css/reportFormManagement/statisticalSpending.css" />
 </head>
 
 <body class="gray-bg">
   <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-        <h5>开支统计</h5>
-        <div class="ibox-tools"></div>
+    <div class="row row-lg">
+      <div class="col-sm-3" style="padding-left: 7px;padding-right: 7px;">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>部门开支统计</h5>
+            <div class="ibox-tools"></div>
+          </div>
+          <div class="ibox-content">
+            <div id="departmentSpending" style="width: 100%; height: 150px;">
+            </div>
+          </div>
+        </div>
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>部门开支统计</h5>
+            <div class="ibox-tools"></div>
+          </div>
+          <div class="ibox-content">
+            <div id="storeSpending" style="width: 100%; height: 250px;"></div>
+          </div>
+        </div>
       </div>
-      <div class="ibox-content">
-        <div class="row row-lg">
-          <div class="col-sm-12">
-            <div class="example">
-              <div class="searchList " style="float:right;">
-                <input id="" class="laydate-icon form-control layer-date startTime" name="start" placeholder="开始时间" />
-                <input id="" class="laydate-icon form-control layer-date endTime"  name="end" placeholder="结束时间" />
-                <select class="form-control m-b query_costTypeId" name="account" style="display: none;">
-                  <option value="">请选择开支分类</option>
-                </select>
-                <input type="text" class="form-control query_ownerName" placeholder="输入部门名称" />
-                <span>
-                  <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
-                    查询
-                  </button>
-                </span>
+      <div class="col-sm-9" style="padding-left: 7px;padding-right: 7px;">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>开支统计</h5>
+            <div class="ibox-tools"></div>
+          </div>
+          <div class="ibox-content">
+            <div class="row row-lg">
+              <div class="col-sm-12">
+                <div class="example">
+                  <div class="searchList ">
+                    <div class="left"></div>
+                    <div class="right">
+                      <input id="" class="laydate-icon form-control layer-date startTime" name="start" placeholder="开始时间" />
+                      <input id="" class="laydate-icon form-control layer-date endTime" name="end" placeholder="结束时间" />
+                      <select class="form-control m-b query_costTypeId" name="account" style="display: none;">
+                        <option value="">请选择开支分类</option>
+                      </select>
+                      <input type="text" class="form-control query_ownerName" placeholder="输入部门名称" />
+                      <span>
+                        <button type="button" id="eventqueryBtn" class="btn btn-success queryBtn" style="width:80px;">
+                          查询
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <table id="statisticalSpending" data-mobile-responsive="true"></table>
+                </div>
               </div>
-              <table id="statisticalSpending" data-mobile-responsive="true"></table>
             </div>
           </div>
         </div>
@@ -53,7 +81,7 @@
   <div class="return_borrowed" id="costDetail" style="display: none; margin-bottom: 15px;">
     <div class="return_top">
       <table id="costDetailTable" data-mobile-responsive="true"></table>
-     
+
     </div>
   </div>
   <!-- 全局js -->
@@ -64,6 +92,7 @@
   <script src="../../js/loading.js"></script>
   <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
   <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+  <script src="../../js/plugins/echarts/echarts-all.js"></script>
   <script src="../../js/plugins/layer/laydate/laydate.js"></script>
   <script src="../../js/plugins/datapicker/bootstrap-datepicker.js"></script>
   <script src="../../js/plugins/chosen/chosen.jquery.js"></script>

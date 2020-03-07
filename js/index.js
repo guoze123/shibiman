@@ -49,17 +49,12 @@ var urlConfig = {
   // 店铺目标值
   "7_2": "./component/configurationManagement/storeGrade.html",
   // 店铺等级
-  "7_3": "./component/configurationManagement/waresDiscount.html" // 商品折扣配置
+  "7_3": "./component/configurationManagement/waresDiscount.html", // 商品折扣配置
+  "8_0": "./component/opinionManagement/opinion.html" // 商品折扣配置
 
 };
 var icon_config = {
-  "1": "fa-building",
-  "2": "",
-  "3": "fa-users",
-  "4": "fa-",
-  "5": "",
-  "6": "fa-bar-chart-o",
-  "7": "fa-cogs  "
+ 
 };
 ajax_data( // "/competence/getCompetence",
 "./testJson/login.json", {
