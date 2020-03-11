@@ -5,15 +5,16 @@
   var isadd = false;
   monthRange(".startTime", ".endTime")
   function initFn() {
+    queryDepartment();
+    queryStore();
     ajax_data(
       "/cost/queryCostAnalysis",
-      { params: queryParams(),contentType: "application/x-www-form-urlencoded"},
-      function(res) {
-        queryDepartment();
-        queryStore();
+      { params: queryParams(), contentType: "application/x-www-form-urlencoded" },
+      function (res) {
+
         $("#statisticalSpending").bootstrapTable({
-         // method: "post",
-         // url: base + "/cost/queryCostAnalysis", //请求路径
+          // method: "post",
+          // url: base + "/cost/queryCostAnalysis", //请求路径
           data: res.tblData,
           striped: true, //是否显示行间隔色
           pageNumber: 1, //初始化加载第一页
@@ -41,7 +42,7 @@
               field: "ownerName",
               sortable: true
             },
-    
+
             {
               title: "开支金额",
               field: "amount",
@@ -162,13 +163,23 @@
 
   // 查询部门的开支
   function queryDepartment(param) {
-    let departmentdata = [{ name: "人事", value: "20" },
-    { name: "招商", value: "20" }, { name: "运营", value: "20" }, { name: "客服", value: "20" }, { name: "综合", value: "20" }]
+    let departmentdata = [
+      { name: "人事", value: "20" },
+      { name: "招商", value: "20" },
+      { name: "运营", value: "20" },
+      { name: "客服", value: "20" },
+      { name: "客服2", value: "20" },
+      { name: "客服33", value: "20" },
+      { name: "客3", value: "20" },
+      { name: "综合", value: "20" }]
     let departmentName = [];
     departmentdata.forEach(function (item) {
       departmentName.push(item.name)
     })
+    
+    departmentdata=[{name:"暂无数据",value:"0"}]
     let option = {
+
       tooltip: {
         trigger: 'item',
         formatter: '{b}:{c} ({d}%)'
@@ -176,7 +187,8 @@
       legend: {
         x: "left",
         orient: "vertical",
-        data: departmentName
+        type: 'scroll',
+        data:departmentName
       },
       labelLine: {
         normal: {
@@ -186,6 +198,8 @@
       series: [
         {
           type: "pie",
+        radius: "90%",
+        hoverAnimation:false,
           itemStyle: {
             normal: {
               label: {
@@ -200,6 +214,7 @@
         }
       ]
     };
+    option.color=["#dee3e6"]
     departmentSpending.clear();
     departmentSpending.setOption(option);
   }
@@ -224,7 +239,7 @@
           type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
         }
       },
-    
+
       grid: {
         x: 30,
         x2: 10
@@ -241,19 +256,24 @@
         }
       ],
       series: [{
-          type: "bar",
-          data: storeData,
-          itemStyle: {
-            normal: {
-              color: "#1a7bb9"
-            }
+        type: "bar",
+        data: storeData,
+        barWidth: "30px",
+        itemStyle: {
+          normal: {
+            color: "#1a7bb9"
           }
         }
+      }
       ]
     };
     storeSpending.clear();
     storeSpending.setOption(option);
   }
+  $(window).resize(function () {
+    departmentSpending.resize();
+    storeSpending.resize();
+  });
 
   // 点击查询按钮
   $("#eventqueryBtn").click(function () {
