@@ -457,4 +457,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     $("body").append(form);
     $("#to_export").submit().remove();
   });
+ 
+
 })(document, window, jQuery);
+
+ // 添加支付方式
+ function add_pay(that){
+
+  let str=`
+        <div class="actual_payment">
+        <i class="required">*</i>
+        选择支付方式：
+        <select name="" id="" class="form-control" style="margin-right: 5px;" >
+            <option value="0">现金</option>
+            <option value="1">微信</option>
+            <option value="2">支付宝</option>
+            <option value="3">刷卡</option>
+            <option value="4">购物卡</option>
+            <option value="5">其他</option>
+        </select>
+        <i class="required">*</i>
+        支付金额：
+        <input type="text" name="" id="" class="form-control" style="width: 150px;">
+        <button style="margin-left: 5px;" onclick="del_pay(this)">删除</button>
+    </div>
+  `
+  $(that).parent().parent().append(str)
+
+}
+// 删除支付方式
+function del_pay(that) {
+  $(that).parent().remove()
+}

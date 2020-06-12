@@ -201,7 +201,7 @@ var allwares = ""; //所有商品
         }
 
         open_html("修改信息", "#editData", function (params) {
-          $("#editData input").val("");
+          $("#editData input[type='text']").val("");
           $("#editData select").val("");
           $("#editData .newShop").remove();
           $("#editData img").attr("src", "");
@@ -265,7 +265,7 @@ var allwares = ""; //所有商品
   $(".addBtn").click(function () {
     isadd = true;
     open_html("添加", "#editData", function () {
-      $("#editData input").val("");
+      $("#editData input[type='text']").val("");
       $("#editData select").val("");
       $("#editData .newShop").remove();
       $("#editData img").attr("src", "");
