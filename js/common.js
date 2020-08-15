@@ -15,6 +15,7 @@ var ajaxLoding = 0; //if (!(window.location.href.indexOf("userRegister") > -1 ||
 //  }
 //}
 
+
 var requiredText = "带*号的为必填项！";
 
 function getQueryString(e) {
@@ -31,6 +32,8 @@ function addCookie(e, t, a) {
     var r = new Date();
     r.setTime(r.getTime() + a * 3600 * 1e3);
     n = n + ";expires=" + r.toGMTString();
+  }else{
+
   }
 
   document.cookie = n;
